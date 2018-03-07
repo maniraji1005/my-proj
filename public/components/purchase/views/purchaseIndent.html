@@ -1,0 +1,498 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Purchase Indent
+</div>
+
+<div style="width:95%;background:#fff;min-height:1000px;margin:0 auto;">
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">PI No</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchClear();">
+                    <!--<li><a href="#contains">Contains</a></li>-->
+                    <li><a title="#PINo">PI No</a></li>
+                    <li><a title="#PIDate">PI Date</a></li>
+                    <li ng-hide="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#Branch">Branch</a></li>
+                    <li><a title="#Executive">Raised By</a></li>
+                    <li ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#ProjectFrom">Project</a></li>
+                    <!--<li ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#ProjectTo">Project To</a></li>-->
+                    <!--<li class="divider"></li>
+                      <li><a href="#all">All</a></li>-->
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhTxt" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">
+
+            <div class="input-group date" id="srhDt" style="display:none;">
+                <input type="text" class="form-control" ng-model="vm.srhDt" style="border:1px solid #ccc;" readonly>
+                <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <div class="input-group" ng-hide="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="srhBranch" style="display:none; width:100%;">
+                <select ng-model="vm.searchbranch" ng-options="option._id as option.name for option in vm.branchList" class="form-control">
+                                <option value="">Select Branch</option>
+                            </select>
+            </div>
+
+            <div class="input-group" ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="projectFrom" style="display:none; width:100%;">
+                <select id="projectFrom" ng-model="vm.searchprojectFrom" ng-options="option._id as option.name for option in vm.projectList" class="form-control">
+                    <option value="">Select Project From</option>
+                </select>
+            </div>
+            <!--<div class="input-group" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="projectTo" style="display:none; width:100%;">
+                <select id="projectTo" ng-model="vm.searchprojectTo" ng-options="option._id as option.name for option in vm.branchList" class="form-control">
+                    <option value="">Select Project To</option>
+                </select>
+            </div>-->
+
+            <span class="input-group-btn" title="Search">
+                    <button class="btn btn-default" type="button" ng-click="vm.filterSearch(true, vm.begin, vm.end)"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+            <span class="input-group-btn" title="Reload">
+                    <button class="btn btn-default" type="button" ng-click="vm.reload();"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+
+
+        </div>
+
+    </div>
+    <br/>
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+        <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+
+        <select ng-model="vm.status" ng-options="option._id as option.name for option in vm.statusList" class="app_ddl" ng-change="vm.ddlRowsChange()">
+   <!--<option value="">SELECT</option>-->
+   </select>
+        <!--Add New-->
+        <!--Add New-->
+        &nbsp;&nbsp;&nbsp;<button type="button" ng-if="vm.purchaseOrderAccess.c === 'y'" ng-show="step===1" class="btn btn-default" data-toggle="modal" href='#modal-id'
+            ng-click="vm.getallbranch(); vm.clean();">
+        <span class="glyphicon glyphicon-pencil"></span> Add Indent</button>
+    </div><br>
+
+    <div style="width:90%;margin:0 auto;margin-left:3%;">
+        <span ng-if="vm.stateParams !== null">Search results for : <b style="color:orange;">
+            {{vm.branchName}} <span ng-if="vm.stateParams !== null && vm.branch !==null">/</span> </b>
+            <span ng-if="vm.storeType !== null"> <b style="color:brown;">{{vm.storeTypeName}} 
+                <span ng-if="vm.stateParams !== null && vm.storeType !==null">/</span></b> </span>
+            <span ng-if="vm.storeType == null"></span>
+            <span ng-if="vm.store !== null"></span><b style="color:orange;">{{vm.storeName}} 
+                <span ng-if="vm.stateParams !== null && vm.store !==null">/</span>
+            </b>
+            <span ng-if="vm.store == null"></span>
+            <span ng-if="vm.exeList !== null && vm.exeList !== undefined"></span><b style="color:orange;">{{vm.exeList}}</b>
+            <span ng-if="vm.exeList == undefined"><b style="color:brown;">ALL</b></span>
+            <span ng-if="vm.exeList == null"></span></b></span>
+        <span ng-if="vm.status == null"></span>
+    </div>
+    <button type="button" ng-if="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'"   onClick="javascript:demoFromHTML()" title="Download pdf"  class="btn btn-default" style=" font-size:16px;margin-left:91.5%;margin-top:-0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+    <button type="button" ng-if="vm.companyId !== 'CH0001' && vm.companyId == 'CO00001'" title="Download Excel" onClick="exportExcel()" class="btn btn-default" style=" font-size:16px;margin-left:91.5%;margin-top:-0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <br/>
+
+
+                            <div class="row" ng-show="step===1">
+                                <div class="col-md-12">
+
+
+                                    <div class="panel-body" style="margin-top:-2%;">
+                                        <div ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid " id="tblExcel" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcID">
+                                                            PI No
+                                                        </th>
+                                                        <th class="gcDate">
+                                                            Date
+                                                        </th>
+                                                        <th class="gcName" data-hide="phone,tablet">
+                                                            Raised by
+                                                        </th>
+                                                        <th class="gcStatus" data-hide="phone,tablet">
+                                                            Status
+                                                        </th>
+                                                        <th class="gcRemark" maxlength="250" style="width:15%;">
+                                                            Remarks
+                                                        </th>
+                                                        <th class="gcAction noExl">
+                                                            Actions
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr purchase-Indent-Grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.piApp" mredit="vm.edit(data);" item="item">
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="7" class="noRec noExl" ng-show="vm.piApp.length===0 || vm.piApp === undefined || vm.piApp === null" style="text-align:center;">
+                                                            No Records Found
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div ng-if="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'" class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid " id="tblpdf" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcID">
+                                                            PI No
+                                                        </th>
+                                                        <th class="gcDate">
+                                                            Date
+                                                        </th>
+                                                        <th class="gcName" data-hide="phone,tablet">
+                                                            Raised by
+                                                        </th>
+                                                        <th class="gcName" data-hide="phone,tablet">
+                                                            Project
+                                                        </th>
+                                                        <th class="gcStatus" data-hide="phone,tablet">
+                                                            Status
+                                                        </th>
+                                                        <th class="gcRemark" maxlength="250" style="width:15%;">
+                                                            Remarks
+                                                        </th>
+                                                        <th class="gcAction noExl">
+                                                            Actions
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr purchase-Indent-Grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.piApp" mredit="vm.edit(data);" item="item">
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8" class="noRec noExl" ng-show="vm.piApp.length===0 || vm.piApp === undefined || vm.piApp === null" style="text-align:center;">
+                                                            No Records Found
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 showEnt">
+                            <span ng-if="vm.piApp.length > 0"> Total Rows : {{vm.rowCnt}} </span>
+                            <span ng-if="vm.piApp === undefined">Total Rows : 0</span>
+                        </div>
+                        <div class="col-md-6 pagination">
+                            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+                            </pagination>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="step===2">
+                        <div class="col-md-6 showEnt">
+                            Total Rows : {{vm.rowCnt1}}
+                        </div>
+                        <div class="col-md-6 pagination">
+                            <pagination ng-show="vm.rowCnt1 > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt1" max-size="maxSize" boundary-links="true">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add Popup-->
+<div class="modal fade" id="modal-id">
+    <div class="modal-dialog popup-position pi-popup" style="width:90%;">
+        <div class="modal-content">
+            <div class="modal-header" style="height:30%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                <h4 class="modal-title">Add Purchase Indent</h4>
+            </div>
+            <!--<div class="row" style="margin-bottom:2%;">
+                <div class="col-md-6">
+                    <button type="button" ng-click="vm.addrow();" class="btn addRow"><i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                    </button>
+                    <select class="input-sm select" ng-model="vm.pirowcnt">
+                                        <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" ng-click="vm.deleterow()" class="btn deleteRow pull-right"><i class="fa fa-trash fa-lg"></i>
+                            </button>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" ng-click="vm.addrow();" class="btn addRow"><i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                    </button>
+                    <!--ng-model="vm.count"-->
+                </div>
+                <select class="input-sm select" ng-model="vm.pirowcnt" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:-74%;">
+                                        <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    </select>
+                                    <select class="input-sm select" ng-model="vm.pirowcnt" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:-77%;">
+                                        <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    </select>
+                <div class="col-md-1">
+                    <button type="button" ng-click="vm.deleterow('add')" class="btn deleteRow pull-right"><i class="fa fa-trash fa-lg"></i>
+                            </button>
+
+                </div>
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:3%;width:19%;">
+                    <select ng-model="vm.SelectedBranch" ng-options="option._id as option.name for option in vm.branchList" ng-change="vm.getStoreType(vm.SelectedBranch);"
+                        class="form-control">
+                                <option value="">Select Branch</option>
+                            </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:-4%;width:17%;">
+                                <select ng-model="vm.fromProject" ng-options="option._id as option.name for option in vm.projectList" ng-change="vm.getToProject(vm.fromProject);" class="form-control">
+                                        <option value="">Select Project</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:16%;">
+                               <select ng-model="vm.category" ng-options="option._id as option.name for option in vm.categoryCH" ng-change="vm.getSubCategory(vm.category);"
+                                        class="form-control" ng-class="vm.catcheck(vm.item.nocat);">
+                                        <option value="">Select Category</option>
+                                    </select>
+                            </div>
+                            <!--CH Ends-->
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:2%;width:19%;">
+                    <select ng-model="vm.SelectedStoreType" ng-options="option._id as option.name for option in vm.storeTypeList" ng-change="vm.getStoreName(vm.SelectedStoreType);"
+                        class="form-control">
+                                <option value="">Select StoreType</option>
+                            </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:19%;">
+                                <select ng-model="vm.subCategory" ng-options="option._id as option.name for option in vm.subCategoryList" ng-change="vm.getMaterial(vm.subCategory);" class="form-control">
+                                        <option value="">Select Sub-Category</option>
+                                    </select>
+                            </div>
+                            <!--CH Ends-->
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:2%;width:19%;">
+                    <select ng-model="vm.SelectedStore" ng-options="option._id as option.name for option in vm.storeNameList" class="form-control">
+                                <option value="">Select Store</option>
+                            </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:19%;">
+                                <select ng-model="vm.poType" class="form-control">
+                                        <option value="" selected>Select Type</option>
+                                <option value="PreOrder">Pre-Order</option>
+                                <option value="PostOrder">Post-Order</option>
+                                    </select>
+                            </div>
+                            <!--CH Ends-->
+            </div>
+            <div class="modal-body modal-height">
+                <table class="table table-striped" style="background:#e9edf2;" ng-cloak>
+                    <tr>
+                        <td class="col-md-1 text-center ">#</td>
+                        <td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="col-md-2 text-center ">Category</td>
+                        <td class="col-md-3 text-center" style="width:15%;">Material ID</td>
+                        <td class="col-md-3 text-center" style="width:18%;">Material Name</td>
+                        <!--<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center">Size</td>
+                        <td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center">Specification</td>-->
+                        <td class="col-md-1 text-center ">UOM</td>
+                        <td class="col-md-1 text-center ">Quantity</td>
+                        <td class="col-md-2 text-center " style="width:10%;">Available Qty</td>
+                        <!--<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center ">Date</td>-->
+                        <td class="col-md-1 text-center ">Actions</td>
+                    </tr>
+                    <tr purchase-indent-add ng-repeat="item in vm.PurchaseIndentMaterials " item="item " index="{{$index+1}} "></tr>
+                </table>
+            </div>
+            <div class="modal-footer ">
+                <div class="text-center ">
+                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PIRemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                    <br>
+                </div>
+                <button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent(
+                    'Draft'); ">Draft</button>
+                <button type="button " class="btn btn-primary " ng-click="vm.InsertPurchaseIndent( 'Pending'); ">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editpopup">
+    <div class="modal-dialog popup-position pi-popup">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <button type="button " class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                <h4 class="modal-title ">Purchase Indent - {{vm.IndentNo}}</h4>
+            </div>
+            <div class="row ">
+                <div class="col-md-1">
+                    <button type="button " ng-click="vm.PiEditAddRow();" class="btn addRow"><i class="fa fa-plus fa-lg
+                    " aria-hidden="true "></i>
+                                    </button>
+                    <select class="input-sm select " ng-model="vm.piEditrowcnt" style="margin-left:110%;">
+                        <option ng-repeat="i in 10 | range ">{{i+1}}</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="button " ng-click="vm.deleterow('edit')" class="btn deleteRow pull-right "><i class="fa fa-trash
+                    fa-lg "></i>
+                            </button>
+                </div>
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:3%;width:19%;">
+                  <!--<label for=" ">Branch</label>-->
+                    <select ng-model="vm.SelectedEditBranch " ng-options="option._id as option.name for option in vm.branchList
+                    " ng-change="vm.getStoreType(vm.SelectedEditBranch); " class="form-control ">
+                        <option value="">Select Branch</option>
+                    </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:-4%;width:17%;">
+                                <select ng-model="vm.editfromProject" ng-options="option._id as option.name for option in vm.projectList" class="form-control" disabled>
+                                        <option value="">Select From Project</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:16%;">
+                                <select ng-model="vm.editCategory" ng-options="option._id as option.name for option in vm.categoryCH" class="form-control" ng-class="vm.catcheck(vm.item.nocat);" disabled>
+                                        <option value="">Select Category</option>
+                                    </select>
+                            </div>
+                            <!--CH Ends-->
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:2%;width:19%;">
+                    <!--<label for=" ">Store Type</label>-->
+                    <select ng-model="vm.SelectedEditStoreType" ng-options="option._id as option.name for option in vm.storeTypeList
+                    " ng-change="vm.getStoreName(vm.SelectedEditStoreType); " class="form-control ">
+                        <option value="">Select StoreType</option>
+                    </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:19%;">
+                                <select ng-model="vm.editSubCategoryPI" ng-init="vm.initialLoading(vm.editSubCategoryPI);" ng-options="option._id as option.name for option in vm.subCategoryList" ng-change="vm.matRes(vm.editCategory);" class="form-control" ng-class="vm.catcheck(vm.item.nocat);" disabled>
+        <option value="">Select Sub-Category</option>
+    </select>
+                            </div>
+                            <!--CH Ends-->
+                <div class="col-md-2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="margin-left:2%;width:19%;">
+                    <!--<label for=" ">Store</label>-->
+                    <select ng-model="vm.SelectedEditStore" ng-options="option._id as option.name for option in vm.storeNameList
+                    " class="form-control ">
+                        <option value="">Select Store</option>
+                    </select>
+                </div>
+                <!--CH Starts-->
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:0%;width:19%;">
+                                
+                                    <input type="text" class="form-control" ng-model="vm.editOrder" value="{{vm.editOrder}}" disabled style="border: 1px solid #CCC;">
+                            </div>
+                            <!--CH Ends-->
+            </div>
+            <div class="modal-body modal-height">
+                <table class="table table-striped" style="background:#e9edf2;" ng-cloak>
+                    <tr>
+                        <td class="col-md-1 text-center">#</td>
+                        <td class="col-md-3 text-center" style="width:15%;">Material ID</td>
+                        <td class="col-md-3 text-center" style="width:18%;">Material Name</td>
+                        <td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="col-md-2 text-center">Category</td>
+                        <!--<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center">Size</td>
+                        <td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center">Specification</td>-->
+                        <!--<td class="col-md-3 text-center">Material</td>-->
+                        <td class="col-md-1 text-center">UOM</td>
+                        <td class="col-md-1 text-center">Quantity</td>
+                        <td class="col-md-2 text-center " style="width:10%;">Available Qty</td>
+                        <!--<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2 text-center ">Date</td>-->
+                        <td class="col-md-1 text-center">Actions</td>
+                    </tr>
+                    <tr purchase-indent-edit ng-repeat="item in vm.PurchaseIndentEditMaterials" item="item" index="{{$index+1}}"></tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <textarea cols="70" class="form-control" rows="3" ng-model="vm.PIEditRemarks" placeholder="Remarks" style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none;"></textarea>
+                    <br>
+                </div>
+                <button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.updatePurchaseIndent(
+                    'Draft'); ">Draft</button>
+                <button type="button " class="btn btn-primary " ng-click="vm.updatePurchaseIndent( 'Pending'); ">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--For Excel file-->
+<script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+<script type="text/javascript"> 
+    function exportExcel() {                
+    var exTable = $('#tblExcel').clone(); 
+    exTable.find('.noExl').remove();              
+    exTable.table2excel({
+            exclude: ".noExl",
+            name: "Purchase Indent",
+            filename: "Purchase Indent",
+            fileext: ".xls",  
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: false         
+        });       
+    }
+
+    function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt',[1150,1604]);
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+//   doc.setFontSize(14);
+//     doc.setTextColor(40);
+//     doc.setFontStyle('normal');
+  var header = function(data) {
+    doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Purchase Indent Details", data.settings.margin.left, 50);
+  };
+  var options = {
+    beforePageContent: header,
+    exclude: ".noExl",
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+   
+};
+  doc.autoTable(res.columns, res.data,options);
+  doc.save("Purchase Indent Details.pdf");
+}

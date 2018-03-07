@@ -1,0 +1,52 @@
+<td align="center">
+    {{vm.index}}
+</td>
+
+<!--<td ng-if="vm.getCompDet =='CH0001'"></td>-->
+<td align="center" span ng-if="vm.api.company._id == 'CO00001'">
+    <input type="text" class="form-control" ng-model="vm.item.id" ng-class="vm.validation(vm.item.idIsEmpty);" style="border:1px solid #CCC;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.name" ng-class="vm.validation(vm.item.nameIsEmpty);" style="border:1px solid #CCC;">
+</td>
+<td span ng-if="vm.api.company._id == 'CH0001'" ng-cloak>
+    <select class="form-control" ng-class="vm.validation(vm.item.MatTypeEmpty);"  ng-options="options as options.name for options in vm.materialTypeList" ng-model="vm.item.matType">
+        <option value="">Select MaterialType</option>
+    </select>
+</td>
+<td span ng-if="vm.api.company._id == 'CO00001'" align="center">
+    <select ng-model="vm.item.uom" class="form-control" ng-options="options._id as options.name for options in vm.uomDetails"
+        ng-class="vm.validation(vm.item.uomIsEmpty);" style="width:86%;">
+        <option value="">Select Uom</option>
+    </select>
+</td>
+<td ng-if="vm.api.company._id =='CH0001'" align="center">
+    <select ng-model="vm.item.uom" class="form-control" ng-change="vm.getUomSize(vm.item)" ng-options="options._id as options.name for options in vm.uomDetails"
+        ng-class="vm.validation(vm.item.uomIsEmpty);" style="width:98%;">
+        <option value="">Select Uom</option>
+    </select>
+</td>
+<td ng-if="vm.api.company._id =='CH0001'">
+    <select ng-model="vm.item.matSize" class="form-control" ng-options="options._id as options.name for options in vm.sizeList"
+        ng-class="vm.validation(vm.item.sizeIsEmpty);" style="width:129%;">
+        <option value="">Select size</option>
+    </select>
+</td>
+<td ng-if="vm.api.company._id == 'CH0001'">
+    <input type="text" class="form-control" ng-model="vm.item.specification" ng-class="vm.validation(vm.item.specIsEmpty);" style="border:1px solid #CCC;width:73%;margin-left:19%;">
+</td>
+<td span ng-if="vm.api.company._id == 'CO00001'" align="center">
+    <input type="text" class="form-control" ng-model="vm.item.minimum_quantity" ng-class="vm.validation(vm.item.minimum_quantityIsEmpty);"
+        ng-change="vm.check(vm.item.minimum_quantity);" style="border:.5px solid #CCC;">
+</td>
+<td span ng-if="vm.api.company._id == 'CO00001'" style="text-align:center;">
+    <input type="text" class="form-control" ng-model="vm.item.quantity" ng-class="vm.validation(vm.item.quantityIsEmpty);" ng-change="vm.check(vm.item.quantity);"
+        style="border:1px solid #CCC;">
+</td>
+<td span ng-if="vm.api.company._id == 'CO00001'" align="center">
+    <input type="text" class="form-control" ng-model="vm.item.rate" ng-class="vm.validation(vm.item.rateIsEmpty);" ng-change="vm.check(vm.item.rate);"
+        style="border:.5px solid #CCC;width:60%;">
+</td>
+<td>
+    <button type="button" ng-click="vm.deleteAdd(vm.index-1);" class="btn btn-default"><i class="fa fa-trash fa-lg"  style="font-size: 15px;"></i></button>
+</td>

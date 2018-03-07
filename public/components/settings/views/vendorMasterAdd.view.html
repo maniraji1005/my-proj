@@ -1,0 +1,55 @@
+<tr class="accordion-toggle" style="background: #f4f4f4;">
+    <td style="width:4%;">
+        <button data-toggle="collapse" data-target="#{{'demo' + vm.index}}" ng-init="parentIndex = vm.index" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+    <td ng-hide="vm.companyId =='CH0001'" style="font-weight: 600;font-size: 15px;width:100%;"> {{vm.item.categorydet.id}} - {{vm.item.categorydet.name}} </td>
+    <td ng-show="vm.companyId =='CH0001'" style="font-weight: 600;font-size: 15px;width:100%;"> {{vm.item.categorydet.name}} </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <button ng-click="vm.removeCategory(vm.item.categorydet._id);" type="button" class="btn btn-default btn-xs"><span class="fa fa-times"></span></button>
+    </td>
+</tr>
+<tr>
+    <td colspan="12" class="hiddenRow">
+        <div class="accordian-body collapse" id="{{ 'demo' + vm.index}}" style="width:103%;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:7%;">S.no</th>
+                        <th style="width:12%;">Category Name</th>
+                        <th ng-show="vm.companyId =='CH0001'" style="width:12%;"> Subcategory Name</th>
+                        <th ng-hide="vm.companyId =='CH0001'" style="width:12%;">Material </th>
+                        <th ng-hide="vm.companyId =='CO00001'" style="width:12%;">Material Code</th>
+                        <th ng-hide="vm.companyId =='CO00001'" style="width:12%;">Material Name</th>
+                        <th ng-hide="vm.companyId =='CO00001'" style="width:12%;">Specification</th>
+                        <th style="width:12%;" ng-show="vm.companyId =='CO00001'"> UOM</th>
+                        <th ng-hide="vm.companyId=='CH0001'" style="width:12%;"> Quantity</th>
+                        <th ng-hide="vm.companyId=='CH0001'" style="width:12%;"> Unit Rate</th>
+                        <th style="width:13%;" ng-hide="vm.companyId=='CH0001'"> Total Amount</th>
+                        <th>Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.item.materialdet track by $index" style="background: white;">
+                        <td>{{$index + 1}}</td>
+                        <td>{{vm.getCategory(item.category)}}</td>
+                        <td ng-hide="vm.companyId =='CO00001'">{{vm.getSubcate(item.subcategory)}}</td>
+                        <td ng-hide="vm.companyId =='CH0001'">{{item.id}} - {{item.name}}</td>
+                        <td ng-hide="vm.companyId =='CO00001'">{{item.id}}</td>
+                        <td ng-hide="vm.companyId =='CO00001'">{{item.name}}</td>
+                        <td ng-hide="vm.companyId =='CO00001'">{{item.specification}}</td>
+                        <td ng-hide="vm.companyId =='CH0001'">{{getUomName(item.uom.name)}}</td>
+                        <td ng-hide="vm.companyId =='CH0001'">{{item.quantity}}</td>
+                        <td ng-hide="vm.companyId=='CH0001'" ng-init="vm.getUnitRate(item);">{{item.rate}}</td>
+                        <td ng-hide="vm.companyId=='CH0001'">{{item.quantity * item.rate}}</td>
+                        <td><input type="checkbox" ng-model="item.flag" id="{{'chkbox'+vm.item.categorydet.id+$index}}" ng-click="vm.addVendorDet(vm.item.materialdet,vm.item.categorydet.id,$index,item.flag)"
+                            /></td>
+                        <!--<td ng-hide="vm.button" ng-click="vm.button = true; vm.deletePIDet(vm.item.materials,vm.item.id,$index)"><i class="fa fa-minus" aria-hidden="true"></i></td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </td>
+</tr>
+</tbody>

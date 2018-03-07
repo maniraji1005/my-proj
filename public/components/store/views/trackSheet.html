@@ -1,0 +1,638 @@
+<div class="row">
+    <div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
+        <div class="trackMainContnet">
+            <div class="page-title" style="padding:0px !important;padding-right:15px !important;padding-left:15px !important;">
+                <div class="fixed_menus">
+                    <div class="new_breacrumb">
+
+                        <div class="line_border"></div>
+
+                        <ul class="new_crumbs">
+
+                            <li class="small_li"><span class="small_bullet"></span><br><a>OPEN</a></li>
+
+                            <li id="new_crumbs_menu2" class="list_active" ng-click="vm.stage(1);"><span>1</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>Material Requisition</h5>
+                                </div>
+                            </li>
+
+                            <li id="new_crumbs_menu3" ng-model="vm.stages1" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class=""
+                                ng-click="vm.stage(2);"><span>2</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>Material Issue Note</h5>
+                                </div>
+                            </li>
+                            <!--CH Change Starts-->
+                            <li id="new_crumbs_menu3" ng-model="vm.stages" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class=""
+                                ng-click="vm.stage(2);"><span>2</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>Inward</h5>
+                                </div>
+                            </li>
+
+                            <li id="new_crumbs_menu4" ng-model="vm.stages4" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class=""
+                                ng-click="vm.stage(3);"><span>3</span>
+                                <div style="padding-top:0.2%;" class="finalBreadCrumb">
+                                    <h5>Outward</h5>
+                                </div>
+                            </li>
+                            <!--CH Changes Ends-->
+
+                            <li id="new_crumbs_menu4" ng-model="vm.stages3" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class=""
+                                ng-click="vm.stage(3);"><span>3</span>
+                                <div style="padding-top:0.2%;" class="finalBreadCrumb">
+                                    <h5>Completed</h5>
+                                </div>
+                            </li>
+
+                            <li class="small_li"><span class="small_bullet"></span><br><a>CLOSE</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Request List/Grd-->
+<!--Content-->
+<div class="row" style="min-height:1000px;">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <!--<div ng-show="step===1">
+                    <i class="pull-right fa fa-arrow-right" style="font-size:24px;" ng-click="vm.stage(2);"></i>
+                </div>-->
+                <!--<div ng-show="step===2">
+                    <i class="pull-left fa fa-arrow-left" style="font-size:24px;" ng-click="vm.stage(1);"></i>
+                    <i class="pull-right fa fa-arrow-right" style="font-size:24px;" ng-click="vm.stage(3);"></i>
+                </div>-->
+                <!--<div ng-show="step===3">
+                    <i class="pull-left fa fa-arrow-left" style="font-size:24px;" ng-click="vm.stage(2);"></i>
+                </div>-->
+                <br>
+                <!--Request Title-->
+                <div ng-show="step===1" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <button ng-show="vm.disabled" type="button" title="Download Excel" ng-click="vm.exportExcel('step1tblExcel'+$index)" class="btn btn-default"
+                        style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                    <div class="timeline-item-post">
+                        <p>
+                            <span class="spn_req_title">Raised By :</span><b>{{vm.MrTrackData.created_by.name}}</b>
+                            <span class="spn_seperator">|</span>
+                            <span class="spn_req_title" ng-show="vm.MrTrackData.status.name === 'Approved'">Approved By :</span>                            <b ng-show="vm.MrTrackData.status.name === 'Approved'">{{vm.MrTrackData.updated_by.name}}</b>
+                            <span class="spn_seperator" ng-show="vm.MrTrackData.status.name === 'Approved'">|</span>
+                            <span class="spn_req_title" ng-show="vm.MrTrackData.status.name === 'Approved'">Approved Date :</span>                            <b ng-show="vm.MrTrackData.status.name === 'Approved'">{{vm.mialldetails.datetime |date: 'dd-MMM-yyyy'}}</b>
+                            <span class="spn_seperator" ng-show="vm.MrTrackData.status.name === 'Approved'">|</span>
+                            <span class="spn_req_title">MR Date :</span> <b>{{vm.MrTrackData.datetime |date: 'dd-MMM-yyyy'}}</b>
+                            <span class="spn_seperator">|</span>
+                            <span class="spn_req_title">Branch :</span> <b>{{vm.getBranchName(vm.MrTrackData.branch)}}</b>
+                            <span class="spn_seperator">|</span>
+                            <span class="spn_req_title" maxlength="250">Remarks :</span><b> {{vm.MrTrackData.remarks}}</b>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Starts-->
+                <div ng-show="step===1" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <button ng-show="vm.disabled" type="button" title="Download Excel" ng-click="vm.exportExcel('step1tblExcel'+$index)" class="btn btn-default"
+                        style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                    <div class="timeline-item-post">
+                        <p>
+                            <span class="spn_req_title" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">From Project - To Project :</span><b style="color:#e50278;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"> {{vm.fromProject(vm.MrTrackData.from_project)}} - {{vm.toProject(vm.MrTrackData.to_project)}}</b>
+                            <span class="spn_seperator" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">|</span>
+                            <span class="spn_req_title">Raised By :</span><b style="color:#e50278;">{{vm.MrTrackData.created_by.name}}</b>
+                            <span class="spn_seperator">|</span>
+                            <span class="spn_req_title" ng-show="vm.MrTrackData.status.name === 'Approved'">Approved By :</span>                            <b ng-show="vm.MrTrackData.status.name === 'Approved'" style="color:#e50278;">{{vm.MrTrackData.updated_by.name}}</b>
+                            <span class="spn_seperator" ng-show="vm.MrTrackData.status.name === 'Approved'">|</span>
+                            <span class="spn_req_title" ng-show="vm.MrTrackData.status.name === 'Approved'">Approved Date :</span>                            <b ng-show="vm.MrTrackData.status.name === 'Approved'" style="color:#e50278;">{{vm.mialldetails.datetime |date: 'dd-MMM-yyyy'}}</b>
+                            <span class="spn_seperator" ng-show="vm.MrTrackData.status.name === 'Approved'">|</span>
+                            <span class="spn_req_title">MR Date :</span> <b style="color:#e50278;">{{vm.MrTrackData.datetime |date: 'dd-MMM-yyyy'}}</b>
+                            <span class="spn_seperator">|</span>
+                            <span class="spn_req_title">Category :</span> <b style="color:#e50278;">{{vm.categoryName(vm.item.category_id)}}</b>
+                            <span class="spn_seperator">|</span>
+                            <!--<span class="spn_req_title">Sub-Category :</span> <b style="color:#e50278;">{{vm.filterCatName}}</b>
+                            <span class="spn_seperator">|</span>-->
+                            <span class="spn_req_title" maxlength="250">Remarks :</span><b style="color:#e50278;"> {{vm.MrTrackData.remarks}}</b>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Ends-->
+                <div ng-show="step===2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <button ng-show="vm.deliverydisable" type="button" title="Download Excel" ng-click="vm.exportExcel('step2tblExcel'+$index)"
+                        class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.mialldetails.id}} | {{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                    <div class="timeline-item-post" ng-cloak>
+                        <p>
+                            <span class="spn_req_title" ng-show="vm.mialldetails.status.name ==='Closed' || vm.mialldetails.status.name ==='Issued'">Issued By :</span>
+                            <b
+                                ng-show="vm.mialldetails.status.name ==='Closed'|| vm.mialldetails.status.name ==='Issued'">
+                            {{vm.mialldetails.issued_by.name}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.status.name ==='Issued' || vm.mialldetails.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title">Mi Date :</span><b> {{vm.mialldetails.datetime |date: 'dd-MMM-yyyy'}}</b>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Branch :</span><b> {{vm.getBranchName(vm.mialldetails.branch)}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.remarks">|</span>
+                                <span class="spn_req_title" ng-show="vm.mialldetails.remarks" maxlength="250">Remarks :</span>
+                                <b
+                                    ng-show="vm.mialldetails.remarks"> {{vm.mialldetails.remarks}}</b>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Starts-->
+                <div ng-show="step===2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <button ng-show="vm.deliverydisable" type="button" title="Download Excel" ng-click="vm.exportExcel('step2tblExcel'+$index)"
+                        class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.mialldetails.id}} | {{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                    <div class="timeline-item-post" ng-cloak>
+                        <p>
+                            <span class="spn_req_title">From Project - To Project :</span><b style="color:#e50278;"> {{vm.fromProject(vm.mialldetails.from_project)}} - {{vm.toProject(vm.mialldetails.to_project)}}</b>
+                            <span class="spn_req_title" ng-show="vm.mialldetails.status.name ==='Closed' || vm.mialldetails.status.name ==='Issued'">Issued By :</span>
+                            <b
+                                style="color:#e50278;" ng-show="vm.mialldetails.status.name ==='Closed'|| vm.mialldetails.status.name ==='Issued'">
+                            {{vm.mialldetails.issued_by.name}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.status.name ==='Issued' || vm.mialldetails.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title">Mi Date :</span><b style="color:#e50278;"> {{vm.mialldetails.datetime |date: 'dd-MMM-yyyy'}}</b>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Category :</span><b style="color:#e50278;"> {{vm.categoryName(item.category)}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.remarks">|</span>
+                                <!--<span class="spn_req_title">Sub-Category :</span><b style="color:#e50278;"> {{vm.filterCatName}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.remarks">|</span>-->
+                                <span class="spn_req_title" ng-show="vm.mialldetails.remarks" maxlength="250">Remarks :</span>
+                                <b
+                                    ng-show="vm.mialldetails.remarks" style="color:#e50278;"> {{vm.mialldetails.remarks}}</b>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Ends-->
+                <div ng-show="step===3" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <button type="button" title="Download Excel" ng-click="vm.exportExcel('step1tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.mialldetails.id}} | {{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Starts-->
+                <div ng-show="step===3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <button type="button" title="Download Excel" ng-click="vm.exportExcel('step1tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                    <div class="timeline-item-header" ng-cloak>
+                        <p>
+                            <h3>{{vm.mialldetails.id}} | {{vm.MrTrackData.id}}</h3>
+                        </p>
+                    </div>
+                    <div class="timeline-item-post" ng-cloak>
+                        <p>
+                            <span class="spn_req_title">From Project - To Project :</span><b style="color:#e50278;"> {{vm.fromProject(vm.mialldetails.from_project)}} - {{vm.toProject(vm.mialldetails.to_project)}}</b>
+                            <span class="spn_req_title" ng-show="vm.mialldetails.status.name ==='Closed' && vm.MrTrackData.status.name == 'Closed'">Approved By :</span>
+                            <b
+                                style="color:#e50278;" ng-show="vm.mialldetails.status.name ==='Closed' && vm.MrTrackData.status.name == 'Closed'">
+                            {{vm.MrTrackData.approved_by.name}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.status.name ==='Issued' && vm.MrTrackData.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title" ng-show="vm.mialldetails.status.name ==='Issued' && vm.MrTrackData.status.name ==='Closed'">Approved Date :</span>
+                                <b style="color:#e50278;" ng-show="vm.mialldetails.status.name ==='Issued' && vm.MrTrackData.status.name ==='Closed'"> {{vm.MrTrackData.updatedDt |date: 'dd-MMM-yyyy'}}</b>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Category :</span><b style="color:#e50278;"> {{vm.categoryName(item.category)}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.remarks">|</span>
+                                <!--<span class="spn_req_title">Sub-Category :</span><b style="color:#e50278;"> {{vm.filterCatName}}</b>
+                                <span class="spn_seperator" ng-show="vm.mialldetails.remarks">|</span>-->
+                                <span class="spn_req_title" ng-show="vm.mialldetails.status.name ==='Issued' && vm.MrTrackData.status.name ==='Closed'" maxlength="250">Remarks :</span>
+                                <b 
+                                    ng-show="vm.mialldetails.status.name ==='Issued' && vm.MrTrackData.status.name ==='Closed'" style="color:#e50278;"> {{vm.MrTrackData.remarks}}</b>
+                        </p>
+                    </div>
+                </div>
+                <!--CH Change Ends-->
+                <!--TABLE-->
+                <!--step - 2-->
+                <div class="table-responsive" ng-show="step===2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" ng-cloak>
+                    <table class="table table-bordered trackGrid0" style="width: 95%;margin-left: 3%;table-layout:fixed;">
+                        <thead class="mrTrakSheetGrid">
+                            <tr>
+                                <th style="width:5%;">Sl.No</th>
+                                <th style="width:13%;">Category</th>
+                                <th style="width:15%;">Material Code</th>
+                                <th style="width: 14%;">Material Name</th>
+                                <th style="width:14%">Requested QTY</th>
+                                <th style="width:14%">Approved QTY</th>
+                                <th style="width:17%;" ng-hide="vm.mialldetails.status.name !== 'Not Issued' || vm.deliverydisable ? true : false">Actions</th>
+                                <th style="width:14%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.deliveredDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <td>{{vm.categoryName(item.category)}}</td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.approved_quantity}}</td>
+                                <td>
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <input ng-if="vm.miaccess.t === 'y'" type="text" ng-hide="vm.deliverydisable" ng-model="item.appQty" ng-change="vm.mIssuedQty(item)"
+                                        ng-class="vm.checkqty(item.res);" ng-disabled="vm.StatusCheck(item.status.name);" style="width:60%;height:30px;padding-right:5px;text-align:right;border:1px solid rgb(204, 204, 204)"
+                                        value="{{item.approved_quantity}}" ng-class="vm.checkqty(item.res);" />
+                                    <!--</div>-->
+                                    <label ng-show="vm.deliverydisable">{{item.issued_quantity}}</label>
+                                </td>
+
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued' || vm.deliverydisable ? true : false">
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Issued" ng-hide="vm.deliverydisable" class="btn btn-default" ng-class="item.miactive"
+                                        ng-click="item.stat='A'; vm.mistatuschange('Issued', $index);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                   </button> &nbsp;
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Not Issued" ng-hide="vm.deliverydisable" class="btn btn-default"
+                                        ng-class="item.mirejactive" ng-click="item.stat='R'; vm.mistatuschange('Not Issued', $index);">
+                                   <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                   </button>
+                                    <!--</div>-->
+                                </td>
+                                <!--<td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <i ng-show="item.status.name == 'Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Partially Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Not Issued'" class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                </td>-->
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                    <span ng-show="item.stat==='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat==='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat==='R'" class="label label-danger">Not Issued</span>
+                                </td>
+                                <td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <span ng-show="item.status.name ==='Issued'" class="label label-success">Issued</span>
+                                    <span ng-show="item.status.name ==='Partially Issued'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.status.name ==='Not Issued'" class="label label-danger">Not Issued</span>
+                                    <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                    <!--<span ng-show="item.stat='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat='R'" class="label label-danger">Not Issued</span>-->
+                                    <!--<span class="flgDraft" ng-show="item.status.name==='Partially Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.status.name==='Not Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.status.name==='Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Save & Cancel-->
+                <div style="float:left;" ng-show="step===2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" ng-cloak>
+                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <textarea ng-if="vm.miaccess.t === 'y'" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 171%;width:125%;"
+                        ng-hide="vm.deliverydisable" name="" cols="30" placeholder="Remarks" rows="3" ng-model="vm.miapprRemarks"></textarea>
+                    <!--</div>-->
+                </div>
+                <div style="float:right;" ng-show="step===2" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" ng-cloak>
+                    <!--<span ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <button ng-if="vm.miaccess.t === 'y'" type="button " style="margin-left: -214%;margin-top: 38%;" class="btn btn-primary "
+                        ng-hide="vm.deliverydisable" ng-click="vm.missueInsert();"><i class="fa fa-floppy-o " aria-hidden="false "></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <!--</span>-->
+                    <button type="button " style="margin-left:2%;margin-top: 38%;" class="btn btn-primary " ng-hide="vm.deliverydisable" ng-click="pageRedirect(2)"><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    <button type="button " class="btn btn-primary " style="margin-left:-25%;" ng-hide="vm.deliverydisable1" ng-click="pageRedirect(2)"><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+
+                <!--CH Change Starts-->
+                <!--step - 2-->
+                <div class="table-responsive" ng-show="step===2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-cloak>
+                    <table class="table table-bordered trackGrid0" style="width: 95%;margin-left: 3%;table-layout:fixed;">
+                        <thead class="mrTrakSheetGrid">
+                            <tr>
+                                <th style="width:5%;">Sl.No</th>
+                                <!--<th style="width:13%;">Category</th>-->
+                                <th style="width:15%;">Material Code</th>
+                                <th style="width: 14%;">Material Name</th>
+                                <th style="width:14%">Requested QTY</th>
+                                <th style="width:14%">Approved QTY</th>
+                                <th style="width:17%;" ng-hide="vm.mialldetails.status.name !== 'Not Issued' || vm.deliverydisable ? true : false">Actions</th>
+                                <th style="width:14%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.deliveredDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <!--<td>{{vm.categoryName(item.category)}}</td>-->
+                                <td>{{item.mat_code}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.approved_quantity}}</td>
+                                <td>
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <input ng-if="vm.miaccess.t === 'y'" type="text" ng-hide="vm.deliverydisable" ng-model="item.appQty" ng-change="vm.mIssuedQty(item)"
+                                        ng-class="vm.checkqty(item.res);" ng-disabled="vm.StatusCheck(item.status.name);" style="width:60%;height:30px;padding-right:5px;text-align:right;border:1px solid rgb(204, 204, 204)"
+                                        value="{{item.approved_quantity}}" ng-class="vm.checkqty(item.res);" />
+                                    <!--</div>-->
+                                    <label ng-show="vm.deliverydisable">{{item.issued_quantity}}</label>
+                                </td>
+
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued' || vm.deliverydisable ? true : false">
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Issued" ng-hide="vm.deliverydisable" class="btn btn-default" ng-class="item.miactive"
+                                        ng-click="item.stat='A'; vm.mistatuschange('Issued', $index);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                   </button> &nbsp;
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Not Issued" ng-hide="vm.deliverydisable" class="btn btn-default"
+                                        ng-class="item.mirejactive" ng-click="item.stat='R'; vm.mistatuschange('Not Issued', $index);">
+                                   <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                   </button>
+                                    <!--</div>-->
+                                </td>
+                                <!--<td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <i ng-show="item.status.name == 'Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Partially Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Not Issued'" class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                </td>-->
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                    <span ng-show="item.stat==='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat==='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat==='R'" class="label label-danger">Not Issued</span>
+                                </td>
+                                <td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <span ng-show="item.status.name ==='Issued'" class="label label-success">Issued</span>
+                                    <span ng-show="item.status.name ==='Partially Issued'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.status.name ==='Not Issued'" class="label label-danger">Not Issued</span>
+                                    <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                    <!--<span ng-show="item.stat='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat='R'" class="label label-danger">Not Issued</span>-->
+                                    <!--<span class="flgDraft" ng-show="item.status.name==='Partially Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.status.name==='Not Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.status.name==='Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Save & Cancel-->
+                <div style="float:left;" ng-show="step===2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-cloak>
+                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <textarea ng-if="vm.miaccess.t === 'y'" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 171%;width:125%;"
+                        ng-hide="vm.deliverydisable" name="" cols="30" placeholder="Remarks" rows="3" ng-model="vm.miapprRemarks"></textarea>
+                    <!--</div>-->
+                </div>
+                <div style="float:right;" ng-show="step===2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-cloak>
+                    <!--<span ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <button ng-if="vm.miaccess.t === 'y'" type="button " style="margin-left: -214%;margin-top: 38%;" class="btn btn-primary "
+                        ng-hide="vm.deliverydisable" ng-click="vm.missueInsert();"><i class="fa fa-floppy-o " aria-hidden="false "></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <!--</span>-->
+                    <button type="button " style="margin-left:2%;margin-top: 38%;" class="btn btn-primary " ng-hide="vm.deliverydisable" ng-click="pageRedirect(2)"><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    <button type="button " class="btn btn-primary " style="margin-left:-25%;" ng-hide="vm.deliverydisable1" ng-click="pageRedirect(2)"><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+                <!--CH Change Ends-->
+
+                <!--Step -1 -->
+                <div class="table-responsive " ng-show="step===1" ng-cloak>
+                    <table class="table table-bordered trackGrid" style="width: 95%;margin-left: 3%;table-layout:fixed;">
+                        <thead class="mrTrakSheetGrid">
+                            <tr>
+                                <th style="width:5%;"> Sl.No</th>
+                                <th style="width:13%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">Category</th>
+                                <th style="width:15%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">Material Code</th>
+                                <th style="width: 16%;">Material Name</th>
+                                <th style="width: 14%;">Requested QTY</th>
+                                <th style="width: 14%; ">Approved QTY</th>
+                                <th style="width: 17%;" ng-hide="(vm.MrTrackData.status.name == 'Approved' || vm.MrTrackData.status.name == 'Rejected' || vm.MrTrackData.status.name == 'Closed') || vm.disabled ? true : false">Actions</th>
+                                <th style="width:15%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.reqDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">{{vm.categoryName(item.category)}}</td>
+                                <td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">{{item.mat_code}}</td>
+                                <!--<td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">{{item.mat_code}}</td>-->
+                                <td>{{item.name}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <input ng-if="vm.mraccess.t === 'y'" type="text " ng-hide="vm.disabled" ng-model="item.appQty" id="quantity" ng-class="vm.checkqty(item.res);"
+                                        ng-change="vm.deliverQty(item) " value="{{item.appQty}} " style="width:60%;height:30px;padding-right:5px;text-align:right;border: 1px
+                                    solid rgb(204, 204, 204)" ng-disabled="vm.StatusCheck(item.status.name)" />
+                                    <!--</div>-->
+                                    <label ng-show="vm.disabled">{{item.approved_quantity ? item.approved_quantity : item.appQty}}</label>
+                                </td>
+                                <td ng-hide="(vm.MrTrackData.status.name == 'Approved' || vm.MrTrackData.status.name == 'Rejected' || vm.MrTrackData.status.name == 'Closed') || vm.disabled ? true : false">
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <button ng-if="vm.mraccess.t === 'y'" type="button" title="Approved" ng-hide="vm.disabled" class="btn btnActive" ng-class="item.mractive"
+                                        ng-click="item.stat='A' ; vm.changestatus('Approved',$index); ">
+                                    <i class="fa fa-check fa-lg " aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                    <button ng-if="vm.mraccess.t === 'y'" type="button" title="Rejected" ng-hide="vm.disabled" class="btn btnActive" ng-class="item.mrrejactive"
+                                        ng-click="item.stat='R' ; vm.changestatus('Rejected',$index); ">
+                                    <i class="fa fa-times fa-lg " aria-hidden="true "></i>
+                                    </button>
+                                    <!--</div>-->
+                                </td>
+                                <!--<td ng-show="vm.MrTrackData.status.name == 'Approved'">
+                                    <i class="fa fa-check fa-lg " ng-show="item.status.name == 'Approved'" aria-hidden="true"></i>
+                                    <i class="fa fa-check fa-lg " ng-show="item.status.name == 'Pending'" aria-hidden="true"></i>
+                                    <i class="fa fa-times fa-lg " ng-show="item.status.name == 'Rejected'" aria-hidden="true "></i>
+                                </td>-->
+                                <td ng-hide="vm.MrTrackData.status.name == 'Approved' || vm.MrTrackData.status.name == 'Rejected' || vm.MrTrackData.status.name == 'Closed'">
+                                    <!--<span class="flgDraft " ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>
+                                    <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>
+                                    <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>-->
+                                    <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                    <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                    <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                </td>
+                                <td ng-show="vm.MrTrackData.status.name == 'Approved' || vm.MrTrackData.status.name == 'Rejected' || vm.MrTrackData.status.name == 'Closed'">
+                                    <!--<span class="flgDraft " ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>
+                                    <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>
+                                    <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg " aria-hidden="true "></i></span>-->
+                                    <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                    <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                    <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                    <span ng-show="item.status.name ==='Issued'" class="label label-success">Issued</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="float:left;" ng-show="step===1" ng-cloak>
+                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <textarea ng-if="vm.mraccess.t === 'y'" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 171%;width:125%;"
+                        ng-hide="vm.disabled" name=" " id=" " cols="30" rows="3" ng-model="vm.TrackMrRemarks" placeholder="Remarks "></textarea>
+                    <!--</div>-->
+                </div>
+                <div style="float:right;" ng-show="step===1" ng-cloak>
+                    <!--<span ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <button ng-if="vm.mraccess.t === 'y'" type="button" style="margin-left: -214%;margin-top: 38%;" ng-hide="vm.disabled" class="btn btn-primary "
+                        ng-click="vm.miInsert(); "><i class="fa fa-floppy-o " aria-hidden="false "></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <!--</span>-->
+                    <button type="button" class="btn btn-primary" style="margin-left:2%;margin-top: 38%;" ng-hide="vm.disabled" ng-click="pageRedirect(1) "><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:-25%;" ng-hide="vm.disabled1" ng-click="pageRedirect(1) "><i class="fa fa-times " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+
+                <!--Step -3 -->
+                <div class="table-responsive " ng-show="step===3" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" ng-cloak>
+                    <div style="font-size:large;color:green;text-align:left;padding-left:1%;margin-bottom:0.5%; ">Pendings In MI</div>
+                    <table class="table table-bordered trackGrid " style="width: 95%;margin-left: 3%;" ng-cloak>
+                        <thead class="mrTrakSheetGrid">
+                            <tr>
+                                <th style="width:5%;">Sl.No</th>
+                                <th style="width : 13%;">Category</th>
+                                <th style="width : 15%;">Material Code</th>
+                                <th style="width: 16%;">Material Name</th>
+                                <th style="width : 14%;">Approved QTY</th>
+                                <th style="width : 15%;">Delivered QTY</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.miResList">
+                                <td scope="row ">{{$index+1}}</td>
+                                <td>{{vm.categoryName(item.category)}}</td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.approved_quantity}}</td>
+                                <td>{{item.issued_quantity}}</td>
+                                <td>
+                                    <!--<span class="flgDraft "><i class="fa fa-flag fa-lg" ng-show="item.status.name='Issued'" aria-hidden="true"></i></span>
+                                    <span class="flgDraft"><i class="fa fa-flag fa-lg" ng-show="item.status.name ==='Partially Issued'" aria-hidden="true"></i></span>-->
+                                    <span ng-show="item.status.name ==='Issued'" class="label label-success">Issued</span>
+                                    <span ng-show="item.status.name ==='Partially Issued'" class="label label-warning">Partially Issued</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" ng-show="vm.miResList.length == 0" class="text-center"><b>No Records</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <div ng-show="step===3" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="pull-right">
+                    <span ng-hide="vm.mialldetails.status.name == 'Closed' || vm.mialldetails.status.name == 'Manual Closed' || vm.closebtn ? true : false">
+                        <button ng-if="vm.miResList.length > 0" type="button" class="btn btn-primary" style="margin-left:-25%;"  ng-click="vm.miClose(vm.MrTrackData.id);">Close</button>
+                        </span>
+                    <button type="button " class="btn btn-primary" style="margin-left:2%;" ng-click="pageRedirect(2)"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+
+                <!--CH Change Starts-->
+                <!--Step -3 -->
+                <div class="table-responsive " ng-show="step===3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-cloak>
+                    <div style="font-size:large;color:green;text-align:left;padding-left:1%;margin-bottom:0.5%; ">Outward Approval</div>
+                    <table class="table table-bordered trackGrid " style="width: 95%;margin-left: 3%;" ng-cloak>
+                        <thead class="mrTrakSheetGrid">
+                            <tr>
+                                <th style="width:5%;">Sl.No</th>
+                                <!--<th style="width : 13%;">Category</th>-->
+                                <th style="width : 15%;">Material Code</th>
+                                <th style="width: 16%;">Material Name</th>
+                                <th style="width : 14%;">Approved QTY</th>
+                                <th style="width : 15%;">Delivered QTY</th>
+                                <th style="width: 17%;" ng-hide="(vm.MrTrackData.status.name == 'Approved' || vm.MrTrackData.status.name == 'Rejected') || vm.disabled ? true : false">Actions</th>
+                                <th style="width: 13%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.miResListCH">
+                                <td scope="row">{{$index+1}}</td>
+                                <!--<td>{{vm.categoryName(item.category)}}</td>-->
+                                <td>{{item.mat_code}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.approved_quantity}}</td>
+                                <td>
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <input ng-if="vm.miaccess.t === 'y'" type="text" ng-hide="vm.deliverydisable" ng-model="item.appQty" ng-change="vm.mIssuedQty(item)"
+                                        ng-class="vm.checkqty(item.res);" ng-disabled="vm.StatusCheck(item.status.name);" style="width:60%;height:30px;padding-right:5px;text-align:right;border:1px solid rgb(204, 204, 204)"
+                                        value="{{item.approved_quantity}}" ng-class="vm.checkqty(item.res);" />
+                                    <!--</div>-->
+                                    <label ng-show="vm.deliverydisable">{{item.issued_quantity}}</label>
+                                </td>
+
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued' || vm.deliverydisable ? true : false">
+                                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Issued" ng-hide="vm.deliverydisable" class="btn btn-default" ng-class="item.miactive"
+                                        ng-click="item.stat='A'; vm.mistatuschange('Issued', $index);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                   </button> &nbsp;
+                                    <button ng-if="vm.miaccess.t === 'y'" type="button" title="Not Issued" ng-hide="vm.deliverydisable" class="btn btn-default"
+                                        ng-class="item.mirejactive" ng-click="item.stat='R'; vm.mistatuschange('Not Issued', $index);">
+                                   <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                   </button>
+                                    <!--</div>-->
+                                </td>
+                                <!--<td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <i ng-show="item.status.name == 'Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Partially Issued'" class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    <i ng-show="item.status.name == 'Not Issued'" class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                </td>-->
+                                <td ng-hide="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                    <span ng-show="item.stat==='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat==='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat==='R'" class="label label-danger">Not Issued</span>
+                                </td>
+                                <td ng-show="vm.mialldetails.status.name !== 'Not Issued'">
+                                    <span ng-show="item.status.name ==='Issued'" class="label label-success">Issued</span>
+                                    <span ng-show="item.status.name ==='Partially Issued'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.status.name ==='Not Issued'" class="label label-danger">Not Issued</span>
+                                    <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                    <!--<span ng-show="item.stat='A'" class="label label-success">Issued</span>
+                                    <span ng-show="item.stat='P'" class="label label-warning">Partially Issued</span>
+                                    <span ng-show="item.stat='R'" class="label label-danger">Not Issued</span>-->
+                                    <!--<span class="flgDraft" ng-show="item.status.name==='Partially Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgReject" ng-show="item.status.name==='Not Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                    <span class="flgApprove" ng-show="item.status.name==='Issued'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" ng-show="vm.miResListCH.length == 0" class="text-center"><b>No Records</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                 <div style="float:left;" ng-show="step===3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-cloak>
+                    <!--<div ng-hide="vm.TrackSheetAccess == 'n'">-->
+                    <textarea ng-if="vm.miaccess.t === 'y'" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 171%;width:125%;"
+                        ng-hide="(vm.mialldetails.status.name == 'Closed' && vm.MrTrackData.status.name == 'Accepted') || vm.closebtn ? true : false" id="hideApproveRemarks" name="" cols="30" placeholder="Remarks" rows="3" ng-model="vm.outwardRemarks"></textarea>
+                    <!--</div>-->
+                </div>
+
+                <div ng-show="step===3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="pull-right">
+                    <span ng-hide="(vm.mialldetails.status.name == 'Closed' && vm.MrTrackData.status.name == 'Accepted') || vm.closebtn ? true : false">
+                        <button ng-if="vm.miResListCH.length > 0" type="button" id="hideApprove" class="btn btn-primary" style="margin-left:-25%;"  ng-click="vm.updateMR();">Approve</button>
+                        </span>
+                    <button type="button " class="btn btn-primary" style="margin-left:2%;" ng-click="pageRedirect(2)"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+                <!--CH Change Ends-->
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<td>
+    {{vm.index}}
+</td>
+<td>
+  {{vm.item.short_code}}
+</td>
+<td>
+     {{vm.item.name}}
+</td>
+<td class="ng-cloak">
+   <span ng-hide="vm.editMode" ng-cloak>{{vm.item.location}}</span>
+     <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model="vm.item.location" style="margin-top:-4%;width:76%;" ng-cloakk>
+</td>
+<td>
+    <button title="Edit" type="button" class="btn btn-default" ng-click="vm.edit();" ng-hide="vm.editMode"><i class="fa fa-pencil fa-lg" style="font-size:15px;"></i></button>
+    <button title="Save" type="button" class="btn btn-default" ng-click="vm.save(vm.item);" ng-show="vm.editMode"> <span class="fa fa-floppy-o"></span></button>
+</td>

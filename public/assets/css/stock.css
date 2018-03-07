@@ -1,0 +1,26 @@
+/*.table-header{
+    background-color: lightcoral;
+    color:white;
+    text-align: center;  
+}*/
+
+/*table td{
+   text-align: center;   
+}*/
+/*table th{
+   text-align: center;   
+}*/
+
+.input-box-radius{
+    border-radius: 5px;
+}
+.btn-size{
+        width: 200%;
+}
+
+.icon-borer{
+  font-size:30px;
+  display: inline-block;
+  border-radius: 100%;
+  box-shadow: 0px 0px 2px #888;
+}

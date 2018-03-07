@@ -1,0 +1,665 @@
+<style>
+    .asterisc {
+        display: block;color: red;margin: -29px 67px;font-size: 170%;
+    }
+    .asterisc1 {
+        display: block; color: red;margin:-20px 63px; font-size: 170%;
+    }
+    .asterisc2 {
+        display: block; color: red;margin: -19px 55px; font-size: 170%;
+    }
+    .asterisc3 {
+        display: block;color: red;margin: -20px 67px;font-size: 170%;
+    }
+    .asterisc4 {
+        display: block;color: red;margin: -18px 63px;font-size: 170%;
+    }
+    .asterisc5 {
+        display: block; color: red;margin: -20px 55px; font-size: 170%;
+    }
+    .asterisc6 {
+        display: block; color: red; margin: -20px 67px;font-size: 170%;
+    }
+    .asterisc7 {
+         display: block; color: red; margin: -21px 62px; font-size: 170%;
+    }
+    .asterisc8 {
+         display: block; color: red; margin: -21px 62px; font-size: 170%;
+    }
+    .asterisc9 {
+         display: block; color: red; margin: -21px 56px; font-size: 170%;
+    }
+    .asterisc10 {
+         display: block; color: red; margin: -21px 75px; font-size: 170%;
+    }
+</style>
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Vendor Master
+</div>
+<div style="width:95%;background:#fff;min-height:1000px;margin:0 auto;">
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+
+        <div class="input-group" style="width:50%;margin-left:54%;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span  ng-hide="vm.companyId == 'CH0001'" id="search_concept">Vendor ID</span> <span  ng-hide="vm.companyId == 'CH0001'" class="caret"></span>
+                    <span ng-hide="vm.companyId !== 'CH0001'" id="search_concept">Merchant ID</span> <span  ng-hide="vm.companyId !== 'CH0001'" class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <!--<li><a href="#contains">Contains</a></li>-->
+                    <li ng-hide="vm.companyId == 'CH0001'"><a title="#vendorId">Vendor ID</a></li>
+                    <li ng-hide="vm.companyId == 'CH0001'" ><a title="#vendorName">Vendor Name</a></li>
+                    <li ng-hide="vm.companyId !== 'CH0001'"><a title="#vendorId">Merchant ID</a></li>
+                    <li ng-hide="vm.companyId !== 'CH0001'"><a title="#vendorName">Merchant Name</a></li>
+                    <!--<li><a title="#MobileNo">Mobile No</a></li>
+                    <li><a title="#Executive">Executive</a></li>-->
+                    <!--<li class="divider"></li>
+                      <li><a href="#all">All</a></li>-->
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" ng-model="vm.srhvendorId" id="srhvendorId" name="x" placeholder="Search..." style="border:1px solid #ccc;">
+            <div class="input-group" id="srhvendorName" style="display:none;width:100%;">
+                <input type="text" class="form-control" id="srhvendorName" ng-model="vm.srhvendorName" placeholder="Search" style="border:1px solid #ccc;">
+            </div>
+            <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" title="Search" ng-click="vm.vendorMasterSrh(true, vm.begin, vm.end)" ><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+            <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" title="Reload" ng-click="vm.reload()" ><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+
+
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    <div style="width:90%;margin:0 auto;margin-left:3%;margin-top:-2%;">
+        <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange(vm.ddlRows)">
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option> 
+  </select>
+
+        <!--Add New-->
+        &nbsp;&nbsp;&nbsp;<button ng-if="vm.vendorAccess.c === 'y'" type="button" class="btn btn-default" data-toggle="modal"
+            href='#addpopup'>
+        <span class="glyphicon glyphicon-pencil"></span> Add Vendor</button>
+    </div>
+
+    <!--CH Changes Starts-->
+
+    <button type="button" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" onClick="javascript:demoFromHTML()"
+        title="Download pdf" class="btn btn-default" style=" font-size:16px;margin-left:95%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+    <!--CH Change Ends-->
+
+    <button type="button" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" onClick="exportExcel()" title="Download Excel"
+        class="btn btn-default" style=" font-size:16px;margin-left:95%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body" style="width: 101%;">
+                <!--CH Change Starts-->
+
+                <div ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="table-responsive" style="font-size:100%;word-wrap: break-word">
+
+                    <table class="table table-bordered grid" style="table-layout: fixed;" id="tblpdf" ng-cloak>
+                        <thead>
+                            <tr style="text-align:center;">
+                                <th style="width:5%;">
+                                    Sl.No
+                                </th>
+                                <th style="width:12%;">
+                                   Merchant Code
+                                </th>
+                                <th style="width:10%;">
+                                    Merchant Name
+                                </th>
+                                <th style="width:12%;">
+                                    Address
+                                </th>
+                                <th style="width:10%;">
+                                    Phone no
+                                </th>
+                                <th style="width:9%;" class="gcmAction noExl" ng-if="vm.vendorAccess.u === 'y' || vm.vendorAccess.d === 'y'">
+                                    Action</th>
+                            </tr>
+
+                        </thead>
+                        <tr vendor-master-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.vendorList" item="item">
+                        </tr>
+                        <tr>
+                            <td colspan="6" ng-show="vm.vendorList.length===0 || vm.vendorList === undefined" class="noRec noExl" style="text-align:center">
+                                No Records Found
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!--CH Change Ends-->
+                <div ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="table-responsive" style="font-size:100%;word-wrap: break-word">
+
+                    <table class="table table-bordered grid" style="table-layout: fixed;" id="tblExcel" ng-cloak>
+                        <thead>
+                            <tr style="text-align:center;">
+                                <th style="width:5%;">
+                                    Sl.No
+                                </th>
+                                <th style="width:12%;">
+                                    Vendor Code
+                                </th>
+                                <th style="width:10%;">
+                                    Vendor Name
+                                </th>
+                                <th style="width:12%;">
+                                    Address
+                                </th>
+                                <th style="width:10%;">
+                                    Phone no
+                                </th>
+                                <th style="width:13%;word-wrap: break-word">
+                                    Email ID
+                                </th>
+                                <th style="width:8%;">
+                                    Updated By
+                                </th>
+                                <th style="width:9%;" class="gcmAction noExl" ng-if="vm.vendorAccess.u === 'y' || vm.vendorAccess.d === 'y'">
+                                    Action</th>
+                            </tr>
+
+                        </thead>
+                        <tr vendor-master-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.vendorList" item="item">
+                        </tr>
+                        <tr>
+                            <td colspan="8" ng-show="vm.vendorList.length===0 || vm.vendorList === undefined" class="noRec noExl" style="text-align:center">
+                                No Records Found
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:-3%;">
+            <span ng-if="vm.vendorList.length > 0"> Total Rows : {{vm.rowCnt}}</span>
+            <span ng-if="vm.vendorList === undefined"> Total Rows : 0 </span>
+        </div>
+
+        <!--Pagination for materialMaster-->
+        <div class="col-md-6 pagination">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+
+    <!--Add Popup-->
+    <div class="modal fade" id="">
+        <div class="modal-dialog popup-position modal-width  popup-size">
+            <div class="modal-content ">
+                <div class="modal-header" style="height:30%">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                    <h4 class="modal-title" style="text-align:center">Vendor Master</h4>
+                </div>
+                <div class="row " style="margin-bottom:2%; ">
+                    <div class="col-md-1 ">
+                        <button type="button " ng-click="vm.addRow();" class="btn addRow"><i class="fa fa-plus fa-lg " aria-hidden="true "></i>
+                                    </button>
+
+                    </div>
+                    <select class="input-sm select " ng-model="vm.count " style="margin-left:-74%;">
+                                        <option ng-repeat="i in 10 | range ">{{i+1}}</option>
+                                    </select>
+                    <div class="col-md-1 ">
+                        <button type="button" ng-click="vm.deleterow('edit');" class="btn deleteRow pull-right "><i class="fa fa-trash fa-lg "></i>
+                                    </button>
+                    </div>
+                    <div class="col-md-2" style="margin-left:3%;width:19%;">
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="modal-body modal-height" style="margin-top:0%;">
+                        <table material-master-add index="{{$index + 1}}" ng-repeat="item in vm.vendorTypeList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:-2%;">
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button " class="btn btn-default " ng-click="vm.newmaterialAdd();"><i class="fa fa-archive " aria-hidden="false"></i>&nbsp;&nbsp;Draft</button>-->
+                        </span>
+                        <button type="button " class="btn btn-primary " ng-click="vm.newmaterialAdd();"><i class="fa fa-floppy-o " aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editpopup" style="background-color: white;">
+        <div class="modal-header" style="height:14%">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+            <h4 class="modal-title" style="text-align: center;font-size: 16px;border-bottom: 1px solid orange;margin: 0px auto;">EDIT VENDOR</h4>
+        </div>
+        <form class="form-horizontal" style="margin-top:-10%;">
+            <div class="form-group">
+                <label ng-hide="vm.getCompDet == 'CH0001'" class="col-md-1" style="margin-top:0.5%;">Vendor Id</label>
+                <div ng-hide="vm.getCompDet == 'CH0001'" class="col-md-3">
+                    <input type="text" ng-disabled="vm.vendorEditedDet" ng-model="vm.vendorId" class="form-control" placeholder="Vendor ID" style="border:1px solid #CCC;">
+                </div>
+                <label ng-hide="vm.getCompDet == 'CH0001'" class="col-md-1" style="margin-top:0.5%;">Name</label>
+                <div ng-hide="vm.getCompDet == 'CH0001'" class="col-md-3">
+                    <input type="text" ng-disabled="vm.vendorEditedDet" ng-model="vm.vendorName" class="form-control" placeholder="Name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">Merchant Name <span class="asterisc">*</span></label>
+                <div ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.vendorName" class="form-control" placeholder="Merchant Name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">Merchant Type</label>
+                <div ng-hide="vm.getCompDet !== 'CH0001'" ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-3">
+                    <select ng-model="vm.vendorType" ng-options="option.name as option.name for option in vm.vendorTypeList" class="form-control" style="border:1px solid #CCC;width:87%;">
+                        <option value="" selected>Select MerchantType</option>
+                    </select>
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;">Mobile No  <span ng-hide="vm.getCompDet !== 'CH0001'" class="asterisc8">*</span></label>
+                <div class="col-md-3">
+                    <input type="text"  ng-disabled="vm.getCompDet == 'CO00001'" ng-model="vm.mobileNo" class="form-control" placeholder="Mobile No" style="border:1px solid #CCC;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">LandLine No</label>
+                <div ng-hide="vm.getCompDet !=='CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.landline" class="form-control" placeholder="Landline No" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;">Address <span ng-hide="vm.getCompDet !== 'CH0001'" class="asterisc9">*</span> </label>
+                <div class="col-md-3">
+                    <input type="text" ng-disabled="vm.getCompDet == 'CO00001'" ng-model="vm.address" class="form-control" placeholder="Address"  style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;">Email</label>
+                <div class="col-md-3">
+                    <input type="text"  ng-disabled="vm.getCompDet == 'CO00001'"  ng-model="vm.emailId" class="form-control"  placeholder="Email" style="border:1px solid #CCC;">
+                </div>
+
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == CH0001" style="display:none">Type</label>
+                <div class="col-md-2" style="width:21%;" ng-if="vm.getCompDet == CH0001" style="display:none;">
+                    <select ng-model="vm.type" disabled ng-change="getVendorList(vm.SelectedVendor);" class="form-control">
+                                <option value="" selected>Select Type</option>
+                                <option value="CST">CST</option>
+                                <option value="VAT">VAT</option>
+                            </select>
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;"  ng-disabled="vm.getCompDet !== 'CH0001'" ng-if="vm.getCompDet !== 'CH0001'">Type</label>
+                <div class="col-md-2" style="width:21%;" ng-if="vm.getCompDet !== 'CH0001'">
+                    <select  ng-disabled="vm.getCompDet !== 'CH0001'" ng-model="vm.type" ng-change="getVendorList(vm.SelectedVendor);" class="form-control">
+                                <option value="" selected>Select Type</option>
+                                <option value="CST">CST</option>
+                                <option value="VAT">VAT</option>
+                            </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">PAN <span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc1">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.pan" class="form-control"  placeholder="Enter PAN" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">TIN <span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc2">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.tin" class="form-control"  placeholder="Enter TIN" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">CST</label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.cst" class="form-control"  placeholder="Enter CST" style="border:1px solid #CCC;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Bank<span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc4">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <select ng-model="vm.bank" class="form-control" ng-options="option._id as option.name for option in vm.bankList" style="border:1px solid #CCC;width:87%;">
+                        <option value="" selected>Select Bank</option>
+                    </select>
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Branch <span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc5">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.branchName" class="form-control" placeholder="Enter Branch name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">IFSC Code <span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc6">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.ifsc" class="form-control" placeholder="Enter IFSC code" style="border:1px solid #CCC;">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">Acc. No 1<span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc7">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.acc1" class="form-control"  placeholder="Enter Acc 1" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">Acc. No 2</label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.acc2" class="form-control"  placeholder="Enter Acc 2" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Service Tax<span ng-if="vm.vendorIsMandatory1(vm.vendorType)" class="asterisc10">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.servicetax" class="form-control" placeholder="Enter Service TaxNo" style="border:1px solid #CCC;">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="col-md-1" style="margin-top:0.5%;display:block" ng-if="vm.getCompDet == 'CH0001'">Category</label>
+                <div class="col-md-3" style="width:21%;display:block;" ng-if="vm.getCompDet == 'CH0001'">
+                    <select ng-model="vm.SelectedMaterial" ng-change="vm.getMaterial(vm.SelectedMaterial); vm.catdisabled[vm.SelectedMaterial]= true"
+                        class="form-control">
+                                <option value="">Select Category</option>
+                                <option ng-repeat="option in vm.categoryList" ng-value="option._id" ng-disabled="vm.catdisabled[option._id]">{{option.name}}</option>
+                            </select>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -2%;">
+                <label class="col-md-1" style="margin-top:-1.5%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">Category</label>
+                <div class="col-md-2" style="width:21%;margin-top:-2%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <select ng-model="vm.SelectedMaterial" ng-change="vm.getMaterial(vm.SelectedMaterial); vm.catdisabled[vm.SelectedMaterial]= true"
+                        class="form-control">
+                                <option value="">Select Category</option>
+                                <option ng-repeat="option in vm.categoryList" ng-value="option._id" ng-disabled="vm.catdisabled[option._id]">{{option.name}}</option>
+                            </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div style="border-bottom:1px solid #CCC;">
+                </div>
+            </div>
+
+        </form>
+        <div class="modal-body modal-height" style="margin-top:-6%;">
+            <table vendor-master-edit index="{{$index + 1}}" ng-repeat="item in vm.matList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:-2%;">
+            </table>
+        </div>
+        <br><br>
+        <div class="modal-footer">
+            <!--<div class="text-center ">
+                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.mrnRemarks " placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                    <br>
+                </div>-->
+            <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+            <button type="button" class="btn btn-primary" ng-click="vm.updateVendorDet();"><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addpopup" style="background-color: white;">
+        <div class="modal-header" style="height:14%">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+            <h4 class="modal-title" style="text-align: center;font-size: 16px;border-bottom: 1px solid orange;margin: 0px auto;">ADD VENDOR</h4>
+        </div>
+        <form class="form-horizontal" style="margin-top:-10%;">
+            <div class="form-group">
+                <label ng-hide="vm.getCompDet == 'CH0001'" class="col-md-1" style="margin-top:0.5%;">Vendor Id</label>
+                <div ng-hide="vm.getCompDet == 'CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.vendorId" class="form-control" placeholder="Vendor ID" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" ng-hide="vm.getCompDet == 'CH0001'" style="margin-top:0.5%;">Name</label>
+                <div ng-hide="vm.getCompDet == 'CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.vendorName" class="form-control" placeholder="Name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">Merchant Name <span class="asterisc">*</span></label>
+                <div ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.vendorName" class="form-control" placeholder="Merchant Name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">Merchant Type</label>
+                <div ng-hide="vm.getCompDet !== 'CH0001'" ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-3">
+                    <select ng-model="vm.vendorType" ng-options="option as option.name for option in vm.vendorTypeList" class="form-control" style="border:1px solid #CCC;width:87%;">
+                        <option value="" selected>Select MerchantType</option>
+                        <!--<option value= "Local"></option>
+                        <option value="Standard"></option>-->
+                    </select>
+                </div>
+                <label class="col-md-1 " style="margin-top:0.5%;">Mobile No  <span ng-hide="vm.getCompDet !== 'CH0001'" class="asterisc8">*</span> </label>
+                <div class="col-md-3 required">
+                    <input type="text" ng-model="vm.mobileNo" class="form-control" placeholder="Mobile No" style="border:1px solid #CCC;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!--<label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">Mobile No</label>
+                <div ng-hide="vm.getCompDet !=='CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.mobileNo" class="form-control" placeholder="Mobile No" style="border:1px solid #CCC;">
+                </div>-->
+                <label class="col-md-1" ng-hide="vm.getCompDet !== 'CH0001'" style="margin-top:0.5%;">LandLine No</label>
+                <div ng-hide="vm.getCompDet !=='CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.landlineNo" class="form-control" placeholder="Landline No" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;">Address <span ng-hide="vm.getCompDet !== 'CH0001'" class="asterisc9">*</span> </label>
+                <div class="col-md-3">
+                    <input type="text" ng-model="vm.address" class="form-control" placeholder="Address" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;">Email</label>
+                <div class="col-md-3">
+                    <input type="text" ng-model="vm.emailId" class="form-control" placeholder="Email" style="border:1px solid #CCC;">
+                </div>
+
+                <!--Colorhomes Change Start-->
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == CH0001" style="display:none;">Type</label>
+                <div class="col-md-2" style="width:21%;" ng-if="vm.getCompDet == CH0001" style="display:none;">
+                    <select ng-model="vm.type" ng-change="getVendorList(vm.SelectedVendor);" class="form-control">
+                                <option value="" selected>Select Type</option>
+                                <option value="CST">CST</option>
+                                <option value="VAT">VAT</option>
+                            </select>
+                </div>
+
+
+                <!--CH Ends-->
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet !== 'CH0001'">Type</label>
+                <div class="col-md-2" style="width:21%;" ng-if="vm.getCompDet !== 'CH0001'">
+                    <select ng-model="vm.type" ng-change="getVendorList(vm.SelectedVendor);" class="form-control">
+                                <option value="" selected>Select Type</option>
+                                <option value="CST">CST</option>
+                                <option value="VAT">VAT</option>
+                            </select>
+                </div>
+            </div>
+            <!--CH Starts-->
+            <div class="form-group">
+                <!--<label ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-1" style="margin-top:0.5%;">Email</label>
+                <div ng-hide="vm.getCompDet !== 'CH0001'" class="col-md-3">
+                    <input type="text" ng-model="vm.emailId" class="form-control" placeholder="Email" style="border:1px solid #CCC;">
+                </div>-->
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">PAN <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc1">*</span></label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.pan" class="form-control" placeholder="Enter PAN" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">TIN <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc2">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.tin" class="form-control" placeholder="Enter TIN" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">CST</label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.cst" class="form-control" placeholder="Enter CST" style="border:1px solid #CCC;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Bank <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc4">*</span></label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <select ng-model="vm.bank" class="form-control" ng-options="option._id as option.name for option in vm.bankList" style="border:1px solid #CCC;width:87%;">
+                        <option value="" selected>Select Bank</option>
+                    </select>
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Branch <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc5">*</span></label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.branchName" class="form-control" placeholder="Enter Branch name" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">IFSC Code <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc6">*</span></label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.ifsc" class="form-control" placeholder="Enter IFSC code" style="border:1px solid #CCC;">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">Acc.No1 <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc7">*</span></label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.acc1" class="form-control" placeholder="Enter Acc 1" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">Acc.No2</label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.acc2" class="form-control" placeholder="Enter Acc 2" style="border:1px solid #CCC;">
+                </div>
+                <label class="col-md-1" style="margin-top:0.5%;" ng-if="vm.getCompDet == 'CH0001'">Service Tax <span ng-if="vm.vendorIsMandatory(vm.vendorType)" class="asterisc10">*</span> </label>
+                <div class="col-md-3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <input type="text" ng-model="vm.serviceTax" class="form-control" placeholder="Enter Service TaxNo" style="border:1px solid #CCC;">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-md-1" style="margin-top:0.5%;display:block" ng-if="vm.getCompDet == 'CH0001'">Category</label>
+                <div class="col-md-3" style="width:21%;display:block;" ng-if="vm.getCompDet == 'CH0001'">
+                    <select ng-model="vm.SelectedMaterial" ng-change="vm.getMaterial(vm.SelectedMaterial); vm.catdisabled[vm.SelectedMaterial]= true"
+                        class="form-control">
+                                <option value="">Select Category</option>
+                                <option ng-repeat="option in vm.categoryList" ng-value="option._id" ng-disabled="vm.catdisabled[option._id]">{{option.name}}</option>
+                            </select>
+                </div>
+            </div>
+
+            <!--CH Ends-->
+
+            <div class="form-group" style="margin-top: -2%;">
+                <!--CH Starts-->
+                <label class="col-md-1" style="margin-top:-1.5%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">Category</label>
+                <div class="col-md-2" style="width:21%;margin-top:-2%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <select ng-model="vm.SelectedMaterial" ng-change="vm.getMaterial(vm.SelectedMaterial); vm.catdisabled[vm.SelectedMaterial]= true"
+                        class="form-control">
+                                <option value="">Select Category</option>
+                                <option ng-repeat="option in vm.categoryList" ng-value="option._id" ng-disabled="vm.catdisabled[option._id]">{{option.name}}</option>
+                            </select>
+                </div>
+                <!--CH Ends-->
+
+            </div>
+
+
+            <div class="form-group">
+                <div style="border-bottom:1px solid #CCC;">
+                </div>
+               
+            </div>
+
+        </form>
+        <div class="modal-body modal-height" style="margin-top:-6%;">
+            <table vendor-master-add index="{{$index + 1}}" ng-repeat="item in vm.matList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:-2%;">
+            </table>
+        </div>
+        <br><br>
+        <div class="modal-footer ">
+            <!--<div class="text-center ">
+                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.mrnRemarks " placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                    <br>
+                </div>-->
+            <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+            <button type="button " class="btn btn-primary " ng-click="vm.insertVendorDet(); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+        </div>
+    </div>
+
+
+    <script>
+            $("#mainLoading").hide();
+        </script>
+    <script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+    <script type="text/javascript"> 
+    function exportExcel() {               
+    var exTable = $('#tblExcel').clone(); 
+    exTable.find('.noExl').remove();              
+    exTable.table2excel({
+            exclude: ".noExl",
+            name: "Vendor Master",
+            filename: "Vendor Master",
+            fileext: ".xls",  
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: false         
+        });       
+    }
+
+//     function demoFromHTML() {
+//                                                 var pdf = new jsPDF('l', 'pt', 'a4');
+
+//                                                 var res = pdf.autoTableHtmlToJson(document.getElementById("tblpdf"));
+//   pdf.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+// var header = function(data) {
+//     pdf.setFontSize(18);
+//     // pdf.setTextColor(40);
+//     pdf.setFontStyle('normal');
+//     //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+//     // pdf.text("Testing Report", data.settings.margin.left, 50);
+//   };
+
+// //   var options = {
+// //     beforePageContent: header,
+// //     margin: {
+// //       top: 80
+// //     },
+// //     startY: pdf.autoTableEndPosY() + 20
+// //   };
+
+//                                                 pdf.cellInitialize();
+//                                                 pdf.setFontSize(10);
+//                                                 // $("#tblpdf tr").css('background', '#fff')
+// //                                                 $.each($('#tblpdf tr'), function (i, row) {
+                                                    
+// //                                                     $.each($(row).find("td, th"), function (j, cell) {
+// //                                                         var txt = $(cell).text().trim() || " ";
+// // //                                                        var width = (j == ) ? 180 : 120; //make with column smaller
+// //                                                         // pdf.cell(10, 15, 95, 15, txt, i);
+                                                         
+// //                                                     });
+// //                                                 });
+
+// pdf.autoTable(res.columns, res.data);
+
+//                                                 pdf.save('VendorMaster.pdf');
+//                                             }
+
+
+function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt','a3');
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+  var header = function(data) {
+    doc.setFontSize(18);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Vendor Details", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+  };
+  doc.autoTable(res.columns, res.data,options);
+
+  doc.save("Vendor Details.pdf");
+}

@@ -1,0 +1,401 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Stock Update
+</div>
+<div style="width:95%;background:#fff;min-height:1000px;margin:0 auto;">
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">Project</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <li><a title="#srhPro"> Project</a></li>
+                    <li><a title="#srhCate">Category Name</a></li>
+                    <li><a title="#srhSubCate">subCategory Name</a></li>
+                    <li><a title="#srhDt"> Date</a></li>
+
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param" style="border:1px solid #ccc;">
+
+            <!--<input type="text" class="form-control" id="srhTxt" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">-->
+            <div class="input-group" id="srhPro" style=" width:100%;">
+                <select ng-model="vm.srhPro" id="srhPro" ng-options="option._id as option.name for option in vm.projectList" class="form-control">
+                    <option value="">Select Project</option>
+                </select>
+            </div>
+            <div class="input-group" id="srhCate" style="display:none; width:100%;">
+                <select ng-model="vm.srhCate" id="srhCate" ng-options="option._id as option.name for option in vm.categoryList" class="form-control">
+                    <option value="">Select Category</option>
+                </select>
+            </div>
+            <div class="input-group" id="srhSubCate" style="display:none; width:100%;">
+                <select ng-model="vm.srhSubCate" id="srhSubCate" ng-options="option._id as option.name for option in vm.subcate" class="form-control">
+                    <option value="">Select subCategory</option>
+                </select>
+            </div>
+            <div class="input-group date" id="srhDt" style="display:none;">
+                <input type="text" class="form-control" ng-model="vm.srhDt" style="border:1px solid #ccc;" readonly>
+                <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+            </div>
+
+            <span class="input-group-btn" title="Search">
+                    <button class="btn btn-default" type="button" ng-click="vm.stockUpdate(true, vm.begin, end)"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+            <span class="input-group-btn" title="Reload">
+                    <button class="btn btn-default" type="button" ng-click="vm.reload();"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+        </div>
+        <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-left: 8%;margin-top: 7%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        <button type="button" class="btn btn-default" data-toggle="modal" href='#addpopup' style="margin-left:2%;width:14%;">
+        <span class="glyphicon glyphicon-pencil"></span> Add Consumable </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" href='#addpopup1' style="margin-left:2%;width:14%;">
+     <span class="glyphicon glyphicon-pencil"></span> Add Returnable </button>
+    </div><br>
+
+    <!--stockUpdate grid-->
+
+    <div class="panel-body" style="width:74%;margin-left:11%;margin-top:-1%;">
+        <div class="table-responsive" style="font-size: 100%;">
+            <table class="table table-bordered grid" style="table-layout: fixed;" id="tblExcel" ng-cloak>
+                <tr>
+                    <th style="width:5%;">
+                        Sl.No
+                    </th>
+                    <th style="width:10%;">
+                        Raised Date
+                    </th>
+                    <th style="width:15%;">
+                        Raised By
+                    </th>
+                    <th style="width:15%;">
+                        Type
+                    </th>
+                    <th style="width:15%;">
+                        Project
+                    </th>
+                    <th style="width:10%;">
+                        Action
+                    </th>
+                </tr>
+                <tr stock-update-Grid index="{{$index+vm.paginationNumber}}" ng-repeat="item in vm.stock" item="item">
+                </tr>
+                <tr>
+                    <td colspan="6" ng-show="vm.stock.length ===0 || vm.stock == undefined || vm.stock == null" style="text-align:center">
+                        No Records Found
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:12%;">
+            <span ng-if="vm.stock.length > 0" style="margin-left:-14%;"> Total Rows : {{vm.rowCnt}}</span>
+            <span ng-if="vm.stock === undefined || vm.stock ===0 || vm.stock == null" style="margin-left:-13%;"> Total Rows : 0 </span>
+        </div>
+        <!--Pagination for sizelMaster-->
+        <div class="col-md-2 pagination" style="margin-left:25%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" items-per-page="vm.ddlRows" total-items="vm.rowCnt" max-size="maxSize"
+                boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>
+
+<!--Add popup consumable-->
+
+<div class="modal fade" id="addpopup">
+    <div class="modal-dialog popup-position pi-popup" style="width:90%;">
+        <div class="modal-content " style="width:112%;margin-left:-6%;">
+            <div class="modal-header" style="height:30%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                <h4 class="modal-title" style="color:#e50278;margin-left:38%;font-size:114%;">AddNew - ConsumableStock</h4>
+            </div>
+            <div class="row " style="margin-top:2%;">
+
+                <div class="col-md-1 ">
+                    <button type="button " ng-click="vm.addRow();" class="btn addRow" style="margin-left:2%;margin-top:2%;"><i class="fa fa-plus fa-lg " aria-hidden="true "></i>
+                                    </button>
+
+                </div>
+                <select class="input-sm select" ng-model="vm.count" style="margin-left:-60%;">
+                                    <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    <!--<option ng-repeat-n="10">{{$index}}</option>-->
+                     
+                    </select>
+                <div class="col-md-2" style="margin-left: 2%;width: 11%;margin-top:0%;">
+                    <select ng-model="vm.project" ng-options="option._id as option.name for option in vm.projectList" class="form-control" ng-change="vm.addClear()"
+                        style="margin-left:46%;width:153%;">
+                                        <option value="">Select Project</option>
+                                    </select>
+                </div>
+                <div class="col-md-2" style="margin-left:9%;width:19%;margin-top:-1.7%;">
+                    <label for="">Issued No</label>
+                    <input type="text" class="form-control" ng-model="vm.issuedNo" style="border:1px solid #CCC;">
+                </div>
+                <div class="col-md-2" style="margin-left:0%;width:19%;margin-top:-1.7%;" id="issuedDt">
+                    <label for="">Issued Date</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" ng-model="vm.issuedDt" style="border:1px solid #ccc;" readonly>
+                        <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="modal-body modal-height" style="width:100%;">
+                <table class="table table-striped" style="background:#f9f9f9;" ng-cloak>
+                    <thead>
+                        <td class="text-center">Sl.No</td>
+                        <td style="width:10%;" class="text-center">Category</td>
+                        <td style="width:10%;" class="text-center">Subcategory</td>
+                        <td style="width:8%;" class="text-center">Materialcode</td>
+                        <td style="width:11%;" class="text-center">Name</td>
+                        <!--<td style="width:7%;" class="text-center">Type</td>-->
+                        <td style="width:8%;" class="text-center">Uom</td>
+                        <td style="width:10%;" class="text-center">Size</td>
+                        <td style="width:9%;" class="text-center">Issued By</td>
+                        <td style="width:9%;" class="text-center;">Issued To</td>
+                        <td class="text-center;">Issued Qty</td>
+                        <td class="text-center;">Avl Qty</td>
+                        <td class="text-center">Action</td>
+                    </thead>
+                    <tr stock-updateconsume-add index="{{$index+1}}" ng-repeat="item in vm.newStockAdd" item="item">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <textarea name=" " id="stockRemarks " cols="70 " class="form-control " rows="3" ng-model="vm.remarks" placeholder="Remarks"
+                        style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important;"></textarea>
+                    <br>
+                    </span>
+                    <button type="button " class="btn btn-primary " ng-click="vm.newStockReq()" style="margin-left:90%;"><i class="fa fa-floppy-o " aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add popup for returnable-->
+
+<div class="modal fade" id="addpopup1">
+    <div class="modal-dialog popup-position pi-popup" style="width:90%;">
+        <div class="modal-content " style="width:112%;margin-left:-6%;">
+            <div class="modal-header" style="height:30%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                <h4 class="modal-title" style="color:#e50278;margin-left:38%;font-size:114%;">AddNew - Returnable Stock</h4>
+            </div>
+            <div class="row " style="margin-top:2%;">
+
+                <div class="col-md-1 ">
+                    <button type="button " ng-click="vm.addRow1();" class="btn addRow" style="margin-left:2%;margin-top:2%;"><i class="fa fa-plus fa-lg " aria-hidden="true "></i>
+                                    </button>
+
+                </div>
+                <select class="input-sm select" ng-model="vm.count" style="margin-left:-60%;">
+                                    <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    <!--<option ng-repeat-n="10">{{$index}}</option>-->
+                     
+                    </select>
+                <div class="col-md-2" style="margin-left: 2%;width: 11%;">
+                    <select ng-model="vm.project" ng-options="option._id as option.name for option in vm.projectList" class="form-control" ng-change="vm.addClear()"
+                         style="margin-left:46%;width:153%;">
+                                        <option value="">Select Project</option>
+                                    </select>
+                </div>
+                <div class="col-md-2" style="margin-left:9%;width:19%;margin-top:-1.7%;">
+                    <label for="">Issued No</label>
+                    <input type="text" class="form-control" ng-model="vm.issuedNo" style="border:1px solid #CCC;">
+                </div>
+                <div class="col-md-2" style="margin-left:0%;width:19%;margin-top:-1.7%;" id="issuedDt">
+                    <label for="">Issued Date</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" ng-model="vm.issuedDt" style="border:1px solid #ccc;" readonly>
+                        <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row"></div>
+            <div class="modal-body modal-height" style="width:103%;">
+                <table class="table table-striped" style="background:#f9f9f9;" ng-cloak>
+                    <thead>
+                        <td class="text-center">Sl.No</td>
+                        <td style="width:10%;" class="text-center">Category</td>
+                        <td style="width:10%;" class="text-center">Subcategory</td>
+                        <td style="width:10%;" class="text-center">Material Code</td>
+                        <td style="width:8%;" class="text-center">Name</td>
+                        <td class="text-center">Uom</td>
+                        <td class="text-center">Size</td>
+                        <td style="width:10%;" class="text-center">ReceivedBy</td>
+                        <td style="text-align:center;">ReceivedFrom</td>
+                        <td style="text-align:right;">ReceivedQty</td>
+                        <!--<td class="text-center">Avl Qty</td>-->
+                        <td class="text-center">Action</td>
+                    </thead>
+                    <tr stock-return-add index="{{$index+1}}" ng-repeat="item in vm.returnStockAdd" item="item">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <textarea name=" " id="stockRemarks " cols="70 " class="form-control " rows="3" ng-model="vm.remarks1" placeholder="Remarks"
+                        style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important;"></textarea>
+                    <br>
+                    </span>
+                    <button type="button " class="btn btn-primary " ng-click="vm.returnStockReq()" style="margin-left:90%;"><i class="fa fa-floppy-o " aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--eidt popup-->
+<div class="modal fade" id="editpopup">
+    <div class="modal-dialog popup-position pi-popup" style="width:90%;">
+        <div class="modal-content " style="width:108%;margin-left:-4%;">
+            <div class="modal-header" style="height:30%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="">&times;</button>
+               <h4 class="modal-title" style="color:#e50278;margin-left:38%;font-size:114%;">View Consumable Stock Details</h4>
+            </div>
+            <div class="row" style="margin-top:2%;">
+
+                <div class="col-md-1 ">
+                    <!--<button type="button " ng-click="" class="btn addRow" style="margin-left:2%;"><i class="fa fa-plus fa-lg " aria-hidden="true "></i>
+                                    </button>-->
+
+                </div>
+                <div class="col-md-2" style="margin-left:-11%;margin-top:-1.7%;width:15%;">
+                    <label for="" style="margin-left:52%;">Project</label>
+                    <select ng-model="vm.Editproject" disabled ng-options="option._id as option.name for option in vm.projectList" class="form-control"
+                        ng-change="vm.addClear()" style="margin-left: 51%;width:115%;">
+                                        <option value="">Select Project</option>
+                                    </select>
+                </div>
+                <div class="col-md-2" style="margin-left:9%;width:19%;margin-top:-1.7%;">
+                    <label for="">Issued No</label>
+                    <input type="text" disabled class="form-control" ng-model="vm.EditissuedNo" style="border:1px solid #CCC;">
+                </div>
+                <div class="col-md-2" style="margin-left:0%;width:19%;margin-top:-1.7%;" id="issuedDt">
+                    <label for="">Issued Date</label>
+                    <div class="input-group date">
+                        <input type="text" disabled class="form-control" ng-model="vm.EditissuedDt" style="border:1px solid #ccc;" readonly>
+                        <span class="input-group-addon">
+                      <span disabled class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row"></div>
+            <div class="modal-body modal-height">
+                <table class="table table-striped" style="background:#f9f9f9;width:98%;margin-left:1%;" ng-cloak>
+                    <thead>
+                        <td class="text-center">Sl.No</td>
+                        <td style="width:10%;" class="text-center">Category</td>
+                        <td style="width:10%;" class="text-center">Subcategory</td>
+                        <td style="width:11%;" class="text-center">Material ID</td>
+                        <td class="text-center"> Name</td>
+                        <td class="text-center">Uom</td>
+                        <td class="text-center">Size</td>
+                        <td style="text-align:center;">Issued To</td>
+                        <td class="text-center">issued By</td>
+                        <td style="text-align:center;">Issued Qty</td>
+                    </thead>
+                    <tr stock-update-edit index="{{$index+1}}" ng-repeat="item in vm.editMateials" item="item">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <textarea name=" " id="stockRemarks " cols="70 " disabled class="form-control " rows="3" ng-model="vm.remarks" placeholder="Remarks"
+                        style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important;"></textarea>
+                    <br>
+                    </span>
+                    <!--<button type="button " class="btn btn-primary " ng-click="vm.newStockReq()" style="margin-left:90%;"><i class="fa fa-floppy-o " aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editpopup1">
+    <div class="modal-dialog popup-position pi-popup" style="width:90%;">
+        <div class="modal-content " style="width:108%;margin-left:-4%;">
+            <div class="modal-header" style="height:30%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="">&times;</button>
+                <h4 class="modal-title" style="color:#e50278;margin-left:38%;font-size:114%;">View Returnable Stock Details</h4>
+            </div>
+            <div class="row" style="margin-top: 2%;">
+
+                <div class="col-md-1 ">
+                    <!--<button type="button " ng-click="" class="btn addRow" style="margin-left:2%;"><i class="fa fa-plus fa-lg " aria-hidden="true "></i>-->
+                    <!--</button>-->
+
+                </div>
+                <select class="input-sm select" ng-model="vm.count" style="margin-left:-68%;">
+                                    <option ng-repeat="i in 10 | range">{{i+1}}</option>
+                                    <!--<option ng-repeat-n="10">{{$index}}</option>-->
+                     
+                    </select>
+                <div class="col-md-2" style="margin-left:-11%;margin-top:-1.7%;width:15%;">
+                    <label for="" style="margin-left:52%;">Project</label>
+                    <select ng-model="vm.Editproject" disabled ng-options="option._id as option.name for option in vm.projectList" class="form-control"
+                        ng-change="vm.addClear()" style="margin-left: 51%;width:115%;">
+                                        <option value="">Select Project</option>
+                                    </select>
+                </div>
+                <div class="col-md-2" style="margin-left:9%;width:19%;margin-top:-1.7%;">
+                    <label for="">Issued No</label>
+                    <input type="text" disabled class="form-control" ng-model="vm.EditissuedNo" style="border:1px solid #CCC;">
+                </div>
+                <div class="col-md-2" style="margin-left:0%;width:19%;margin-top:-1.7%;" id="issuedDt">
+                    <label for="">Issued Date</label>
+                    <div class="input-group date">
+                        <input type="text" disabled class="form-control" ng-model="vm.EditissuedDt" style="border:1px solid #ccc;" readonly>
+                        <span class="input-group-addon">
+                      <span disabled  class="glyphicon glyphicon-calendar" ></span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row"></div>
+            <div class="modal-body modal-height">
+                <table class="table table-striped" style="background:#f9f9f9;width:98%;margin-left:1%;" ng-cloak>
+                    <thead>
+                        <td class="text-center">Sl.No</td>
+                        <td style="width:10%;" class="text-center">Category</td>
+                        <td style="width:10%;" class="text-center">Subcategory</td>
+                        <td style="width:10%;" class="text-center">Code</td>
+                        <td style="width:8%;" class="text-center">Name</td>
+                        <td class="text-center">Uom</td>
+                        <td class="text-center">Size</td>
+                        <td class="text-center">ReceivedBy</td>
+                        <td style="text-align:center;">ReceivedFrom</td>
+                        <td style="text-align:center;">ReceivedQty</td>
+                    </thead>
+                    <tr stock-update-edit index="{{$index+1}}" ng-repeat="item in vm.editMateials" item="item">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <textarea name=" " id="stockRemarks " cols="70 " class="form-control " rows="3" disabled ng-model="vm.remarks" placeholder="Remarks"
+                        style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important;"></textarea>
+                    <br>
+                    </span>
+                    <!--<button type="button " class="btn btn-primary " ng-click="vm.newStockReq()" style="margin-left:90%;"><i class="fa fa-floppy-o " aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

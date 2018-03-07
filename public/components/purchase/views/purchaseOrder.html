@@ -1,0 +1,741 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Purchase Order
+</div>
+
+<div style="width:95%;background:#fff;min-height:1000px;margin:0 auto;">
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">PO No</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchClear();">
+                    <!--<li><a href="#contains">Contains</a></li>-->
+                    <li><a title="#PONo">PO No</a></li>
+                    <li><a title="#PODate">PO Date</a></li>
+                    <li ng-hide="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#Branch">Branch</a></li>
+                    <li><a title="#Executive">Raised By</a></li>
+                    <li><a title="#Vendor">Vendor</a></li>
+                    <li ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#ProjectFrom">Project</a></li>
+                    <!--<li class="divider"></li>
+                      <li><a href="#all">All</a></li>-->
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhTxt" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">
+
+            <div class="input-group date" id="srhDt" style="display:none;">
+                <input type="text" class="form-control" ng-model="vm.srhDt" style="border:1px solid #ccc;" readonly>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+            </div>
+            <div class="input-group" id="srhBranch" style="display:none; width:100%;">
+                <select ng-model="vm.searchbranch" ng-options="option._id as option.name for option in vm.branchList" class="form-control">
+                <option value="">Select Branch</option>
+            </select>
+            </div>
+            <div class="input-group" ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="projectFrom" style="display:none; width:100%;">
+                <select id="projectFrom" ng-model="vm.searchprojectFrom" ng-options="option._id as option.name for option in vm.projectList" class="form-control">
+                    <option value="">Select Project From</option>
+                </select>
+            </div>
+            <span class="input-group-btn" title="Search">
+                    <button class="btn btn-default" type="button" ng-click="vm.filterSearch(true, vm.begin, vm.end)"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+            <span class="input-group-btn" title="Reload">
+                    <button class="btn btn-default" type="button" ng-click="vm.reload();"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-left: -2%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+
+        <select ng-model="vm.status" ng-options="option._id as option.name for option in vm.statusList" class="app_ddl" ng-change="vm.ddlRowsChange()">
+   <!--<option value="">SELECT</option>-->
+   </select>
+        <!--Add New-->
+        <!--Add New-->
+        &nbsp;&nbsp;&nbsp;<button ng-if="vm.purchaseOrderAccess.c === 'y'" type="button" ng-show="step===1" class="btn btn-default"
+            data-toggle="modal" href='#addpopup' ng-click="vm.getallbranch();">
+        <span class="glyphicon glyphicon-pencil"></span> Add Order</button>
+    </div><br>
+
+    <div style="width:90%;margin:0 auto;margin-left:3%;">
+        <span ng-if="vm.stateParams !== null">Search results for : <b style="color:orange;">
+            {{vm.branchName}} <span ng-if="vm.stateParams !== null && vm.branch !==null">/</span> </b>
+            <span ng-if="vm.storeType !== null"> <b style="color:brown;">{{vm.storeTypeName}} 
+                <span ng-if="vm.stateParams !== null && vm.storeType !==null">/</span></b> </span>
+        <span ng-if="vm.storeType == null"></span>
+        <span ng-if="vm.store !== null"></span><b style="color:orange;">{{vm.storeName}} 
+             <span ng-if="vm.stateParams !== null && vm.store !==null">/</span>
+        </b>
+        <span ng-if="vm.store == null"></span>
+        <span ng-if="vm.vendorDet !== null"></span><b style="color:brown;">{{vm.vendorName}} 
+             <span ng-if="vm.stateParams !== null && vm.vendorDet !==null">/</span>
+        </b>
+        <span ng-if="vm.vendorDet == null"></span>
+        <span ng-if="vm.exeList !== null && vm.exeList !== undefined"></span><b style="color:orange;">{{vm.exeList}}</b>
+            <span ng-if="vm.exeList == undefined"><b style="color:brown;">ALL</b></span>
+        <span ng-if="vm.exeList == null"></span></b>
+        </span>
+        <span ng-if="vm.status == null"></span>
+    </div>
+<button type="button" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" onClick="javascript:demoFromHTML()" title="Download pdf" class="btn btn-default" style=" font-size:16px;margin-left:91.5%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+    <button type="button" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" title="Download Excel" onClick="exportExcel()" class="btn btn-default" style=" font-size:16px;margin-left:91.5%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-white">
+                            <br/>
+                            <div class="row" ng-show="step===1">
+                                <div class="col-md-12">
+                                    <div class="panel-body" style="margin-top: -.7cm;">
+                                        <div ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid " id="tblExcel" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcIDVendor" style="width:11%;">
+                                                            Vendor Name
+                                                        </th>
+                                                        <th class="gcIDPO">
+                                                            PO No
+                                                        </th>
+                                                        <th class="gcDate" style="width:11%;">
+                                                            Date
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Total Amount
+                                                        </th>
+                                                        <th class="gcNameExe" data-hide="phone,tablet">
+                                                            Raised by
+                                                        </th>
+                                                        <th class="gcStatus" style="width: 12%;" data-hide="phone,tablet">
+                                                            Status
+                                                        </th>
+                                                        <th class="gcRemark" style="width: 14%" data-hide="phone,tablet" maxlength="250">
+                                                            Remarks
+                                                        </th>
+                                                        <th class="gcAction noExl" style="width:7%">
+                                                            Actions
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr purchase-order-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.poApp" item="item">
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="9" class="noRec noExl" ng-show="vm.poApp.length===0 || vm.poApp === undefined" style="text-align:center;">
+                                                            No Records Found
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                          <div ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="table-responsive" style="font-size: 100%;">
+                                             <table class="table table-bordered grid " id="tblpdf" ng-cloak>
+                                                 <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcIDVendor" style="width:11%;">
+                                                            Vendor Name
+                                                        </th>
+                                                        <th class="gcIDPO">
+                                                            PO No
+                                                        </th>
+                                                        <th class="gcDate" style="width:11%;">
+                                                            Date
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Total Amount
+                                                        </th>
+                                                        <th class="gcNameExe" data-hide="phone,tablet">
+                                                            Raised by
+                                                        </th>
+                                                        <th class="gcStatus" style="width: 12%;" data-hide="phone,tablet">
+                                                            Status
+                                                        </th>
+                                                        <th class="gcRemark" style="width: 14%" data-hide="phone,tablet" maxlength="250">
+                                                            Remarks
+                                                        </th>
+                                                        <th class="gcAction noExl" style="width:7%">
+                                                            Actions
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr purchase-order-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.poApp" item="item">
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="9" class="noRec noExl" ng-show="vm.poApp.length===0 || vm.poApp === undefined" style="text-align:center;">
+                                                            No Records Found
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <table id="tblExcel" class="tblExcel" border="0" style="display:none;">
+                                                <!--NEWS-->
+                                                <tr>
+                                                    <td style="font-size:14px;background-color: #ff1313;color:#fff;font-weight:bold;width:100%;" colspan="4">
+                                                        Purchase Order </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        Sl.No
+                                                    </td>
+                                                    <td>
+                                                        Vendor Name
+                                                    </td>
+                                                    <td>
+                                                        Date
+                                                    </td>
+                                                    <td>
+                                                        Total Amount
+                                                    </td>
+                                                    <td>
+                                                        Raised by
+                                                    </td>
+                                                    <td>
+                                                        Status
+                                                    </td>
+                                                    <td maxlength="250">
+                                                        Remarks
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr ng-repeat="item in vm.poApp">
+                                                    <td>
+                                                        {{$index+1}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.vendor}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.datetime |date: 'dd-MMM-yyyy'}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.gross_amount | currency:'&#8377;'}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.ordered_by.name}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.status.name}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.remarks}}
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 showEnt">
+                                    <span ng-if="vm.poApp.length > 0"> Total Rows : {{vm.rowCnt}} </span>
+                                    <span ng-if="vm.poApp === undefined">Total Rows : 0</span>
+                                </div>
+                                <div class="col-md-6 pagination">
+                                    <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+                                    </pagination>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="step===2">
+                                <div class="col-md-6 showEnt">
+                                    Total Rows : {{vm.rowCnt1}}
+                                </div>
+                                <div class="col-md-6 pagination">
+                                    <pagination ng-show="vm.rowCnt1 > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt1" max-size="maxSize" boundary-links="true">
+                                    </pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Add Popup-->
+
+            <div class="modal fade" id="addpopup">
+                <div class="modal-dialog popup-position pi-popup" style="width:100%;">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" id="fullClose" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                            <h4 class="modal-title" style="text-align: center;font-size: 16px;border-bottom: 1px solid orange;margin: 0px auto;">ADD PURCHASE ORDER</h4>
+                        </div>
+                        <div id="notification"></div>
+
+                        <div id="mySidenav" class="sidenav" style="overflow: scroll;height: 95%;">
+                            <!--<p style="font-weight: 600;margin-top:-3%;text-align: center;font-size: 17px;text-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;"> Added PI Materials</p>-->
+                            <a class="closebtn" id="closeNav" ng-click="vm.closeNav()" style="margin-top:-1%;color:#CCC;cursor:pointer;">x</a>
+                            <div class="row" style="margin-left:1% !important;width:100%;">
+                                <div class="col-md-6" style="width: 100%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+
+
+                                    <div class="panel-body">
+                                        <div class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcSlno">
+                                                            PI No
+                                                        </th>
+                                                        <th class="gcIDVendor" style="width:8%;">
+                                                            Category
+                                                        </th>
+                                                        <th class="gcIDPO" style="width:9%;">
+                                                            Material
+                                                        </th>
+                                                        <th class="gcDate">
+                                                            UOM
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Quantity
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Unit Rate
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Total Amount
+                                                        </th>
+                                                    </tr>
+                                                    <tr ng-repeat="item in poGetDet track by $index">
+                                                        <td>{{$index + 1}}</td>
+                                                        <td>{{item.pi_no}}</td>
+                                                        <td>{{vm.categoryName(item.category._id)}}</td>
+                                                        <td>{{item.material}}</td>
+                                                        <td>{{item.UOM.name}}</td>
+                                                        <td>{{item.qty}}</td>
+                                                        <td>{{item.po_unit_rate | currency:'&#8377;'}}</td>
+                                                        <td>{{item.po_total | currency:'&#8377;'}}</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:82%;">
+                                                        Total
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.po_total" readonly style="text-align: right;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <div class="modal-footer ">
+                                                <div class="text-center ">
+                                                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PORemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                                                    <br>
+                                                </div>
+                                                <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                                                <button type="button " class="btn btn-primary " ng-click="vm.insertPurchaseOrder('Created'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <!--CH Starts-->
+                                    <div class="col-md-6" style="width: 100%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                                        <label class="col-md-1" style="margin-top:-3.5%;">Freight Type</label>
+                <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:7%;">
+                    <select ng-model="vm.freightType" class="form-control">
+                                <!--<option value="" selected>Select Type</option>-->
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                </div> 
+                 <label class="col-md-1" style="margin-top:-3.5%;margin-left:23%;width: 12%;">Load / Unload Type</label>
+                <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:33%;">
+                    <select ng-model="vm.loadType" class="form-control">
+                                <!--<option value="" selected>Select Type</option>-->
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                </div> 
+                <label class="col-md-1" style="margin-top:-3.5%;margin-left:50%;width: 12%;">Contact Person</label>
+                 <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:58%;">
+                 <select ng-model="vm.exeList" ng-options="option._id as option.names for option in vm.executiveList" ng-change="vm.getExeList(vm.exeList);"
+            class="form-control">
+                                <option value="">Select Executive</option>
+                            </select>
+                 </div>
+                 <label class="col-md-1" style="margin-top:-3.5%;margin-left:74%;width: 12%;">Contact No.</label>
+                 <div class="col-md-3" style="width:15%;margin-top:-3.9%;margin-left:80%;">
+                    <input type="text" ng-model="vm.contactNo" class="form-control" placeholder="Contact No." style="border:1px solid #CCC;">
+                </div>
+
+                                    <div class="panel-body">
+                                        <div class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <!--<th class="gcIDVendor" style="width:8%;">
+                                                            Category - Sub Category
+                                                        </th>-->
+                                                        <th class="gcIDPO" style="width:6%;">
+                                                            Material ID
+                                                        </th>
+                                                        <th class="gcIDPO" style="width:9%;">
+                                                            Material Name
+                                                        </th>
+                                                        <th class="gcDate" style="width:7%;">
+                                                            UOM - Size <br> <small> Specification </small>
+                                                        </th>
+                                                        <th class="gcTotal" style="width:5%;">
+                                                            Quantity
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Req.Date
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Unit Rate
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Tax %
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Discount %
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Total Amount
+                                                        </th>
+                                                    </tr>
+                                                    <tr ng-repeat="item in poGetDet track by $index">
+                                                        <td>{{$index + 1}}</td>
+                                                        <!--<td>{{vm.categoryName(item)}} - {{vm.categoryName(item)}}</td>-->
+                                                        <td>{{item.mat_code}}</td>
+                                                        <td>{{item.material}}</td>
+                                                        <td>{{item.UOM.name}} - {{item.size}} <br> <small>{{item.specification}}</small></td>
+                                                        <td>{{item.qty}}</td>
+                                    <td><div><input type="text" class="form-control input-group1 date" ng-model="item.mat_date" style="border:1px solid #ccc;width:100%;" readonly>
+                                    <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+                                </div> </td>
+                                                        <td>
+                                                        <input type="text" class="form-control" placeholder="Unit Rate" value="{{item.po_unit_rate | currency:'&#8377;'}}" ng-model="item.po_unit_rate" ng-change="vm.calunitRate(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td><input type="text" class="form-control" placeholder="Tax %" value="" ng-model="item.tax" ng-change="vm.calNetAmtCh(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td><input type="text" class="form-control" placeholder="Discount %" value="" ng-model="item.discount" ng-change="vm.calNetAmtCh(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td>{{item.po_total | currency:'&#8377;'}}</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <table style="width:100%;">
+                                            <table style="width:40%;">
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;width: 10%;">
+                                                        Tax(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:2%;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.taxAmt}}" ng-model="vm.taxAmt" readonly style="text-align:right;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Discount(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.disAmt}}" ng-model="vm.disAmt" readonly ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Overall Tax(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.grandTax}}" ng-model="vm.grandTax" readonly ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Payment Terms
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <textarea cols="30 " class="form-control " rows="3 " ng-model="vm.paymentTerms" placeholder="Remarks
+                    " style="width:122%; resize:none; "></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table style="width:60%;margin-left: 41%;margin-top: -19%;">
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:64.4%;">
+                                                        Total
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.po_total" readonly style="text-align: right;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59.4%;">
+                                                       Freight(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" ng-if="vm.freightType == 'Vendor'" placeholder="Total" value="" ng-model="vm.freight_total" ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <input type="text" class="form-control" ng-if="vm.freightType == 'Company' || vm.freightType == undefined " placeholder="Total" value="" ng-model="vm.freight_total" ng-change="vm.calGrossAmtCh();" readonly style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:55%;">
+                                                        Load/Unload(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" ng-if="vm.loadType == 'Vendor'" placeholder="Total" value="" ng-model="vm.load_total" ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <input type="text" class="form-control" ng-if="vm.loadType == 'Company' || vm.loadType == undefined " placeholder="Total" value="" ng-model="vm.load_total" readonly style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:65%;">
+                                                        Tax
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_taxCH" ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:61%;">
+                                                        Discount
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_discountCH" ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59%;">
+                                                        Grand(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.grand_totalch" readonly style="text-align: right;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </table>
+
+                                            <div class="modal-footer ">
+                                                <div class="text-center ">
+                                                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PORemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                                                    <br>
+                                                </div>
+                                                <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                                                <button type="button " class="btn btn-primary " ng-click="vm.insertPurchaseOrder('Created'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--CH Ends-->
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="myrightnav" class="sidenav" style="overflow-x: scroll;min-height: 45%;">
+                            <p style="font-weight: 600;margin-top:-3%;text-align: center;font-size: 17px;"> Added PI Materials</p>
+                            <a class="closebtn" id="closeNav" ng-click="vm.closeNav1()" style="margin-top:4%;color:#CCC;cursor:pointer;">x</a>
+                            <div class="row" style="margin-left:1% !important;width:100%;">
+                                <div class="col-md-6" style="width: 100%;">
+
+
+                                    <div class="panel-body">
+                                        <div class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <th class="gcIDVendor" style="width:11%;">
+                                                            Category
+                                                        </th>
+                                                        <th class="gcIDPO" style="width:11%;">
+                                                            Material
+                                                        </th>
+                                                        <th class="gcTotal" style="width:11%;">
+                                                            Total Amount
+                                                        </th>
+                                                    </tr>
+                                                    <tr ng-repeat="item in poGetDet track by $index">
+                                                        <td>{{$index + 1}}</td>
+                                                        <td>{{vm.categoryName1(item.category)}}</td>
+                                                        <td>{{item.material}}</td>
+                                                        <td>{{item.po_total | currency:'&#8377;'}}</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div id="main" class="row">
+                            <div class="col-md-2" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.SelectedVendor" ng-options="option._id as option.name for option in vm.vendorsList" ng-change="getVendorList(vm.SelectedVendor);"
+                                    class="form-control">
+                                <option value="">Select Vendor</option>
+                            </select>
+                            </div>
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.fromProject" ng-options="option._id as option.name for option in vm.projectList"
+                                        class="form-control">
+                                        <option value="">Select Project</option>
+                                    </select>
+                            </div>
+                            <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.category" ng-options="option._id as option.name for option in vm.categoryCH" ng-change="vm.getPI(vm.category);"
+                                        class="form-control" ng-class="vm.catcheck(vm.item.nocat);">
+                                        <option value="">Select Category</option>
+                                    </select>
+                            </div>
+                            
+                            <div class="col-md-5" style="margin-left:2%;width:19%;">
+                                <!--<input type="text" class="form-control" placeholder="Invoice No" value="" ng-model="vm.invoiceNo" style="border: 1px solid #CCC;margin-left: 8%;margin-top: 1%;"/>-->
+                            </div>
+                            <button type="button" id="poCount" ng-click="vm.poopenNav();" class="btn addRow waves-effect waves-button waves-classic"
+                                id="showRight" style="margin-left:50%;position:fixed;margin-top:1%;background-color:#FFB13E;"><i class="fa fa-cart-plus fa-2x" aria-hidden="true" style="margin-left:-33%;"></i><span class="badge badge-success pull-right" style=" margin-top: -128%;margin-right: -21%;">{{vm.count}}</span>
+                                </button>
+                        </div>
+
+                        <div class="modal-body modal-height" style="margin-top:0%;">
+                            <table purchase-order-add index="{{$index + 1}}" ng-repeat="item in vm.vendorTypeList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-top:-1%;margin-bottom: 0px;">
+                            </table>
+                        </div><br>
+                        <div class="modal-footer ">
+
+                            <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                            <button type="button " class="btn btn-primary " id="viewCart" ng-click="vm.openNav();" style="visibility:hidden;"><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;View Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+            <script type="text/javascript"> 
+    function exportExcel() {                
+    var exTable = $('#tblExcel').clone(); 
+    exTable.find('.noExl').remove();              
+    exTable.table2excel({
+            exclude: ".noExl",
+            name: "Purchase Order",
+            filename: "Purchase Order",
+            fileext: ".xls",  
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: false         
+        });       
+    }
+
+ function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt',[920, 1100],'1');
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+  doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+
+  var header = function(data) {
+    doc.setFontSize(18);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Purchase Order Details", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+  };
+
+  doc.autoTable(res.columns, res.data,options);
+
+  doc.save("Purchase Order Details.pdf");
+}

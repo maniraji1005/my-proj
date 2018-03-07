@@ -1,0 +1,40 @@
+<td class="gcValSlno">
+    {{vm.item.sno+1}}
+</td>
+<td class="gcValID">
+    {{vm.item.id}}
+</td>
+<td class="gcValDate">
+    {{vm.item.datetime|date: 'dd-MM-yyyy'}}
+</td>
+<td class="gcValName">
+    {{vm.item.created_by.name}}<br>
+    <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0b' ">
+
+<small>Chennai</small></span>
+</td>
+<td class="gcValStatus">
+    <span ng-if="vm.item.status.name == 'Pending' ">
+        <!--<span class="flgDraftGridApp">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> &nbsp;&nbsp; Pending for Approval </span>-->
+    <span class="label label-warning">Pending for Approval</span></span>
+    <span ng-if="vm.item.status.name == 'Approved' ">
+        <!--<span class="flgDraftAcc">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> &nbsp;&nbsp; Approved </span>-->
+    <span class="label label-success">Approved</span></span>
+    <span ng-if="vm.item.status.name == 'Rejected'">
+        <!--<span class="flgDraftRej">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> &nbsp;&nbsp; Rejected </span>-->
+    <span class="label label-danger">Rejected</span></span>
+</td>
+<td class="gcValRemark">
+    {{vm.item.remarks}}
+</td>
+<td class="gcValAction">
+    <button type="button" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id)">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button> &nbsp;
+    <!--<button type="button" class="btn btn-default">
+           <i class="fa fa-trash fa-lg"></i>
+        </button>-->
+</td>

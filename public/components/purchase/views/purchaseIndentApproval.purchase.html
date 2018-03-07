@@ -1,0 +1,26 @@
+<td class="gcValSlno">
+  {{vm.item.sno + 1}}
+</td>
+<td class="gcValID">
+  {{vm.item.id}}
+</td>
+<td class="gcValDate">
+  {{vm.item.datetime|date: 'dd-MM-yyyy'}}
+</td>
+<td class="gcValName">
+  {{vm.item.created_by.name}} <br>
+  <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0b'">
+         <small>Chennai</small></span>
+</td>
+<td><span ng-if="vm.item.status.name == 'Pending'">
+            <span class="label label-warning">Pending for Approval</span></span>
+  <span ng-if="vm.item.status.name == 'Approved'">
+<span class="label label-success">Approved </span></span>
+</td>
+<td class="gcValRemark">
+  {{vm.item.remarks}}
+</td>
+<td><span>
+        <button type="button" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span></td>

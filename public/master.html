@@ -1,0 +1,337 @@
+<div class="pace  pace-inactive">
+    <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+        <div class="pace-progress-inner"></div>
+    </div>
+    <div class="pace-activity"></div>
+</div>
+<div class="overlay"></div>
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right navbar-position" id="cbp-spmenu-s1">
+    <div class="position:fixed;">
+        <div class="position:fixed;">
+            <h3><span class="pull-left">Stock Availability</span>
+                <a ng-click="vm.popupcls();" class="pull-right" id="closeRight"><i class="fa fa-times" style="cursor:pointer;"></i></a>
+            </h3>
+            <div>
+                <input type="text" class="icons form-control stock-srch" ng-model="stocks" placeholder="&#61442; Enter Stock"><i></i>
+            </div>
+        </div>
+    </div>
+    <div class="slimScrollDiv" style="width: auto; height: 100%;" id="insideCont">
+        <div class="slimscroll stock-scroll" style="width: auto; height: 80%;" when-scrolled="vm.getmore()">
+            <a ng-class="{{item.quantity <  item.minimum_quantity}} ? 'redclr' : ''" class="showRight2 stockAvl-bdr" ng-repeat="item in vm.stockavailability | filter:stocks"><span>{{item.id}} - {{item.name}}
+                <small> UOM: {{vm.UomName(item.uom)}} <br> Available Qty: {{item.quantity}} <br> Minimum Qty: <span class="label label-success">{{item.minimum_quantity}}</span> </small></span></a>
+        </div>
+</nav>
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+    <h3><span class="pull-left">Sandra Smith</span> <a class="pull-right" id="closeRight2"><i class="fa fa-angle-right"></i></a></h3>
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+        <div class="slimscroll chat" style="overflow: hidden; width: auto; height: 100%;">
+            <div class="chat-item chat-item-left">
+                <div class="chat-image">
+                    <img src="" alt="">
+                </div>
+                <div class="chat-message">
+                    Hi There!
+                </div>
+            </div>
+            <div class="chat-item chat-item-right">
+                <div class="chat-message">
+                    Hi! How are you?
+                </div>
+            </div>
+            <div class="chat-item chat-item-left">
+                <div class="chat-image">
+                    <img src="" alt="">
+                </div>
+                <div class="chat-message">
+                    Fine! do you like my project?
+                </div>
+            </div>
+            <div class="chat-item chat-item-right">
+                <div class="chat-message">
+                    Yes, It's clean and creative, good job!
+                </div>
+            </div>
+            <div class="chat-item chat-item-left">
+                <div class="chat-image">
+                    <img src="" alt="">
+                </div>
+                <div class="chat-message">
+                    Thanks, I tried!
+                </div>
+            </div>
+            <div class="chat-item chat-item-right">
+                <div class="chat-message">
+                    Good luck with your sales!
+                </div>
+            </div>
+        </div>
+        <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.3; display: none; border-radius: 0px; z-index: 99; right: 0px; height: 643px; background: rgb(204, 204, 204);"></div>
+        <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; opacity: 0.2; z-index: 90; right: 0px; background: rgb(51, 51, 51);"></div>
+    </div>
+    <div class="chat-write">
+        <form class="form-horizontal" action="javascript:void(0);">
+            <input type="text" class="form-control" placeholder="Say something">
+        </form>
+    </div>
+</nav>
+<div class="menu-wrap">
+    <nav class="profile-menu">
+        <div class="profile"><img src="" width="60" alt=""><span>{{vm.profileDet.names}}</span></div>
+        <div class="profile-menu-list">
+            <a><i class="fa fa-star"></i><span>Favorites</span></a>
+            <a><i class="fa fa-bell"></i><span>Alerts</span></a>
+            <a><i class="fa fa-envelope"></i><span>Messages</span></a>
+            <a><i class="fa fa-comment"></i><span>Comments</span></a>
+        </div>
+    </nav>
+    <button class="close-button" id="close-button">Close Menu</button>
+</div>
+<!-- Input Group -->
+<!-- Search Form -->
+<main class="page-content content-wrap">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="sidebar-pusher">
+                <a class="waves-effect waves-button waves-classic push-sidebar">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+
+            <!-- Logo Box -->
+            <div class="logo-box" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                <a class="logo-text"><span><img id="imgLogo" src="assets/app_img/logo.png"></img></span></a>
+                <!--<a class="logo-text"><span><img id="imgLogo" src="http://www.colorhomes.in/images/icons/logo.gif"></img></span></a>-->
+            </div>
+
+            <div class="logo-box" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-top:-0.4%;">
+                <!--<a class="logo-text"><span><img id="imgLogo" src="assets/app_img/logo.png"></img></span></a>-->
+                <!--<a class="logo-text"><span><img id="imgLogo" src="http://www.colorhomes.in/images/icons/logo.gif"></img></span></a>-->
+            </div>
+            <!-- Logo Box -->
+
+            <div class="search-button">
+                <a class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>
+            </div>
+            <div class="topmenu-outer">
+                <div class="top-menu">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a class="waves-effect waves-button waves-classic sidebar-toggle" style="display:none;"><i class="fa fa-bars"></i></a>
+                        </li>
+
+                        <li>
+                            <a href="" class="waves-effect waves-button waves-classic cd-nav-trigger" style=" font-size: 21px;">Material Management</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown" style="display:none;"><i class="fa fa-bell"></i><span class="badge badge-success pull-right">3</span></a>
+                            <ul class="dropdown-menu title-caret dropdown-lg" role="menu">
+                                <li>
+                                    <p class="drop-title">You have 3 pending tasks !</p>
+                                </li>
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+                                    <li class="dropdown-menu-list slimscroll tasks" style="overflow: hidden; width: auto; height: 100%;">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a>
+                                                    <div class="task-icon badge badge-success"><i class="icon-user"></i></div>
+                                                    <span class="badge badge-roundless badge-default pull-right">1min ago</span>
+                                                    <p class="task-details">New user registered.</p>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a>
+                                                    <div class="task-icon badge badge-danger"><i class="icon-energy"></i></div>
+                                                    <span class="badge badge-roundless badge-default pull-right">24min ago</span>
+                                                    <p class="task-details">Database error.</p>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a>
+                                                    <div class="task-icon badge badge-info"><i class="icon-heart"></i></div>
+                                                    <span class="badge badge-roundless badge-default pull-right">1h ago</span>
+                                                    <p class="task-details">Reached 24k likes</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.3; display: none; border-radius: 0px; z-index: 99; right: 0px; height: 138px; background: rgb(204, 204, 204);"></div>
+                                    <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; opacity: 0.2; z-index: 90; right: 0px; background: rgb(51, 51, 51);"></div>
+                                </div>
+                                <li class="drop-all"><a class="text-center">All Tasks</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
+                                <span class="user-name">{{vm.profileDet.names}}<i class="fa fa-angle-down"></i></span>
+                                <img class="img-circle avatar" src="assets/app_img/avatar1.jpg" width="40" height="40" alt="">
+                            </a>
+                            <ul class="dropdown-menu dropdown-list" role="menu">
+                                <li role="presentation" style="display:none;"><a><i class="fa fa-user"></i>Profile</a></li>
+                                <li role="presentation" ui-sref="master.changePassword" style="cursor:pointer;"><a><i class="fa fa-cogs"></i>Change Password</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a ng-click="vm.logoutSubmit();" class="log-out waves-effect waves-button waves-classic">
+                                <span><i class="fa fa-sign-out m-r-xs"></i>Log out</span>
+                            </a>
+                        </li>
+                        <li ng-show="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                            <a class="waves-effect waves-button waves-classic" title="Stock Availabiliy" id="showRight" ng-click="vm.getallmat(); vm.popup();">
+                                <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Nav -->
+                </div>
+                <!-- Top Menu -->
+            </div>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <div class="page-sidebar sidebar">
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+            <div class="page-sidebar-inner slimscroll" style="overflow: hidden; width: auto; height: 100%;">
+
+            </div>
+
+
+            <!--DYNAMIC MENUS-->
+            <ul class="menu accordion-menu">
+                <li ng-click="setMainMenuActive($index);goToPage(role,'p')" class="droplink" ng-class="{'active open':isMenuActive($index)}" ng-repeat="role in vm.roleDet.module">
+                    <a class="waves-effect waves-button">
+                        <span class="{{role.m_icon_img}}">
+                      </span>
+                        <p>{{role.m_name}}</p>
+                        <span class="arrow" ng-show="role.m_sub_modules.length!==0"></span>
+                    </a>
+                    <!--SUB MENUS-->
+                    <ul ng-show="isMenuActive($index)" style="cursor:pointer;">
+                        <li ng-click="setSubMenuActive($index);$event.stopPropagation();" ng-class="{'subModHigh':isSubMenuActive($index)}" ng-repeat="subRole in role.m_sub_modules">
+                            <a ng-click="goToPage(subRole,'c')">{{subRole.s_name}}</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+                <!--<li class=""><a class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
+                        <li class="active droplink"><a  class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-briefcase"></span><p>Stock<br/>Management</p><span class="arrow"></span></a>
+                            <ul class="sub-menu" style="display: none;">
+                                <li><a ui-sref="master.matrerialrequisition">Material Requisition</a></li>
+                                <li><a ui-sref="master.materialIssue">Material Issue Note</a></li>
+                                <li><a ui-sref="master.mrn">MRN</a></li>                             
+                            </ul>
+                        </li>
+                        
+                        <li class="droplink"><a  class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-shopping-cart"></span><p>Purchase Management</p><span class="arrow"></span></a>
+                            <ul class="sub-menu" style="display: none;">
+                                <li><a ui-sref="master.purchase">Purchase Indent</a></li>
+                                <li><a ui-sref="master.purchaseOrder">Purchase Order</a></li>                             
+                            </ul>
+                        </li>
+                        <li class="droplink"><a  class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Employee<br/>Profile</p></a>
+                        </li>
+                        <li class="droplink"><a  class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-wrench"></span><p>Masters</p></a>
+                        </li>-->
+            </ul>
+            <!--MENUS-->
+
+
+        </div>
+        <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.3; display: none; border-radius: 0px; z-index: 99; right: 0px; height: 1080px; background: rgb(204, 204, 204);"></div>
+        <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; opacity: 0.2; z-index: 90; right: 0px; background: rgb(51, 51, 51);"></div>
+    </div>
+    <!-- Page Sidebar Inner -->
+    </div>
+    <!-- Page Sidebar -->
+    <div class="page-inner" style="min-height:1080px !important">
+        <div id="uiViewer" ui-view></div>
+        <!--App Footer-->
+        <div class="page-footer">
+            <p class="no-s">© 2017. All Rights Reserved. Designed by vThink Technologies</p>
+        </div>
+        <!--App Footer-->
+
+
+    </div>
+    <!-- Page Inner -->
+</main>
+<!-- Page Content -->
+
+
+<nav class="cd-nav-container" id="cd-nav">
+    <header>
+        <h3>Navigation</h3>
+        <a class="cd-close-nav">Close</a>
+    </header>
+    <ul class="cd-nav list-unstyled">
+        <li class="cd-selected" data-menu="index">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-home"></i>
+                        </span>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li data-menu="profile">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                <p>Profile</p>
+            </a>
+        </li>
+        <li data-menu="inbox">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-envelope"></i>
+                        </span>
+                <p>Mailbox</p>
+            </a>
+        </li>
+        <li data-menu="#">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-tasks"></i>
+                        </span>
+                <p>Tasks</p>
+            </a>
+        </li>
+        <li data-menu="#">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </span>
+                <p>Settings</p>
+            </a>
+        </li>
+        <li data-menu="calendar">
+            <a>
+                <span>
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                <p>Calendar</p>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="cd-overlay"></div>
+
+<!--Master Menu JS -->
+<script src="assets/js/modern.min.js"></script>
+
+<!--Loading-->
+<div id="commonLoading" data-loading>
+    <div id="commonLoadingSub">
+        <!--<div class="loading-container">
+            <div class="loading"></div>
+            <div id="loading-text">loading</div>
+        </div>-->
+        <img src="assets/images/3351.gif">
+        </img>
+    </div>
+</div>

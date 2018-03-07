@@ -1,0 +1,239 @@
+<!--TAB-->
+<div class="row">  
+  <div class="col-md-12">
+  <div class="bread-crumbs-parent">
+    <ol class="breadcrumb">
+  <li><i class="fa fa-home" style="font-size:19px;" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#">Purchase Indent</a></li>
+
+  <li class="active">Add PI</li>  
+</ol>
+
+  <div ui-sref="master.approvalpurchaseView">
+    View Approvals
+  </div>
+
+
+
+  </div>
+  
+  
+  
+ </div>
+ </div>
+ 
+  <!--SEARCH,ADD,ROWS PER PAGE-->
+<div class="row search-strip">
+  
+  <!--DDL-->
+     <div class="col-md-2 text-center">     
+      <select class="form-control noRowsDDl">
+        <option>15</option>
+        <option>50</option>
+        <option>100</option>      
+      </select> 
+    </div>  
+  
+  <!--Advance Search-->
+    <div class="col-md-8">
+    <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search..." />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">Filter by Status</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>--Select--</option>
+                                        <option value="1">Draft</option>
+                                        <option value="2">Waiting for Approval</option>
+                                        <option value="3">Closed</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Search</label>
+                                    <input class="form-control" type="text" placeholder="Search by MR"/>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="filter">Executive</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>--Search by Executive--</option>
+                                        <option value="1">Prakash Sriramalu</option>
+                                        <option value="2">Nandagopal Palani</option>
+                                        <option value="3">Munusamy Ratnam</option>
+                                        <option value="4">Narendaran Kamalanathan</option>
+                                        <option value="5">Dhakshnamoorthy</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Date</label>
+                                    <input class="form-control" type="text" placeholder="Search by Date"/>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search searchButton" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search searchButton" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+             </div>
+              <!--Add Button-->
+                <div class="col-md-2">           
+               <button type="button" class="btn btn-default">
+      <span class="glyphicon glyphicon-pencil"></span> Add PI
+    </button>
+            </div>
+         
+ </div>
+
+  
+<!--GRID VIEW-->
+<div class="row grid-view">
+    <div class="col-md-12">    
+ <table class="grid"  ng-cloak>
+                <tr>
+                    <td class="gcSlno">
+                      Sl.No
+                    </td>
+                    <td class="gcID">
+                      PI No
+                    </td>
+                    <td class="gcDate">
+                      Date
+                    </td>
+                    <td class="gcName">
+                     Raised by
+                    </td>
+                    <td class="gcStatus">
+                     Status
+                    </td>
+                    <td class="gcRemark">
+                     Remarks
+                    </td>
+                    <td class="gcAction">
+                     Actions
+                    </td>               
+                </tr>
+                
+      <tr ng-repeat="item in piApp">
+        <td class="gcValSlno">
+        {{item.id}}
+        </td>
+         <td class="gcValID">
+           {{item.pi_no}}
+        </td>
+         <td class="gcValDate">
+           {{item.pi_date}}
+        </td>
+         <td class="gcValName">
+          {{item.raised_by}} <br><small>{{item.branch}}</small>
+        </td>
+         <td class="gcValStatus">
+           <span ng-if="item.status == 'Waiting for Approval' ">
+        <span class="flgDraftApp">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        &nbsp;&nbsp; {{item.status}} </span>
+        <span ng-if="item.status == 'Draft' ">
+        <span class="flgDraft">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        &nbsp;&nbsp; {{item.status}} </span>
+        </td>
+         <td class="gcValRemark">
+          {{item.remarks}}
+        </td>
+         <td class="gcValAction">
+        <button type="button" class="btn btn-default" data-toggle="modal" href='#edit'>
+        <i class="fa fa-archive fa-lg" aria-hidden="false"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-default">
+           <i class="fa fa-trash fa-lg"></i>
+        </button>
+        </td>
+     </tr>
+    </table>
+     </div>
+  </div>
+  
+  <!--PAGENATION-->
+  <div class="row">
+  <div class="col-md-12 text-center">
+      <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">First</a></li><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Last</a></li></ul></div>
+  </div>
+  </div>
+  
+  
+ <!--edit modal-->
+      <div class="modal fade" id="edit">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header modalHeader">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Purchase Indent - PI011</h4>
+          <div class="row" style="padding:7px;">
+              <span class="pull-left">
+            
+            <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Add</button>
+          <select class="input-sm">
+           <option ng-repeat="i in 10 | range">{{i+1}}</option>
+           </select> 
+          
+          </span>
+          <span class="pull-right">
+          <!--<button type="button" class="btn btn-success"><i class="glyphicon glyphicon-pencil">	</i>&nbsp;&nbsp;Edit</button>-->
+          <button type="button" class="btn btn-danger"><i class="fa fa-times"></i>&nbsp;&nbsp;Delete</button>
+          <!--<button type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Submit</button></span>-->
+          </div>
+        </div>
+        
+        <div class="modal-body modal-height modalBody">
+          <span class="col-md-10 col-md-offset-1 editHeader">
+            <span class="col-md-1 ">S.No</span>
+             <span class="col-md-6">Material Description</span>
+             <span class="col-md-2 ">UOM</span>
+             <span class="col-md-2 ">PI Qty</span>
+          </span>
+             
+            <div class="row" style="margin-top:5px;"  ng-repeat="item in piEditApp ">
+              <div class="col-md-10 col-md-offset-1">
+            <div class="addmr-bdr">
+              <div class="row div-pad">
+                <div class="col-md-1 chkbx-pad">
+                  <label for="">{{item.id}}</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Enter Material..." style="" value={{item.pi_matDes}} />
+                </div>
+                <div class="col-md-2">
+                  <input type="text" class="form-control centerAlign" placeholder="Enter UOM..." style="" value={{item.pi_Uom}} />
+                </div>
+                <div class="col-md-2">
+                  <input type="text" class="form-control rightAlign" placeholder="Enter Qty..." style="" value={{item.pi_qty}} />
+                </div>
+                 <div class="col-md-1 chkbx-pad">
+                     <input type="checkbox" class="minimal-red">
+                </div>
+              </div>
+            
+          </div>
+            </div>
+          
+          </div>
+        </div>
+        <div class="modal-footer modalFooter">
+          <div class="row"></div>
+          <div class="row"></div>
+      
+          <div>
+          <textarea name="" id="" class="pull-left col-md-offset-1" style="width:82%;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);" placeholder="Enter your Remarks..."></textarea><br>
+          </div><br><br>
+          <button type="button" class="btn btn-warning"><i class="fa fa-archive" aria-hidden="false"></i>&nbsp;&nbsp;Draft</button></span>
+          <button type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Submit</button></span>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!--End of Line-->

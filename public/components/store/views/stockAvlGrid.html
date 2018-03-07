@@ -1,0 +1,42 @@
+<td>
+    {{vm.index}}
+</td>
+<td>
+    {{vm.getcate(vm.item.category)}}
+</td>
+<td>
+    {{vm.getsubcate(vm.item.subcategory)}}
+</td>
+<td>
+    {{vm.item.id}}
+</td>
+<td title="Type  :  {{vm.item.material_type_name}} &#013; UOM:  {{vm.getUom(vm.item.uom)}} &#013; Size   :  {{vm.getSize(vm.item.size)}}">
+    {{vm.item.name}}
+</td>
+<!--<td>
+    {{vm.item.material_type_name}}
+</td>
+<td>
+   {{vm.getUom(vm.item.uom)}} -  {{vm.getSize(vm.item.size)}}
+</td>-->
+<td ng-init="vm.getopen(vm.item._id);" style="width:4%;">
+ {{vm.opening_quantity}}
+</td>
+<td>
+    {{vm.mrn_received_quantity}}
+</td>
+<td>
+    {{vm.total_quantity}}
+</td>
+<td style="width:4%;">
+    {{vm.issued_quantity}}
+</td>
+<td>
+    {{vm.sts_issued_quantity}}
+</td>
+<td>
+    {{vm.totalConsume_quantity}}
+</td>
+<td style="width:4%;">
+    {{vm.available_quantity}}
+</td>

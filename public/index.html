@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html ng-app="todo" class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"
+  style="">
+<!--head-->
+
+<head>
+  <style type="text/css">
+    .gm-style .gm-style-mtc label,
+    .gm-style .gm-style-mtc div {
+      font-weight: 400
+    }
+  </style>
+  <style type="text/css">
+    .gm-style-pbc {
+      transition: opacity ease-in-out;
+      background-color: black;
+      text-align: center
+    }
+    
+    .gm-style-pbt {
+      font-size: 22px;
+      color: white;
+      font-family: Roboto, Arial, sans-serif;
+      position: relative;
+      margin: 0;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%)
+    }
+  </style>
+
+  <style type="text/css">
+    .gm-style .gm-style-cc span,
+    .gm-style .gm-style-cc a,
+    .gm-style .gm-style-mtc div {
+      font-size: 10px
+    }
+  </style>
+  <style type="text/css">
+    @media print {
+      .gm-style .gmnoprint,
+      .gmnoprint {
+        display: none
+      }
+    }
+    
+    @media screen {
+      .gm-style .gmnoscreen,
+      .gmnoscreen {
+        display: none
+      }
+    }
+  </style>
+  <style type="text/css">
+    .gm-style {
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      text-decoration: none
+    }
+    
+    .gm-style img {
+      max-width: none
+    }
+  </style>
+
+  <style>
+    #mainLoading {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      /*background: #939393; */
+      /*display: none;*/
+      /*margin: 0% 30%;*/
+      padding: 0px;
+      text-align: center;
+      z-index: 99999999999;
+    }
+    
+    #mainLoading_sub {
+      /* width:100px; */
+      /* background: #FFF; */
+      /* height:100px; */
+      display: block;
+      /*margin-top: 20%;*/
+      margin: 25% 50%;
+      border-radius: 10px;
+      /* -webkit-border-radius: 10px; */
+      -moz-border-radius: 10px;
+      -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+      /* -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3); */
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    #mainLoading img {
+      margin-top: 20%;
+      /*    width: 100px;
+        height: 100px;*/
+      /*border:1px solid #ccc;*/
+      -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+      /*-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);*/
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    }
+    /*******************************LOADING GIF*****************************/
+    
+    #commonLoading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      z-index: 1000000000000;
+      overflow: hidden;
+      /*background:#000;*/
+      display: block;
+      background-color: rgba(232, 232, 232, 0.8);
+      /*background-color:transparent;*/
+      margin: 0;
+      padding: 0;
+    }
+    
+    #commonLoadingSub {
+      /*background:#fff;*/
+      /*background-color: rgba(0, 0, 0, 0.9);*/
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 90px;
+      height: 75px;
+      top: -5%;
+      /*line-height:85px;*/
+      /*padding:15px;*/
+      /*border:1px solid #ccc;*/
+      border-radius: 5px;
+      /*padding-top:3px;*/
+      /*padding-top:5px;
+    padding-bottom:15px;*/
+      /*font-size:13px;*/
+      color: #000;
+      text-align: center;
+    }
+    
+    #commonLoading img {
+      width: 75px;
+      height: 75px;
+      vertical-align: middle !important;
+    }
+  </style>
+
+
+
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta charset="UTF-8">
+  <!--Autocomplete -->
+  <!--<link href="assets/css/materialize.min.css" rel="stylesheet" type="text/css">-->
+  <!--<link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css?v.0.0.0.2">
+  <link rel="stylesheet" href="bower_components/angucomplete/angucomplete.css?v.0.0.0.2">-->
+<!--<link rel="shortcut icon" href="assets/images/fav_icon.ico" type="image/x-icon">-->
+<!--<link id="favicon" rel="shortcut icon"  type="image/x-icon">-->
+  <!--App Responsive-->
+  <link rel="stylesheet" href="assets/app_css/responsive.css?v.0.0.0.2">
+
+  <!-- Styles -->
+  <link href="assets/plugins/pace-master/themes/blue/pace-theme-flash.css" rel="stylesheet">
+  <link href="assets/plugins/uniform/css/uniform.default.min.css" rel="stylesheet">
+
+
+  <!--Track Sheet-->
+  <link rel="stylesheet" href="assets/css/breadCrumb.css?v.0.0.0.2">
+
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css?v.0.0.0.2">
+
+  <!--Alertift CSS-->
+  <link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.core.css?v.0.0.0.2">
+  <link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.default.css?v.0.0.0.2">
+  <link rel="stylesheet" href="bower_components/alertify.js/themes/alertify.bootstrap.css?v.0.0.0.2">
+
+  <!--<link rel="stylesheet" href="bower_components/jquery-loading/dist/jquery.loading.css?v.0.0.0.2">
+
+  <link rel="stylesheet" href="bower_components/select2/select2.css?v.0.0.0.2">
+
+  <link rel="stylesheet" href="bower_components/icheck/skins/square/_all.css?v.0.0.0.2">-->
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+
+  <link href="assets/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+  <!--<link href="assets/plugins/line-icons/simple-line-icons.css" rel="stylesheet" type="text/css">	-->
+  <link href="assets/plugins/offcanvasmenueffects/css/menu_cornerbox.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/waves/waves.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/3d-bold-navigation/css/style.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/slidepushmenus/css/component.css" rel="stylesheet" type="text/css">
+
+  <link href="assets/css/pagination.css" rel="stylesheet" type="text/css">
+
+  <!-- Theme Styles -->
+  <link href="assets/css/modern.css" rel="stylesheet" type="text/css">
+  <link href="assets/css/themes/green.css" class="theme-color" rel="stylesheet" type="text/css">
+  <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+  <link href="assets/css/login.css" rel="stylesheet" type="text/css">
+
+  <!--APP CSS-->
+  <link href="assets/app_css/common.css" rel="stylesheet" type="text/css">
+
+  <!--Timbe LESS theme Import-->
+  <link rel="stylesheet" type="text/css" href="assets/css/timbe.css?v.0.0.0.2">
+  <link rel="stylesheet" type="text/css" href="assets/css/dash.css?v.0.0.0.2">
+
+  <!--<link rel="shortcut icon" href="favicon.ico">-->
+
+  <!--<link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css?v.0.0.0.2">-->
+
+  <link href="assets/plugins/datatables/css/jquery.datatables.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/datatables/css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css">
+  <link href="assets/plugins/pricing-tables/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<script src="assets/plugins/offcanvasmenueffects/js/snap.svg-min.js?v.0.0.0.2"></script>
+<!--Foo Responsive Grid-->
+<link rel="stylesheet" type="text/css" href="assets/plugins/footable/footable.core.css?v.0.0.0.2">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css?v.0.0.0.2">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js?v.0.0.0.2"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js?v.0.0.0.2"></script>
+        <![endif]-->
+<!--<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/common.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/map.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/util.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/stats.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/onion.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/controls.js?v.0.0.0.2"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/24/11/marker.js?v.0.0.0.2"></script></head>-->
+
+<body class="page-header-fixed pace-done">
+
+  <div id="uiViewer" ui-view></div>
+
+  <!-- Javascripts -->
+  <script src="assets/plugins/jquery/jquery-2.1.4.min.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/jquery-ui/jquery-ui.min.js?v.0.0.0.2"></script>
+  <!--<script src="assets/plugins/pace-master/pace.min.js?v.0.0.0.2"></script>-->
+  <script src="assets/plugins/jquery-blockui/jquery.blockui.js?v.0.0.0.2"></script>
+
+  <!--<script src="assets/plugins/bootstrap/js/bootstrap.min.js?v.0.0.0.2"></script>-->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/switchery/switchery.min.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/uniform/jquery.uniform.min.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/offcanvasmenueffects/js/classie.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/offcanvasmenueffects/js/main.js?v.0.0.0.2"></script>
+  <script src="assets/plugins/waves/waves.min.js?v.0.0.0.2"></script>
+  <!--<script src="assets/plugins/3d-bold-navigation/js/main.js?v.0.0.0.2"></script>-->
+
+  <!--<script src="assets/js/pages/profile.js?v.0.0.0.2"></script>-->
+
+  <!--APP CUSTOM JS-->
+  <!--Angular part-->
+  <script src="bower_components/angular/angular.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/underscore/underscore-min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/ng-tags-input/ng-tags-input.min.js?v.0.0.0.2"></script>
+
+  <script src="bower_components/jquery-circle-progress/dist/circle-progress.js?v.0.0.0.2"></script>
+
+  <script src="bower_components/jquery-loading/dist/jquery.loading.js?v.0.0.0.2"></script>
+
+  <script src="app.module.js?v.0.0.0.2"></script>
+  <script src="app.config.js?v.0.0.0.2"></script>
+  <script src="components/shared/shared.module.js?v_0.0.0.0"></script>
+  <script src="components/user/user.module.js?v.0.0.0.2"></script>
+  <script src="components/user/login/login.module.js?v.0.0.0.2"></script>
+  <script src="components/purchase/purchase.module.js?v.0.0.0.2"></script>
+  <script src="components/store/store.module.js?v.0.0.0.2"></script>
+  <script src="components/dashboard/dashboard.module.js?v.0.0.0.2"></script>
+  <script src="components/settings/settings.module.js?v.0.0.0.2"></script>
+
+  <script src="components/shared/providers/api.provider.js?v.0.0.0.2"></script>
+  <script src="components/user/login/controllers/login.controller.js?v.0.0.0.2"></script>
+  <!--<script src="components/purchase/controllers/purchase.controller.js?v.0.0.0.2"></script>-->
+  <script src="components/settings/controllers/categoryMaster.controller.js?v.0.0.0.2"></script>
+  <script src="components/settings/controllers/uom.controller.js?v.0.0.0.2"></script>
+
+  <!--MR-->
+  <script src="components/store/controllers/storeMrController.js?v.0.0.0.2"></script>
+  <!--MI-->
+  <script src="components/store/controllers/storeMiController.js?v.0.0.0.2"></script>
+  <!--MRN-->
+  <script src="components/store/controllers/storeMrnController.js?v.0.0.0.2"></script>
+  <!--PI-->
+  <script src="components/purchase/controllers/purchaseIndentController.js?v.0.0.0.2"></script>
+  <!--PO-->
+  <script src="components/purchase/controllers/purchaseOrderController.js?v.0.0.0.2"></script>
+  <!--Track Sheet-->
+  <script src="components/store/controllers/trackSheetController.js?v.0.0.0.2"></script>
+  <script src="components/settings/controllers/vendorMaster.controller.js?v.0.0.0.2"></script>
+  <script src="components/purchase/controllers/purchaseTrackSheetController.js?v.0.0.0.2"></script>
+  <script src="components/dashboard/controllers/dashboard.controller.js?v.0.0.0.2"></script>
+  <script src="components/shared/controllers/shared.controllers.js?v.0.0.0.2"></script>
+
+  <!--Shared factory-->
+  <script src="components/shared/factories/db.factory.js?v.0.0.0.2"></script>
+  <script src="components/shared/factories/storage.factory.js?v.0.0.0.2"></script>
+
+  <!--<script src="components/shared/constants/settings.constants.js?v.0.0.0.2"></script>-->
+
+  <script src="components/store/directives/storeMr.directive.js?v.0.0.0.2"></script>
+  <script src="components/store/directives/editMr.directive.js?v.0.0.0.2"></script>
+
+  <!--Directive for Store in Grid-->
+  <script src="components/store/directives/storeMrGrid.directive.js?v.0.0.0.2"></script>
+
+
+  <script src="components/store/directives/storeMiGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/store/directives/mrnGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/store/directives/mrnAdd.directive.js?v.0.0.0.2"></script>
+  <script src="components/purchase/directives/purchaseIndentAdd.directive.js?v.0.0.0.2"></script>
+
+  <script src="components/purchase/directives/purchasePIGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/purchase/directives/purchaseIndentEdit.directive.js?v.0.0.0.2"></script>
+  <script src="components/shared/constants/settings.constants.js?v.0.0.0.2"></script>
+
+  <script src="components/purchase/directives/poAdd.directive.js?v.0.0.0.2"></script>
+  <script src="components/purchase/directives/poGrid.directive.js?v.0.0.0.2"></script>
+
+  <!--master-->
+  <script src="components/settings/controllers/materialMaster.controller.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/materialMasterGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/materialMasterAdd.directive.js?v.0.0.0.2"></script>
+
+ 
+  <script src="components/settings/directives/vendorMasterGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/vendorMasterAdd.directive.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/categoryMasterGrid.directive.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/uomGrid.directive.js?v.0.0.0.2"></script>
+  <!--<script src="assets_1/js/check.js?v.0.0.0.2"></script>-->
+  <script src="components/settings/directives/vendorMasterEdit.directive.js?v.0.0.0.2"></script>
+
+
+<!--for colorHomes-->
+  
+  <script src="components/settings/controllers/projectMaster.controller.js?v.0.0.0.2"></script>
+  <script src="components/settings/directives/projectMasterGrid.directive.js"></script>
+  <script src="components/settings/controllers/size.controller.js"></script>
+  <script src="components/settings/directives/sizeGrid.directive.js"></script>
+  <script src="components/settings/controllers/subcategory.controller.js"></script>
+  <script src="components/settings/directives/subcategoryGrid.directive.js"></script>
+  <script src="components/settings/controllers/contractor.controller.js"></script>
+  <script src="components/settings/directives/contractorGrid.directive.js"></script>
+  <script src="components/store/controllers/storeStockController.js"></script>
+  <script src="components/store/directives/stockAdd.directive.js"></script>
+  <script src="components/store/directives/stockGrid.directive.js"></script>
+  <script src="components/store/controllers/stoclAvlController.js"></script>
+  <script src ="components/store/directives/stockEdit.directive.js"></script>
+  <script src="components/store/directives/stockAvlGrid.directive.js"></script>
+  <script src="components/store/directives/stockConsume.directive.js"></script>
+
+  <!--<script src="assets/js/check.js?v.0.0.0.2"></script>-->
+  <!--<script src="assets/js/placeholdem.js?v.0.0.0.2"></script>-->
+
+  <script src="assets/js/footable.js?v.0.0.0.2"></script>
+
+  <script src="assets/js/lobibox.min.js?v.0.0.0.2"></script>
+
+  <script src="assets/js/circular-progress.js?v.0.0.0.2"></script>
+
+
+  <script src="bower_components/moment/min/moment.min.js?v.0.0.0.2"></script>
+
+  <!--Cookies-->
+  <script src="bower_components/angular-cookies/angular-cookies.js?v.0.0.0.2"></script>
+
+
+  <!--Alertify JS-->
+  <script src="bower_components/alertify.js/lib/alertify.min.js?v.0.0.0.2"></script>
+
+
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <!--<script>
+    $.widget.bridge('uibutton', $.ui.button);
+
+  </script>-->
+  <!-- Bootstrap 3.3.6 -->
+  <!--<script src="bower_components/bootstrap/dist/js/bootstrap.min.js?v.0.0.0.2"></script>-->
+
+  <!-- Date Range Picker -->
+  <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js?v.0.0.0.2"></script>
+  <script src="bower_components/ui-select/dist/select.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js?v.0.0.0.2"></script>
+
+
+  <script src="bower_components/select2/select2.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular-ui-select2/src/select2.js?v.0.0.0.2"></script>
+  <script src="bower_components/angular/angular.js?v.0.0.0.2"></script>
+  <!--<script src="bower_components/bootstrap-select/dist/js/bootstrap-select.min.js?v.0.0.0.2"></script>-->
+  <script src="bower_components/iCheck/icheck.min.js?v.0.0.0.2"></script>
+
+  <!--Data Tables-->
+
+  <script src="assets/plugins/datatables/js/jquery.datatables.min.js?v.0.0.0.2"></script>
+
+
+  <script src="assets/plugins/pricing-tables/js/main.js?v.0.0.0.2"></script>
+
+  <script src="assets/js/pagination.js?v.0.0.0.2"></script>
+
+  <script src="assets/js/materialize.min.js?v.0.0.0.2"></script>
+  <script src="assets/js/datepicker1.js?v.0.0.0.2"></script>
+
+  <script src="assets/js/jspdf.min.js"></script>
+
+
+
+
+
+  <!--Auto complete-->
+  <script src="bower_components/angucomplete-alt/dist/angucomplete-alt.min.js?v.0.0.0.2"></script>
+  <script src="bower_components/angucomplete/angucomplete.js?v.0.0.0.2"></script>
+
+  <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.min.js?v.0.0.0.2"></script>
+
+  <script src="bower_components/underscore/underscore-min.js?v.0.0.0.2"></script>
+  <!--<script src="bower_components/underscore/underscore-min.js?v.0.0.0.2"></script>-->
+  <!--Foo Responsive Grid-->
+  <script type="text/javascript" src="assets/plugins/footable/footable.js?v.0.0.0.2"></script>
+  <script type="text/javascript" src="assets/plugins/footable/angular-footable.js?v.0.0.0.2"></script>
+
+  <!--<script src="bower_components/underscore/underscore-min.js?v.0.0.0.2"></script>-->
+  <!--Foo Responsive Grid-->
+  <script type="text/javascript" src="assets/plugins/footable/footable.js?v.0.0.0.2"></script>
+  <script type="text/javascript" src="assets/plugins/footable/angular-footable.js?v.0.0.0.2"></script>
+  <!--Bootstrap Datepicker-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css?v.0.0.0.2">
+  <!--<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js?v.0.0.0.2"></script>-->
+  <script type="text/javascript" src="bower_components\angular-whenScrolled\angular-whenScrolled.js?v.0.0.0.2"></script>
+  <script type="text/javascript" src="assets\js\ng-infinite-scroll.js?v.0.0.0.2"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
+
+
+    <!-- Title -->
+  <title>MM</title>
+</body>
+
+</html>

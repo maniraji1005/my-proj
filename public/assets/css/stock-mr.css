@@ -1,0 +1,19 @@
+/*Tabs*/
+.tab-content {
+    margin: 20px 0 0 0;
+    text-align:center;
+}
+
+.tab-container {
+    height:120px;
+}
+
+.tab-change-row {
+    text-align:center;
+}
+
+.tab-change-btn {
+    display: inline-block
+}
+
+

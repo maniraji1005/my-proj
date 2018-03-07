@@ -1,0 +1,134 @@
+
+
+
+<div class="row">
+
+
+  <div class="col-md-12">
+    <h4><a ui-sref="master.purchaseOrder"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a> &nbsp;&nbsp;Edit Purchase Order</h4><br>
+    <div class="table-responsive">
+        
+      <div class="col-md-10">
+          
+         <label class="col-md-4"> PI NO : <select class="input-mini input-sm">
+                    <option>Select</option>
+                    <option>PI001</option>
+                    <option>PI002</option>
+                    <option>PI003</option>
+                    <option selected="selected">PI004</option>
+                    <option>PI005</option>
+                </select>
+          </label>
+           <label class="col-md-4"> Vendor Name : <select class="input-mini input-sm">
+                    <option>Select</option>
+                    <option>Metaflex Doors</option>
+                    <option selected="selected">Duroplast</option>
+                    <option>Fenesta</option>
+                    <option>Lingel Windows</option>
+                    <option>Dortech Doors</option>
+                </select>
+          </label>
+      </div>
+<!--      
+
+      <div class="col-md-12">
+        <button type="button" class="btn-flat btn btn-warning">ADD</button>
+        <button type="button" class="btn-flat btn btn-warning">DELETE</button>
+      </div><br><br><br>-->
+      
+      <section class="content">
+        <div class="row">
+          <div class="col-xs-12">
+
+            <!-- /.box -->
+
+            <div class="box">
+              <div class="box-header">
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>S no</th>
+                      <th>Description</th>
+                      <th>UOM</th>
+                      <th>PI Quantity </th>
+                      <th>PO Quantity </th>
+                      <th>Unit Rate </th>
+                      <th>PI Created By </th>
+                      <th>PI Approved By </th>
+                      <th>Total </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                          <select class="form-control input-sm">
+                    <option>Select</option>
+                    <option>50 * 50 Sliding material</option>
+                    <option selected="selected">25 * 35 Casement material </option>
+                    <option>75 * 25 Tilt Window</option>
+                    <option>45 * 25 Sliding Window </option>
+                </select>
+                      </td>
+                      <td><select class="form-control input-sm">
+                    <option>Select</option>
+                    <option selected="selected">Sq.ft</option>
+                    <option>Nos.</option>
+                </select>
+          </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td> 20000 </td>
+                    </tr>
+                    
+                    
+                </table><br>
+                 <span class="col-md-3 pull-right">Total Amount  <input class="input-mini pull-right" type="text" readonly/> </span><br><br>
+                <span class="col-md-3 pull-right">Discount  <input class="input-mini pull-right" type="text"/></span><br><br>
+                <span class="col-md-3 pull-right">Tax  <input class="input-mini pull-right" type="text"/></span><br><br>
+                <span class="col-md-3 pull-right">Grand Total  <input class="input-mini  pull-right" type="text" readonly/></span><br><br>
+                <label class="col-md-8"> Forward to : <select class="input-mini input-sm">
+                    <option>Select</option>
+                    <option>Nandagopal Palani</option>
+                    <option selected="selected">Munusamy Ratnam</option>
+                    <option>Dhakshnamoorthy</option>
+                    <option>Narendran Kamalanathan</option>
+                </select>
+          </label><span class="pull-right">
+        <button type="button" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#remarks" ><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                        <button type="button" class="btn btn-warning btn-flat"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button></span>
+       
+      
+              </div>
+              
+              <!-- /.box-body -->
+            </div>
+            
+            <!-- /.row -->
+      </section>
+
+      <div class="clearfix"></div>
+      
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- Select2 Tag -->
+<!--<script src="../../../plugins/select2/select2.full.min.js"></script>-->
+  
+  
+  <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+    });
+    </script>

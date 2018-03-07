@@ -1,0 +1,73 @@
+<td class="gcValSlno">
+    {{vm.index}}
+</td>
+<td class="gcValID">
+    {{vm.item.vendor}}
+</td>
+<td class="gcValID">
+    {{vm.item.id}}
+</td>
+<td class="gcValDate">
+    {{vm.item.datetime |date: 'dd-MMM-yyyy'}}
+</td>
+<td class="gcValDate">
+    {{vm.item.gross_amount | currency:'&#8377;'}}
+</td>
+<td class="gcValName">
+    {{vm.item.ordered_by.name}} <br>
+         <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0b' ">
+         <small>Chennai</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0c'">
+         <small>Vellore</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0d'">
+          <small>Vijayawada</small></span>
+         <span ng-if="vm.item.branch == '5789d8fec49a4507f48c7b9b'">
+          <small>Bengaluru</small></span>
+</td>
+<td><span ng-if="vm.item.status.name == 'Created' ">
+          <span class="label label-success">{{vm.item.status.name}}</span></span>
+          <span ng-if="vm.item.status.name == 'Approved' ">
+          <span class="label label-success">{{vm.item.status.name}}</span></span>
+          <span ng-if="vm.item.status.name == 'Manual Closed' ">
+          <span class="label label-success" style="background: #FF9800 !important;">{{vm.item.status.name}}</span></span>
+    <span ng-if="vm.item.status.name == 'Pending' ">
+        <!--<span class="flgGridDraft" ng-click="vm.edit()">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> &nbsp;&nbsp; {{vm.item.status.name}} </span>
+          <span ng-if="vm.item.status.name == 'Closed' ">
+        <span class="flgDraftGridApp">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> &nbsp;&nbsp; {{vm.item.status.name}}</span>-->
+           <span class="label label-warning">{{vm.item.status.name}}</span></span>
+           <span ng-if="vm.item.status.name == 'Closed'">
+               <span class="label label-danger">{{vm.item.status.name}}</span>
+           </span>
+</td>
+<td class="gcValRemark">
+    {{vm.item.remarks}}
+</td>
+<td class="gcValAction">
+    <span ng-if="vm.item.status.name == 'Created' ">
+        <button type="button" title="Tracksheet" class="btn btn-default trackPOLeft" ng-click="vm.openTrackSheet(vm.item.id)">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+         <span ng-if="vm.item.status.name == 'Approved' ">
+        <button type="button" title="Tracksheet" class="btn btn-default trackPOLeft" ng-click="vm.openTrackSheet(vm.item.id)">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+         <span ng-if="vm.item.status.name == 'Manual Closed' ">
+        <button type="button" title="Tracksheet" class="btn btn-default trackPOLeft" ng-click="vm.openTrackSheet(vm.item.id)">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+        <span ng-if="vm.item.status.name == 'Closed'">
+        <button type="button" title="Tracksheet" class="btn btn-default trackPOLeft" ng-click="vm.openTrackSheet(vm.item.id)">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+    <span ng-if="vm.item.status.name == 'Pending'">
+        <button type="button" title="Tracksheet"  class="btn btn-default" data-toggle="modal" href='#edit'>
+        <i class="fa fa-archive fa-lg" aria-hidden="false"></i>
+        </button>
+        &nbsp;
+        <button type="button" title="Delete" class="btn btn-default">
+           <i class="fa fa-trash fa-lg"></i>
+        </button></span></td>
+
+</td>

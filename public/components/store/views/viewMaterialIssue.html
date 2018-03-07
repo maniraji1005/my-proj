@@ -1,0 +1,115 @@
+
+
+
+<div class="row">
+
+
+  <div class="col-md-12">
+    <h4><a ui-sref="master.materialIssue"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a> &nbsp;&nbsp;View Material Issue</h4><br>
+    <div class="table-responsive">
+        
+      <div class="col-md-12">
+          
+         <label class="col-md-4"> MR NO : <select class="input-mini input-sm">
+                    <option>Select</option>
+                    <option>MR001</option>
+                    <option selected="selected">MR002</option>
+                    <option>MR003</option>
+                    <option>MR004</option>
+                    <option>MR005</option>
+                </select>
+          </label>
+           <label class="col-md-4"> Raised By : <select class="input-mini input-sm">
+                    <option>Select</option>
+                    <option selected="selected">Narendran Kamalanathan</option>
+                    <option>Nandagopal Palani</option>
+                    <option>Dhakshnamoorthy</option>
+                    <option>Vijee Shaa Pillathodi</option>
+                    <option>Swaminathan</option>
+                </select>
+          </label>
+          <label class="col-md-4">
+        <button class="btn btn-remove btn-success pull-right" type="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add</button><br><br>
+          </label>
+          
+      </div>
+      
+
+      
+      <section class="content">
+        <div class="row">
+          <div class="col-xs-12">
+
+            <!-- /.box -->
+
+            <div class="box">
+              <div class="box-header">
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>S no</th>
+                      <th>Description</th>
+                      <th>UOM</th>
+                      <th>Quantity </th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                          <select class="form-control input-sm">
+                    <option>Select</option>
+                    <option selected="selected">50 * 50 Sliding material</option>
+                    <option>25 * 35 Casement material </option>
+                    <option>75 * 25 Tilt Window</option>
+                    <option>45 * 25 Sliding Window </option>
+                </select>
+                      </td>
+                      <td><select class="form-control input-sm">
+                    <option>Select</option>
+                    <option>Sq.ft</option>
+                    <option selected="selected">Nos.</option>
+                </select>
+          </td>
+                      <td> <input class="form-control input-sm" type="text" />  </td>
+                      <td><button class="btn btn-danger btn-sm" data-title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+                    </tr>
+                    
+                    
+                </table><br>
+                <span class="pull-right">
+        <button type="button" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#remarks" ><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                        <button type="button" class="btn btn-warning btn-flat"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button></span>
+       
+      
+              </div>
+              
+              <!-- /.box-body -->
+            </div>
+            
+            <!-- /.row -->
+      </section>
+
+      <div class="clearfix"></div>
+      
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- Select2 Tag -->
+<!--<script src="../../../plugins/select2/select2.full.min.js"></script>-->
+  
+  
+  <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+    });
+    </script>

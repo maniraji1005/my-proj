@@ -1,0 +1,39 @@
+{
+  "name": "AdminLTE",
+  "homepage": "http://almsaeedstudio.com",
+  "authors": [
+    "vtManikandan <gmanikandan@vthink.co.in>"
+  ],
+  "description": "Store management",
+  "main": [
+    "index2.html",
+    "dist/css/AdminLTE.css",
+    "dist/js/app.js",
+    "build/less/AdminLTE.less"
+  ],
+  "keywords": [
+    "css",
+    "js",
+    "html",
+    "template",
+    "admin",
+    "bootstrap",
+    "theme",
+    "backend",
+    "responsive"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "/.*",
+    "node_modules",
+    "bower_components",
+    "composer.json",
+    "documentation"
+  ],
+  "dependencies": {
+    "angular": "^1.5.2",
+    "underscore": "^1.8.3",
+    "angular-cookies": "^1.5.5"
+  }
+}

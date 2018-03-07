@@ -1,0 +1,2244 @@
+<div>
+    <div class="row">
+        <div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
+            <div class="trackMainContnet">
+                <div class="page-title" style="padding:0px !important;padding-right:15px !important;padding-left:15px !important;">
+                    <div class="fixed_menus">
+                        <div class="new_breacrumb">
+
+                            <div class="line_border"></div>
+
+                            <ul class="new_crumbs">
+
+                                <li class="small_li"><span class="small_bullet"></span><br><a>OPEN</a></li>
+
+                                <li id="new_crumbs_menu2" class="list_active" ng-click="vm.stepNavigation(1);"><span>1</span>
+                                    <div style="padding-top:0.2%;">
+                                        <h5>Purchase Indent</h5>
+                                    </div>
+                                </li>
+
+                                <li id="new_crumbs_menu3" class="" ng-click="vm.stepNavigation(2);"><span>2</span>
+                                    <div style="padding-top:0.2%;">
+                                        <h5>Purchase Order</h5>
+                                    </div>
+                                </li>
+
+                                <li ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" id="new_crumbs_menu4" class="" ng-click="vm.stepNavigation(3);"><span>3</span>
+                                    <div style="padding-top:0.2%;">
+                                        <h5>MRN</h5>
+                                    </div>
+                                </li>
+                                <!--CH Change Starts-->
+
+                                 <li ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="new_crumbs_menu4" class="" ng-click="vm.stepNavigation(3);"><span>3</span>
+                                    <div style="padding-top:0.2%;">
+                                        <h5>MRN <br> <small>Approval 1</small></h5>
+                                    </div>
+                                </li>
+
+                                 <li ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="new_crumbs_menu5" class="" ng-click="vm.stepNavigation(4);"><span>4</span>
+                                    <div style="padding-top:0.2%;">
+                                        <h5>MRN <br> <small>Approval 2</small></h5>
+                                    </div>
+                                </li>
+
+                                <!--CH Ends-->
+
+                                <!--<li id="new_crumbs_menu5" class=""><span>4</span>
+                                    <div style="padding-top:0.2%;" class="finalBreadCrumb">
+                                        <h5>Completed</h5>
+                                    </div>
+                                </li>-->
+
+                                <li class="small_li"><span class="small_bullet"></span><br><a>CLOSE</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Request List/Grd-->
+    <!--Content-->
+    <div class="row" style=" min-height: 1000px;">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <!--<div ng-show="step===1">
+                        <i class="pull-right fa fa-arrow-right" style="font-size:24px;" ng-click="vm.stepNavigation(2);"></i>
+                    </div>
+                    <div ng-show="step===2">
+                        <i class="pull-left fa fa-arrow-left" style="font-size:24px;" ng-click="vm.stepNavigation(1);"></i>
+                        <i class="pull-right fa fa-arrow-right" style="font-size:24px;" ng-click="vm.stepNavigation(3);"></i>
+                    </div>
+                    <div ng-show="step===3">
+                        <i class="pull-left fa fa-arrow-left" style="font-size:24px;" ng-click="vm.stepNavigation(2);"></i>
+                        <i class="pull-right fa fa-arrow-right" style="font-size:24px;" ng-click="vm.stepNavigation(4);"></i>
+                    </div>
+                    <div ng-show="step===4">
+                        <i class="pull-left fa fa-arrow-left" style="font-size:24px;" ng-click="vm.stepNavigation(3);"></i>
+                    </div>
+                    <br>-->
+
+                    <div ng-repeat="items in vm.PIdetails track by $index" ng-show="step===1">
+                        <!--Request Title-->
+                        <div class="timeline-item-header" ng-show="step===1">
+                            <button ng-show="vm.Step1DataDisable" title="Download Excel" type="button" ng-click="vm.exportExcel('step1tblExcel'+$index)"
+                                class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                            <p>
+                                <h3>{{items.id}}</h3>
+                            </p>
+                        </div>
+                        <div class="timeline-item-post" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" ng-show="step===1">
+                            <p>
+                                <span class="spn_req_title">Raised By :</span> {{items.created_by.name}}
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">Approved By :</span><b ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">{{items.updated_by.name}}</b>
+                                <span class="spn_seperator" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">Approved Date :</span><b ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">{{items.datetime |date: 'dd-MMM-yyyy'}}</b>
+                                <span class="spn_seperator" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title">PI Date :</span> {{items.datetime |date: 'dd-MMM-yyyy'}}
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Branch : {{vm.getBranchName(items.branch)}} </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title" maxlength="250">Remarks :</span> {{items.remarks}}
+                            </p>
+                        </div>
+
+                        <div class="timeline-item-post" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" ng-show="step===1">
+                            <p>
+                                <span class="spn_req_title">Raised By :</span> <span style="color:#e50278;"> <b> {{items.created_by.name}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">Approved By :</span><b ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'" style="color:#e50278;">{{items.updated_by.name}}</b>
+                                <span class="spn_seperator" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">Approved Date :</span><b ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'" style="color:#e50278;">{{items.datetime |date: 'dd-MMM-yyyy'}}</b>
+                                <span class="spn_seperator" ng-show="items.status.name === 'Approved' || items.status.name ==='Closed'">|</span>
+                                <span class="spn_req_title">PI Date :</span> <span style="color:#e50278;"> <b> {{items.datetime |date: 'dd-MMM-yyyy'}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Project : </span> <span style="color:#e50278;"> <b> {{vm.fromProject(items.project)}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Category : </span> <span style="color:#e50278;"> <b> {{vm.categoryName(items)}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Sub Category :</span> <span style="color:#e50278;"> <b> {{vm.filterSubCatName}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title">Order Type :</span> <span style="color:#e50278;"> <b> {{items.order_type}} </b> </span>
+                                <span class="spn_seperator">|</span>
+                                <span class="spn_req_title" maxlength="250">Remarks :</span> <span style="color:#e50278;"> <b> {{items.remarks}} </b> </span>
+                            </p>
+                        </div>
+
+                        <!--TABLE-->
+                        <div class="table-responsive" ng-show="step===1" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                            <table class="table table-bordered trackGrid" id="step1tblExcel{{$index}}" style="width: 95%; margin-left:3%;">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No</th>
+                                        <th>Category</th>
+                                        <th>Material Code</th>
+                                        <th>Material Name</th>
+                                        <th>Uom</th>
+                                        <th>Req. QTY</th>
+                                        <th style="width: 16%;">Approved QTY</th>
+                                        <th ng-hide="vm.Step1DataDisable" style="width:12%;">Actions</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in items.materials track by $index">
+                                        <td scope="row">{{$index+1}}</td>
+                                        <td>{{vm.categoryName1(item.category._id)}}</td>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.uom.name}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <td>
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <input type="text" ng-if="vm.piaccess.t === 'y'" ng-hide="vm.Step1DataDisable" ng-model="item.appQty" ng-change="vm.quantityCheck(item)"
+                                                style="width:60%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" />
+                                            <!--</div>-->
+                                            <label ng-show="vm.Step1DataDisable">{{item.approved_quantity ? item.approved_quantity : (item.appQty ? item.appQty : 0)}}</label>
+                                        </td>
+                                        <td ng-hide="vm.Step1DataDisable" class="noExl">
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <button ng-if="vm.piaccess.t === 'y'" type="button" title="Approved" class="btn btn-default" ng-click="item.stat='A'; vm.statusChange('Approved', $index, $parent.$parent.$index);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                            <button ng-if="vm.piaccess.t === 'y'" type="button" title="Rejected" class="btn btn-default" ng-click="item.stat='R'; vm.statusChange('Rejected', $index, $parent.$parent.$index);">
+                                    <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                            <!--</div>-->
+                                        </td>
+                                        <!--<td ng-show="vm.Step1DataDisable">
+                                        <i class="fa fa-check fa-lg" aria-hidden="true" ng-show="item.status.name ==='Approved'"></i>
+                                        <i class="fa fa-times fa-lg" aria-hidden="true" ng-show="item.status.name ==='Rejected'"></i>
+                                    </td>-->
+                                        <td ng-hide="vm.Step1DataDisable">
+                                            <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                            <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                            <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                        </td>
+                                        <td ng-show="vm.Step1DataDisable">
+                                            <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                            <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                            <span ng-show="item.status.name ==='Ordered'" class="label label-warning">Ordered</span>
+                                            <!--<span class="flgDraft" ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--Ch Starts-->
+                        <!--TABLE-->
+                        <div class="table-responsive" ng-show="step===1" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                            <table class="table table-bordered trackGrid" id="step1tblExcel{{$index}}" style="width: 95%; margin-left:3%;">
+                                <thead>
+                                    <tr>
+                                        <th>Sl.No</th>
+                                        <th>Material Description</th>
+                                        <th>Size</th>
+                                        <th>Specification</th>
+                                        <th>Uom</th>
+                                        <th>Req. QTY</th>
+                                        <!--<th style="width: 13%;">Req. Date</th>-->
+                                        <th style="width: 14%;">Approved QTY</th>
+                                        <th ng-hide="vm.Step1DataDisable" style="width:12%;">Actions</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in items.materials track by $index">
+                                        <td scope="row">{{$index+1}}</td>
+                                        <td>{{item.mat_code}} - {{item.name}}</td>
+                                        <td>{{item.size}}</td>
+                                        <td>{{item.specification}}</td>
+                                        <td>{{item.uom.name}}</td>
+                                        <td>{{item.quantity}}</td>
+                                        <!--<td>-->
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                                <!--<div class="input-group1 date" id="srhDt1">
+                                <input type="text" ng-if="vm.piaccess.t === 'y'" ng-hide="vm.Step1DataDisable" class="form-control" ng-model="item.expected_date" style="border:1px solid #ccc;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>-->
+                                            <!--</div>-->
+                                            <!--<label ng-show="vm.Step1DataDisable">{{item.expected_date}}</label>
+                                                </div>
+                                        </td>-->
+                                        <td>
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <input type="text" ng-if="vm.piaccess.t === 'y'" ng-hide="vm.Step1DataDisable" ng-model="item.appQty" ng-change="vm.quantityCheck(item)"
+                                                style="width:60%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" />
+                                            <!--</div>-->
+                                            <label ng-show="vm.Step1DataDisable">{{item.approved_quantity ? item.approved_quantity : (item.appQty ? item.appQty : 0)}}</label>
+                                        </td>
+                                        <td ng-hide="vm.Step1DataDisable" class="noExl">
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <button ng-if="vm.piaccess.t === 'y'" type="button" title="Approved" class="btn btn-default" ng-click="item.stat='A'; vm.statusChange('Approved', $index, $parent.$parent.$index);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                            <button ng-if="vm.piaccess.t === 'y'" type="button" title="Rejected" class="btn btn-default" ng-click="item.stat='R'; vm.statusChange('Rejected', $index, $parent.$parent.$index);">
+                                    <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                            <!--</div>-->
+                                        </td>
+                                        <!--<td ng-show="vm.Step1DataDisable">
+                                        <i class="fa fa-check fa-lg" aria-hidden="true" ng-show="item.status.name ==='Approved'"></i>
+                                        <i class="fa fa-times fa-lg" aria-hidden="true" ng-show="item.status.name ==='Rejected'"></i>
+                                    </td>-->
+                                        <td ng-hide="vm.Step1DataDisable">
+                                            <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                            <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                            <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                        </td>
+                                        <td ng-show="vm.Step1DataDisable">
+                                            <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                            <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                            <span ng-show="item.status.name ==='Ordered'" class="label label-warning">Ordered</span>
+                                            <!--<span class="flgDraft" ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--CH Ends-->
+                        <div class="pull-left" ng-show='step === 1'>
+                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                            <textarea ng-if="vm.piaccess.t === 'y'" name="" id="" cols="30" rows="3" ng-model="vm.piTrackRemarks" ng-hide="vm.Step1DataDisable"
+                                placeholder="Remarks" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 60%;width:75%;"></textarea></div>
+                        <!--</div>-->
+                    </div>
+                    <!--Save & Cancel-->
+
+                    <div ng-show="step===1">
+                        <!--<span ng-show="vm.trackSheetAccess == 'y'">-->
+                        <button ng-if="vm.piaccess.t === 'y'" type="button" style="margin-left: -11%;margin-top: 7%;" class="btn btn-primary" ng-click="vm.UpdatePI()"
+                            ng-hide="vm.Step1DataDisable"><i class="fa fa-floppy-o" aria-hidden="false"></i>&nbsp;&nbsp;Save & Next</button>                        &nbsp&nbsp;
+                        <!--</span>-->
+                        <!--<button type="button" class="btn btn-primary" style="margin-left:83%;" ng-show="vm.Step1DataDisable" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-right"></i>Next</button>&nbsp&nbsp;-->
+                        <button type="button" class="btn btn-primary" style="margin-left:-1%;margin-top: 7%;" ng-hide="vm.Step1DataDisable" ng-click="pageRedirect(1)"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                        <button type="button" class="btn btn-primary" style="margin-left:0%;margin-left: 89%;" ng-show="vm.Step1DataDisable" ng-click="pageRedirect(1)"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                    </div>
+
+                    <!--Step-2-->
+                    <div ng-repeat="details in vm.PurchaseOrderDetails track by $index" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                        <div class="timeline-item-header" ng-show="step===2">
+                            <div ng-show="step2Flg==='1'">
+                                <button type="button" title="Download Excel" ng-click="vm.exportExcel('tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                                <p>
+                                    <h3 ng-model="vm.poNo">{{details.id}}</h3>
+                                </p>
+                                <div class="timeline-item-post" ng-show="step===2">
+                                    <p>
+                                        <span class="spn_req_title">Raised By :</span> {{details.ordered_by.name}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">PO Date :</span> {{details.datetime | date: 'dd-MMM-yyyy'}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Branch :</span> {{vm.getBranchName(details.branch)}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title" maxlength="250">Remarks :</span> {{details.remarks}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Vendor :</span> {{details.vendor}} - {{vm.getvendorName(details.vendor)}}
+                                    </p>
+                                </div>
+
+                                <div class="table-responsive" ng-show="step===2">
+                                    <table class="table table-bordered trackGrid" id="tblExcel{{$index}}" style="width: 95%;margin-left: 3%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl.No</th>
+                                                <th>PI No</th>
+                                                <th>Category</th>
+                                                <th>Material Code</th>
+                                                <th>Material Name</th>
+                                                <th>Uom</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Rate</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in details.materials">
+                                                <td scope="row">{{$index+1}}</td>
+                                                <td>{{item.indent}}</td>
+                                                <td>{{vm.categoryName(item.category)}}</td>
+                                                <td>{{item.id}}</td>
+                                                <td>{{item.name}}</td>
+                                                <td>{{item.uom.name}}</td>
+                                                <td>{{item.quantity}}</td>
+                                                <!--<td>{{item.pending_quantity}}</td>-->
+                                                <td>{{item.rate | currency:'&#8377;'}}</td>
+                                                <td style="text-align: right;">{{item.total | currency:'&#8377;'}}</td>
+                                            <tr>
+                                                <td colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.gross_amount | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table><br>
+                                    <button type="button" id="{{details.id}}" class="btn btn-primary" ng-hide="step2Flg==='2' ? true : (vm.chkStatus(details) ? true : false) "
+                                        ng-click="vm.closePO(details.id)" style="margin-left: 83%;margin-top: 6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--CH starts-->
+                    <div ng-repeat="details in vm.PurchaseOrderDetails track by $index" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                        <div class="timeline-item-header" ng-show="step===2">
+                            <div ng-show="step2Flg==='1'">
+                                <button type="button" title="Download Excel" ng-click="vm.exportExcel('tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                                <p>
+                                    <h3 ng-model="vm.poNo">{{details.id}}</h3>
+                                </p>
+                                <div class="timeline-item-post" ng-show="step===2">
+                                    <p>
+                                        <span class="spn_req_title">Raised By :</span> <span style="color:#e50278;"> <b> {{details.ordered_by.name}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">PO Date :</span> <span style="color:#e50278;"> <b> {{details.datetime | date: 'dd-MMM-yyyy'}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Category :</span> <span style="color:#e50278;"> <b> {{vm.categoryName(details.category_id)}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Project :</span> <span style="color:#e50278;"> <b> {{vm.getProject(details.project)}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Freight Type :</span> <span style="color:#e50278;"> <b> {{details.freight_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Load/Unload Type :</span> <span style="color:#e50278;"> <b> {{details.loading_unloading}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Order Type :</span> <span style="color:#e50278;"> <b> {{details.order_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Contact Person :</span> <span style="color:#e50278;"> <b> {{details.contact_incharge_name}} - {{details.contact_inchage_phone}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Payment Terms :</span> <span style="color:#e50278;"> <b> {{details.payment_terms}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title" maxlength="250">Remarks :</span> <span style="color:#e50278;"> <b> {{details.remarks}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title" ng-show="details.status.name === 'Approved' || details.status.name ==='Closed'">Approved Remarks :</span><b ng-show="details.status.name === 'Approved' || details.status.name ==='Closed'" style="color:#e50278;">{{details.approved_remarks}}</b>
+                                        <span class="spn_seperator" ng-show="details.status.name === 'Approved' || details.status.name ==='Closed'">|</span>
+                                        <span class="spn_req_title">Vendor :</span> <span style="color:#e50278;"> <b> {{details.vendor}} - {{vm.getvendorName(details.vendor)}} </b> </span>
+                                    </p>
+                                </div>
+
+                                <div class="table-responsive" ng-show="step===2">
+                                    <table class="table table-bordered trackGrid" id="tblExcel{{$index}}" style="width: 95%;margin-left: 3%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl.No</th>
+                                                <th>PI No</th>
+                                                <th style="width:9%;">Mat. Code</th>
+                                                <th>Quantity</th>
+                                                <th style="width:9%;">Unit Rate</th>
+                                                <!--<th style="width:12%;">Req.date</th>-->
+                                                <th>Tax</th>
+                                                <th>Discount</th>
+                                                <th style="width:11%;">Amount</th>
+                                                <th ng-hide="vm.Step2DataDisable" style="width:12%;">Actions</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in details.materials">
+                                                <td scope="row">{{$index+1}}</td>
+                                                <td>{{item.indent}}</td>
+                                                <td title="Material Name : {{item.name}} &#013;Material Size : {{item.size}} &#013;Specification : {{item.specification}} &#013;UOM : {{item.uom.name}}">
+                                                    {{item.mat_code}}</td>
+                                                <!--<td>{{item.quantity}}</td>-->
+                                                <td> <input type="text" ng-if="vm.poaccess.t1 === 'y'" ng-hide="vm.Step2DataDisable" ng-model="item.quantity" ng-change="vm.calunitRate(item);"
+                                                style="width: 110%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step2DataDisable">{{item.quantity}}</label> </td>
+                                                <!--<td>{{item.pending_quantity}}</td>-->
+                                                <!--<td>{{item.rate | currency:'&#8377;'}}</td>-->
+                                                <td> <input type="text" ng-if="vm.poaccess.t1 === 'y'" ng-hide="vm.Step2DataDisable" ng-model="item.rate" ng-change="vm.calunitRate(item);"
+                                                style="width: 95%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step2DataDisable">{{item.rate}}</label> </td>
+                                            <!--<td>-->
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                                <!--<div class="input-group1 date" id="srhDt1">
+                                <input type="text" ng-if="vm.poaccess.t1 === 'y'" ng-hide="vm.Step2DataDisable" class="form-control" ng-model="item.expected_date" style="border:1px solid #ccc;width:100%;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>-->
+                                            <!--</div>-->
+                                            <!--<label ng-show="vm.Step2DataDisable">{{item.expected_date}}</label>
+                                                </div>
+                                        </td>-->
+                                                <!--<td>{{item.tax}}</td>-->
+                                                <td> <input type="text" ng-if="vm.poaccess.t1 === 'y'" ng-hide="vm.Step2DataDisable" ng-model="item.tax" ng-change="vm.calunitRate(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step2DataDisable">{{item.tax}}</label> </td>
+                                                <!--<td>{{item.discount}}</td>-->
+                                                <td> <input type="text" ng-if="vm.poaccess.t1 === 'y'" ng-hide="vm.Step2DataDisable" ng-model="item.discount" ng-change="vm.calunitRate(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step2DataDisable">{{item.discount}}</label> </td>
+
+                                                <td style="text-align: right;">{{item.total | currency:'&#8377;'}}</td>
+
+                                        <td ng-hide="vm.Step2DataDisable" class="noExl">
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <button ng-if="vm.poaccess.t1 === 'y'" type="button" title="Approved" class="btn btn-default" ng-click="item.stat='A'; vm.calunitRateRed(item);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                            <button ng-if="vm.poaccess.t1 === 'y'" type="button" title="Rejected" class="btn btn-default" ng-click="item.stat='R'; vm.calunitRateRed(item);">
+                                    <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                            <!--</div>-->
+                                        </td>
+                                        <!--<td ng-show="vm.Step1DataDisable">
+                                        <i class="fa fa-check fa-lg" aria-hidden="true" ng-show="item.status.name ==='Approved'"></i>
+                                        <i class="fa fa-times fa-lg" aria-hidden="true" ng-show="item.status.name ==='Rejected'"></i>
+                                    </td>-->
+                                        <td ng-hide="vm.Step2DataDisable">
+                                            <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                            <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                            <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                            <!--<span ng-show="item.stat==='A'" class="label label-success">Created</span>-->
+                                        </td>
+                                        <td ng-show="vm.Step2DataDisable">
+                                            <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                            <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                            <span ng-show="item.status.name ==='Ordered'" class="label label-warning">Ordered</span>
+                                            <span ng-show="item.status.name ==='Created'" class="label label-success">Created</span>
+                                            <!--<span class="flgDraft" ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                        </td>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.net_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;background:white;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step2DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.net_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" ng-hide="vm.Step2DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.freight_charge}}" ng-model="details.freight_charge" readonly style="text-align: right;background:white;"
+                                                        />
+                                                        <!--<label ng-show="vm.Step2DataDisable">{{details.tax}}</label> -->
+                                                </td>
+
+                                                <td colspan="3" ng-show="vm.Step2DataDisable" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.freight_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" ng-hide="vm.Step2DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.loading_unloading_charge}}" ng-model="details.loading_unloading_charge" readonly style="text-align: right;background:white;"
+                                                        />
+                                                        <!--<label ng-show="vm.Step2DataDisable">{{details.tax}}</label> -->
+                                                </td>
+
+                                                <td colspan="3" ng-show="vm.Step2DataDisable" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.loading_unloading_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" ng-hide="vm.Step2DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <input type="text" class="form-control" ng-hide="vm.Step2DataDisable" placeholder="Total" value="{{details.tax}}" ng-model="vm.gross_tax" ng-change="vm.calGrossAmtCh(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <!--<label ng-show="vm.Step2DataDisable">{{details.tax}}</label> -->
+                                                </td>
+                                                <td colspan="3" ng-show="vm.Step2DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <!--<input type="text" class="form-control" ng-hide="vm.Step2DataDisable" placeholder="Total" value="{{details.tax}}" ng-model="vm.gross_tax" ng-change="vm.calGrossAmtCh(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />-->
+                                                       {{details.tax}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.discount}}-->
+                                                    <input type="text" class="form-control" ng-hide="vm.Step2DataDisable" placeholder="Total" value="{{details.discount}}" ng-model="vm.gross_discount" ng-change="vm.calGrossAmtCh(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <label ng-show="vm.Step2DataDisable">{{details.discount}}</label> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step2DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step2DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td ng-hide="vm.Step2DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;background:white;">
+                                                    <!--{{details.gross_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.gross_amount}}" ng-model="vm.gross_amount" readonly style="text-align: right;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step2DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.gross_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table><br>
+                                    <div class="pull-left" ng-show='step === 2'>
+                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                            <textarea ng-if="vm.poaccess.t1 === 'y'" name="" id="" cols="30" rows="3" ng-model="vm.poTrackRemarks" ng-hide="vm.Step2DataDisable"
+                                placeholder="Remarks" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 60%;width:75%;"></textarea></div>
+                                    <button type="button" id="{{details.id}}" class="btn btn-primary"
+                                        ng-click="vm.closePO(details.id)" style="margin-left: 83%;margin-top: 6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Close</button>
+                                    <button type="button" id="updatePO" ng-hide="vm.Step2DataDisable" class="btn btn-primary" 
+                                        ng-click="vm.updatePurchaseOrder(details)" style="margin-left: 71%;margin-top: -4.6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Save and Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--CH Ends-->
+                    <div ng-show="step===2">
+                        <div style="color:gray;font-size:large;padding:30px;text-align:center;" ng-show="step2Flg==='2'">
+                            No orders found. <span ng-if="vm.poaccess.c === 'y'"><a data-toggle='modal' data-target="#addpopup">Click Here</a> to create new order.</span>
+                        </div>
+                    </div><br>
+                    <!--<div style="float:right;" ng-show="step===2">-->
+                        <!--<button type="button" class="btn btn-primary" ng-hide="step2Flg==='2'" ng-click="vm.stepNavigation(1);"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>-->
+                        <!--<button type="button" class="btn btn-primary" ng-hide="step2Flg==='2'" ng-click="vm.stepNavigation(3);"><i class="fa fa-arrow-right" aria-hidden="false"></i>&nbsp;&nbsp;Next</button>&nbsp&nbsp;-->
+                        <!--<button type="button" class="btn btn-primary" ng-hide="step2Flg==='2'" ng-click="pageRedirect(2)" style="margin-left: -30%;margin-top: -146%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+
+                    </div>-->
+                    <!--Step-3-->
+                    <div ng-repeat="details in vm.MrnDetails" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                        <div class="timeline-item-header" ng-show="step===3">
+                            <div ng-show="step3Flg==='1'" style="margin-top:-3%;">
+                                <button type="button" title="Download Excel" ng-click="vm.exportExcel('step3tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                                <p>
+                                    <h3>{{details.id}}</h3>
+                                </p>
+                                <div class="timeline-item-post" ng-show="step===3">
+                                    <p>
+                                        <span class="spn_req_title">Raised By :</span> {{details.created_by.name}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">MRN Date :</span> {{details.datetime | date: 'dd-MMM-yyyy'}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Branch :</span> {{vm.getBranchName(details.branch)}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title" maxlength="250">Remarks :</span> {{details.remarks}}
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Vendor :</span>{{details.vendor}} - {{vm.getvendorName(details.vendor)}}
+                                    </p>
+                                </div>
+                                <div class="table-responsive" ng-show="step===3">
+                                    <div class="timeline-item-post" ng-show="step===3">
+                                        <p>
+                                            <span class="spn_req_title">Invoice No :</span> {{details.invoice_no}}
+                                            <span class="spn_seperator">|</span>
+                                            <span class="spn_req_title">Invoice Date :</span> {{details.invoice_dt | date:
+                                            'dd-MMM-yyyy'}}
+                                            <span class="spn_seperator"></span>
+                                        </p>
+                                    </div>
+                                    <table class="table table-bordered trackGrid" id="step3tblExcel{{$index}}" style="width: 95%;margin-left: 3%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl.No</th>
+                                                <th>PO No</th>
+                                                <th>Category</th>
+                                                <th>Material Code</th>
+                                                <th>Material Name</th>
+                                                <th>Uom</th>
+                                                <th>Requested QTY</th>
+                                                <th>Invoice QTY</th>
+                                                <th>Pending QTY</th>
+                                                <th>Unit Rate</th>
+                                                <th>Total</th>
+                                                <!--<th>Actions</th>
+                                <th>Status</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in details.materials">
+                                                <td scope="row">{{$index+1}}</td>
+                                                <td style="{{item.bg}}">{{item.po}}</td>
+                                                <td>{{vm.categoryName(item.category)}}</td>
+                                                <td>{{item.id}}</td>
+                                                <td>{{item.name}}</td>
+                                                <td>{{item.uom.name}}</td>
+                                                <td>{{item.quantity}}</td>
+                                                <td>{{item.received_quantity}}</td>
+                                                <td>{{item.pending_quantity}}</td>
+                                                <td style="text-align: right;">{{item.rate}}</td>
+                                                <td style="text-align: right;">{{item.total}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Total &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.gross_amount}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="5" style="float:right;padding:10px;padding-right:17%;border:none;background-color:transparent !important;">
+                                                    {{details.discount}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:17%;border:none;background-color:transparent !important;">
+                                                    {{details.tax}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.net_amount}}
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!--CH starts-->
+                    <div ng-repeat="details in vm.MrnDetails" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                        <div class="timeline-item-header" ng-show="step===3">
+                            <div ng-show="step3Flg==='1'" style="margin-top:-3%;">
+                                <button type="button" title="Download Excel" ng-click="vm.exportExcel('step3tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                                <p>
+                                    <h3>{{details.id}}</h3>
+                                </p>
+                                <div class="timeline-item-post" ng-show="step===3">
+                                    <p>
+                                        <span class="spn_req_title">Approved By :</span> <span style="color:#e50278;"> <b> {{details.ordered_by.name}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">PO Date :</span> <span style="color:#e50278;"> <b> {{details.datetime | date: 'dd-MMM-yyyy'}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Category :</span> <span style="color:#e50278;"> <b> {{vm.categoryName(details.category_id)}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Freight Type :</span> <span style="color:#e50278;"> <b> {{details.freight_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Load/Unload Type :</span> <span style="color:#e50278;"> <b> {{details.loading_unloading}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Order Type :</span> <span style="color:#e50278;"> <b> {{details.order_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <!--<span class="spn_req_title">Contact Person :</span> <span style="color:#e50278;"> <b> {{details.contact_incharge_name}} - {{details.contact_inchage_phone}} </b> </span>
+                                        <span class="spn_seperator">|</span>-->
+                                        <!--<span class="spn_req_title">Payment Terms :</span> <span style="color:#e50278;"> <b> {{details.payment_terms}} </b> </span>
+                                        <span class="spn_seperator">|</span>-->
+                                        <span class="spn_req_title" maxlength="250">Remarks :</span> <span style="color:#e50278;"> <b> {{details.remarks}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Vendor :</span> <span style="color:#e50278;"> <b> {{details.vendor}} - {{vm.getvendorName(details.vendor)}} </b> </span>
+                                    </p>
+                                </div>
+                                <div class="table-responsive" ng-show="step===3">
+                                    <div class="timeline-item-post" ng-show="step===3">
+                                        <p>
+                                            <span class="spn_req_title">Invoice No :</span> <b style="color:#e50278;"> {{details.invoice_no}} </b>
+                                            <span class="spn_seperator">|</span>
+                                            <span class="spn_req_title">Invoice Date :</span> <b style="color:#e50278;"> {{details.invoice_dt | date:
+                                            'dd-MMM-yyyy'}} </b>
+                                            <span class="spn_seperator" ng-show="details.status.name === 'Approved'">|</span>
+                                            <span class="spn_req_title" ng-show="details.status.name === 'Approved'">Approved By :</span><b ng-show="details.status.name === 'Approved'" style="color:#e50278;">{{details.approved_by.name}}</b>
+                                        <span class="spn_seperator" ng-show="details.status.name === 'Approved'">|</span>
+                                        <span class="spn_req_title" ng-show="details.status.name === 'Approved'">Approved Remarks :</span><b ng-show="details.status.name === 'Approved'" style="color:#e50278;">{{details.approved_remarks}}</b>
+                                        <!--<span class="spn_seperator" ng-show="details.status.name === 'Approved'">|</span>-->
+                                        </p>
+                                    </div>
+                                    <table class="table table-bordered trackGrid" id="step3tblExcel{{$index}}" style="width: 95%;margin-left: 3%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl.No</th>
+                                                <th>PO No</th>
+                                                <th>Material Code</th>
+                                                <!--<th>Material Name</th>-->
+                                                <!--<th>Uom</th>-->
+                                                <!--<th>Requested QTY</th>-->
+                                                <th>Invoice QTY</th>
+                                                <!--<th>Pending QTY</th>-->
+                                                <th>Unit Rate</th>
+                                                <!--<th style="width:12%;">Req.date</th>-->
+                                                <th>Tax % </th>
+                                                <th>Discount % </th>
+                                                <th>Total</th>
+                                                <th ng-hide="vm.Step3DataDisable" style="width:12%;">Actions</th>
+                                                <th style="width:9%;">Status</th>
+                                                <!--<th>Actions</th>
+                                <th>Status</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in details.materials">
+                                                <td scope="row">{{$index+1}}</td>
+                                                <td style="{{item.bg}}">{{item.po}}</td>
+                                                <td title="Material Name : {{item.name}} &#013;Material Size : {{item.size}} &#013;Specification : {{item.specification}} &#013;UOM : {{item.uom.name}}">{{item.mat_code}}</td>
+                                                <td> <input type="text" ng-if="vm.mrnaccess.t1 === 'y'" ng-hide="vm.Step3DataDisable" ng-model="item.quantity" ng-change="vm.calunitRateMRN(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step3DataDisable">{{item.quantity}}</label> </td>
+                                                <td> <input type="text" ng-if="vm.mrnaccess.t1 === 'y'" ng-hide="vm.Step3DataDisable" ng-model="item.rate" ng-change="vm.calunitRateMRN(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step3DataDisable">{{item.rate}}</label> </td>
+                                            <!--<td>-->
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                                <!--<div class="input-group1 date" id="srhDt1">
+                                <input type="text" ng-if="vm.mrnaccess.t1 === 'y'" ng-hide="vm.Step3DataDisable" class="form-control" ng-model="item.expected_date" style="border:1px solid #ccc;width:100%;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>-->
+                                            <!--</div>-->
+                                            <!--<label ng-show="vm.Step3DataDisable">{{item.expected_date}}</label>
+                                                </div>
+                                        </td>-->
+                                                <!--<td>{{item.tax}}</td>-->
+                                                <td> <input type="text" ng-if="vm.mrnaccess.t1 === 'y'" ng-hide="vm.Step3DataDisable" ng-model="item.tax" ng-change="vm.calunitRateMRN(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step3DataDisable">{{item.tax}}</label> </td>
+                                                <!--<td>{{item.discount}}</td>-->
+                                                <td> <input type="text" ng-if="vm.mrnaccess.t1 === 'y'" ng-hide="vm.Step3DataDisable" ng-model="item.discount" ng-change="vm.calunitRateMRN(item);"
+                                                style="width: 100%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step3DataDisable">{{item.discount}}</label> </td>
+
+                                                <td style="text-align: right;">{{item.total | currency:'&#8377;'}}</td>
+
+                                        <td ng-hide="vm.Step3DataDisable" class="noExl">
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <button ng-if="vm.mrnaccess.t1 === 'y'" type="button" title="Approved" class="btn btn-default" ng-click="item.stat='A'; vm.calunitRateRedMRN(item);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                            <button ng-if="vm.mrnaccess.t1 === 'y'" type="button" title="Rejected" class="btn btn-default" ng-click="item.stat='R'; vm.calunitRateRedMRN(item);">
+                                    <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                            <!--</div>-->
+                                        </td>
+                                        <!--<td ng-show="vm.Step1DataDisable">
+                                        <i class="fa fa-check fa-lg" aria-hidden="true" ng-show="item.status.name ==='Approved'"></i>
+                                        <i class="fa fa-times fa-lg" aria-hidden="true" ng-show="item.status.name ==='Rejected'"></i>
+                                    </td>-->
+                                        <td ng-hide="vm.Step3DataDisable">
+                                            <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                            <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                            <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                            <!--<span ng-show="item.stat==='A'" class="label label-success">Created</span>-->
+                                        </td>
+                                        <td ng-show="vm.Step3DataDisable">
+                                            <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                            <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                            <span ng-show="item.status.name ==='Ordered'" class="label label-warning">Ordered</span>
+                                            <span ng-show="item.status.name ==='Created'" class="label label-success">Created</span>
+                                            <!--<span class="flgDraft" ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                        </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td ng-hide="vm.Step3DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;margin-right: -25%;">
+                                                    <!--{{details.net_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;background:white;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step3DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.net_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.freight_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.loading_unloading_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" ng-hide="vm.Step3DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <input type="text" class="form-control" ng-hide="vm.Step3DataDisable" placeholder="Total" value="{{details.tax}}" ng-model="vm.gross_tax" ng-change="vm.calGrossAmtChMRN(details);" style="text-align: right;border:1px solid #CCC;margin-left: 19%;width:100%;"
+                                                        />
+                                                        <!--<label ng-show="vm.Step2DataDisable">{{details.tax}}</label> -->
+                                                </td>
+                                                <td colspan="3" ng-show="vm.Step3DataDisable"  style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <!--<input type="text" class="form-control" ng-hide="vm.Step2DataDisable" placeholder="Total" value="{{details.tax}}" ng-model="vm.gross_tax" ng-change="vm.calGrossAmtCh(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />-->
+                                                       {{details.tax}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.discount}}-->
+                                                    <input type="text" class="form-control" ng-hide="vm.Step3DataDisable" placeholder="Total" value="{{details.discount}}" ng-model="vm.gross_discount" ng-change="vm.calGrossAmtChMRN(details);" style="text-align: right;border:1px solid #CCC;  margin-left: 19%;width:100%;"
+                                                        />
+                                                        <label ng-show="vm.Step3DataDisable">{{details.discount}}</label> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step3DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step3DataDisable" colspan="9" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td ng-hide="vm.Step3DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;background:white;margin-right: -25%;">
+                                                    <!--{{details.gross_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.gross_amount | number:0}}" ng-model="vm.gross_amount" readonly style="text-align: right;background:white;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step3DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.gross_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="pull-left" ng-show='step === 3'>
+                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                            <textarea ng-if="vm.mrnaccess.t1 === 'y'" name="" id="" cols="30" rows="3" ng-model="vm.mrnTrackRemarks" ng-hide="vm.Step3DataDisable"
+                                placeholder="Remarks" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 60%;width:75%;"></textarea></div>
+                                    <button type="button" id="{{details.id}}" class="btn btn-primary"
+                                        ng-click="vm.closePO(details.id)" style="margin-left: 83%;margin-top: 6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Close</button>
+                                    <button type="button" id="updateMRN" ng-hide="vm.Step3DataDisable" class="btn btn-primary" 
+                                        ng-click="vm.updateMRNDetails(details)" style="margin-left: 71%;margin-top: -4.6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Save and Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div ng-show="step===3">
+                        <div style="color:gray;font-size:large;padding:30px;text-align:center;" ng-show="step3Flg==='2'">
+                            No MRN found. <span ng-if="vm.mrnaccess.c === 'y'"><a data-toggle='modal' data-target="#mrnpopup">Click Here</a> to create MRN.</span>
+                        </div>
+                    </div>
+                    <div style="float:right;" ng-show="step===3" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <button type="button" class="btn btn-primary" ng-hide="step3Flg==='2'" ng-click="pageRedirect(3)" style="margin-top: 0%;margin-left: -29%;"><i class="fa fa-times
+                            " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    </div>
+                    <div style="float:right;" ng-show="step===3" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <button type="button" class="btn btn-primary" ng-show="vm.Step3DataDisable" ng-click="pageRedirect(3)" style="margin-top: -62%;margin-left: -29%;"><i class="fa fa-times
+                            " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    </div>
+
+
+                    <div style="float:right" ng-show="step===4" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                        <button type="button" class="btn btn-primary" ng-click="pageRedirect(3)"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                    </div>
+
+
+
+                    <!--CH starts-->
+                    <div ng-repeat="details in vm.MrnDetailsAudit" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                        <div class="timeline-item-header" ng-show="step===4">
+                            <div ng-show="step3Flg==='1'" style="margin-top:-3%;">
+                                <button type="button" title="Download Excel" ng-click="vm.exportExcel('step3tblExcel'+$index)" class="btn btn-default" style=" font-size:16px;margin-left:94.5%; margin-top:-1%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+                                <p>
+                                    <h3>{{details.id}}</h3>
+                                </p>
+                                <div class="timeline-item-post" ng-show="step===4">
+                                    <p>
+                                        <span class="spn_req_title">Approved By :</span> <span style="color:#e50278;"> <b> {{details.ordered_by.name}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">PO Date :</span> <span style="color:#e50278;"> <b> {{details.datetime | date: 'dd-MMM-yyyy'}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Category :</span> <span style="color:#e50278;"> <b> {{vm.categoryName(details.category_id)}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Freight Type :</span> <span style="color:#e50278;"> <b> {{details.freight_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Load/Unload Type :</span> <span style="color:#e50278;"> <b> {{details.loading_unloading}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Order Type :</span> <span style="color:#e50278;"> <b> {{details.order_type}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Contact Person :</span> <span style="color:#e50278;"> <b> {{details.contact_incharge_name}} - {{details.contact_inchage_phone}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Payment Terms :</span> <span style="color:#e50278;"> <b> {{details.payment_terms}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title" maxlength="250">Remarks :</span> <span style="color:#e50278;"> <b> {{details.remarks}} </b> </span>
+                                        <span class="spn_seperator">|</span>
+                                        <span class="spn_req_title">Vendor :</span> <span style="color:#e50278;"> <b> {{details.vendor}} - {{vm.getvendorName(details.vendor)}} </b> </span>
+                                    </p>
+                                </div>
+                                <div class="table-responsive" ng-show="step===4">
+                                    <div class="timeline-item-post" ng-show="step===4">
+                                        <p>
+                                            <span class="spn_req_title">Invoice No :</span> <span style="color:#e50278;"> <b> {{details.invoice_no}} </b> </span>
+                                            <span class="spn_seperator">|</span>
+                                            <span class="spn_req_title">Invoice Date :</span> <b style="color:#e50278;"> {{details.invoice_dt | date:
+                                            'dd-MMM-yyyy'}} </b>
+                                            <span class="spn_seperator" ng-show="details.status.name === 'Audited'">|</span>
+                                            <span class="spn_req_title" ng-show="details.status.name === 'Audited'">Audited By :</span><b ng-show="details.status.name === 'Audited'" style="color:#e50278;">{{details.audited_by.name}}</b>
+                                        <span class="spn_seperator" ng-show="details.status.name === 'Audited'">|</span>
+                                            <span class="spn_req_title" ng-show="details.status.name === 'Audited'">Audited Remarks :</span><b ng-show="details.status.name === 'Audited'" style="color:#e50278;">{{details.audited_remarks}}</b>
+                                        <!--<span class="spn_seperator" ng-show="details.status.name === 'Audited'">|</span>-->
+                                        </p>
+                                    </div>
+                                    <table class="table table-bordered trackGrid" id="step3tblExcel{{$index}}" style="width: 95%;margin-left: 3%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl.No</th>
+                                                <th>PO No</th>
+                                                <th style="width:11%;">Mat.Code</th>
+                                                <!--<th>Material Name</th>-->
+                                                <!--<th>Uom</th>-->
+                                                <!--<th>Requested QTY</th>-->
+                                                <!--<th style="width:11%;">Invoice QTY</th>-->
+                                                <!--<th>Pending QTY</th>-->
+                                                <th style="width:13%;">Unit Rate</th>
+                                                <!--<th style="width:12%;">Req.date</th>-->
+                                                <th style="width:7%;">Tax % </th>
+                                                <th style="width:10%;">Discount % </th>
+                                                <th>Total</th>
+                                                <th ng-hide="vm.Step4DataDisable" style="width:12%;">Actions</th>
+                                                <th>Status</th>
+                                                <!--<th>Actions</th>
+                                <th>Status</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in details.materials">
+                                                <td scope="row">{{$index+1}}</td>
+                                                <td style="{{item.bg}}">{{item.po}}</td>
+                                                <td title="Material Name : {{item.name}} &#013;Material Size : {{item.size}} &#013;Specification : {{item.specification}} &#013;UOM : {{item.uom.name}}&#013;Invoice Qty : {{item.received_quantity}}">{{item.mat_code}}</td>
+                                             
+                                                <!--<td>{{item.received_quantity}}</label> </td>-->
+                                                <!--<td>{{item.pending_quantity}}</td>-->
+                                                <!--<td>{{item.rate | currency:'&#8377;'}}</td>-->
+                                                <td> <input type="text" ng-if="vm.mrnaccess.t2 === 'y'" ng-hide="vm.Step4DataDisable" ng-model="item.rate" ng-change="vm.calunitRateMRNAudit(item);"
+                                                style="width: 95%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"
+                                                class="noExl" /> 
+                                            <label ng-show="vm.Step4DataDisable">{{item.rate}}</label> </td>
+                                            <!--<td>-->
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                                <!--<div class="input-group1 date" id="srhDt1">
+                                <input type="text" ng-if="vm.mrnaccess.t2 === 'y'" ng-hide="vm.Step4DataDisable" class="form-control" ng-model="item.expected_date" style="border:1px solid #ccc;width:100%;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>-->
+                                            <!--</div>-->
+                                            <!--<label ng-show="vm.Step4DataDisable">{{item.expected_date}}</label>
+                                                </div>
+                                        </td>-->
+                                                <!--<td>{{item.tax}}</td>-->
+                                                <td>{{item.tax}}</td>
+                                                <!--<td>{{item.discount}}</td>-->
+                                                <td>{{item.discount}}</td>
+
+                                                <td style="text-align: right;">{{item.total | currency:'&#8377;'}}</td>
+
+                                        <td ng-hide="vm.Step4DataDisable" class="noExl">
+                                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                                            <button ng-if="vm.mrnaccess.t2 === 'y'" type="button" title="Approved" class="btn btn-default" ng-click="item.stat='A'; vm.calunitRateRedMRNAudit(item);">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    </button> &nbsp;
+                                            <button ng-if="vm.mrnaccess.t2 === 'y'" type="button" title="Rejected" class="btn btn-default" ng-click="item.stat='R'; vm.calunitRateRedMRNAudit(item);">
+                                    <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                            <!--</div>-->
+                                        </td>
+                                        <!--<td ng-show="vm.Step1DataDisable">
+                                        <i class="fa fa-check fa-lg" aria-hidden="true" ng-show="item.status.name ==='Approved'"></i>
+                                        <i class="fa fa-times fa-lg" aria-hidden="true" ng-show="item.status.name ==='Rejected'"></i>
+                                    </td>-->
+                                        <td ng-hide="vm.Step4DataDisable">
+                                            <!--<span class="flgDraft" ng-show="item.stat==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.stat==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.stat==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                            <span ng-show="item.stat==='A'" class="label label-success">Approved</span>
+                                            <span ng-show="item.stat==='P'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.stat==='R'" class="label label-danger">Rejected</span>
+                                            <!--<span ng-show="item.stat==='A'" class="label label-success">Created</span>-->
+                                        </td>
+                                        <td ng-show="vm.Step4DataDisable">
+                                            <span ng-show="item.status.name ==='Approved'" class="label label-success">Approved</span>
+                                            <span ng-show="item.status.name ==='Pending'" class="label label-warning">Pending</span>
+                                            <span ng-show="item.status.name ==='Rejected'" class="label label-danger">Rejected</span>
+                                            <span ng-show="item.status.name ==='Ordered'" class="label label-warning">Ordered</span>
+                                            <span ng-show="item.status.name ==='Created'" class="label label-success">Created</span>
+                                            <!--<span class="flgDraft" ng-show="item.status.name ==='Pending'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgReject" ng-show="item.status.name ==='Rejected'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>
+                                        <span class="flgApprove" ng-show="item.status.name ==='Approved'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span>-->
+                                        </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Net Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td ng-hide="vm.Step4DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.net_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;background:white;margin-left:17%;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step4DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.net_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Freight Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.freight_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Load/Unload Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.loading_unloading_charge | currency:'&#8377;'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Tax % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.tax}}-->
+                                                    <!--<input type="text" class="form-control" ng-hide="vm.Step2DataDisable" placeholder="Total" value="{{details.tax}}" ng-model="vm.gross_tax" ng-change="vm.calGrossAmtCh(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />-->
+                                                       {{details.tax}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Discount % &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    <!--{{details.discount}}-->
+                                                    <!--<input type="text" class="form-control" ng-hide="vm.Step4DataDisable" placeholder="Total" value="{{details.discount}}" ng-model="vm.gross_discount" ng-change="vm.calGrossAmtChMRN(details);" style="text-align: right;border:1px solid #CCC;"
+                                                        />-->
+                                                      {{details.discount}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td ng-show="vm.Step4DataDisable" colspan="7" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+                                                <td ng-hide="vm.Step4DataDisable" colspan="8" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                    Gross Amount &nbsp;&nbsp; :
+                                                </td>
+
+                                                <td ng-hide="vm.Step4DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;background:white;">
+                                                    <!--{{details.gross_amount | currency:'&#8377;'}}-->
+                                                    <input type="text" class="form-control" placeholder="Total" value="{{details.gross_amount}}" ng-model="vm.gross_amount" readonly style="text-align: right;background:white;margin-left:20%;"
+                                                        />
+                                                </td>
+                                                <td ng-show="vm.Step4DataDisable" colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                                                    {{details.gross_amount | currency:'&#8377;'}}
+                                                    <!--<input type="text" class="form-control" placeholder="Total" value="{{details.net_amount}}" ng-model="vm.net_amount" readonly style="text-align: right;"
+                                                        />-->
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="pull-left" ng-show='step === 4'>
+                            <!--<div ng-show="vm.trackSheetAccess == 'y'">-->
+                            <textarea ng-if="vm.mrnaccess.t2 === 'y'" name="" id="" cols="30" rows="3" ng-model="vm.mrnAuditedRemarks" ng-hide="vm.Step4DataDisable"
+                                placeholder="Remarks" style="resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;margin-left: 60%;width:75%;"></textarea></div>
+                                    <!--<button type="button" id="{{details.id}}" class="btn btn-primary"
+                                        ng-click="vm.closePO(details.id)" style="margin-left: 83%;margin-top: 6%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Close</button>-->
+                                   <br><br> <button type="button" id="updateMRN" ng-hide="vm.Step4DataDisable" class="btn btn-primary" 
+                                        ng-click="vm.updateMRNDetailsUpdate(details)" style="margin-left: 82%;margin-top: 5%;"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Submit</button>
+                                        <button type="button" class="btn btn-primary" ng-hide="step3Flg==='2'" ng-click="pageRedirect(3)" style="margin-top: -4.4%;margin-left: 90.2%;"><i class="fa fa-times
+                            " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div ng-show="step===4">
+                        <div style="color:gray;font-size:large;padding:30px;text-align:center;" ng-show="step3Flg==='2'">
+                            No MRN found. <span ng-if="vm.mrnaccess.c === 'y'"><a data-toggle='modal' data-target="#mrnpopup">Click Here</a> to create MRN.</span>
+                        </div>
+                    </div>
+                    <!--<div ng-show="step===4">
+                        <button type="button" class="btn btn-primary" ng-hide="step3Flg==='2'" ng-click="pageRedirect(3)" style="margin-top: -105%;margin-left: -29%;"><i class="fa fa-times
+                            " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    </div>-->
+                    <!--<div style="float:right;" ng-show="step===4">-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <!--<button type="button" class="btn btn-primary" ng-click="vm.stepNavigation('2');"><i class="fa fa-arrow-left" aria-hidden="false"></i>&nbsp;&nbsp;Back</button>&nbsp;&nbsp;-->
+                        <!--<button type="button" class="btn btn-primary" ng-hide="step3Flg==='2'" ng-click="pageRedirect(3)" style="margin-top: -105%;margin-left: -29%;"><i class="fa fa-times
+                            " aria-hidden="true "></i>&nbsp;&nbsp;Cancel</button>
+                    </div>-->
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Popup-->
+
+    <div class="modal fade" id="addpopup">
+        <div class="modal-dialog popup-position pi-popup" style="width:101%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="pofullClose" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                    <h4 class="modal-title" style="text-align: center;font-size: 16px;border-bottom: 1px solid orange;margin: 0px auto;">ADD PURCHASE ORDER</h4>
+                </div>
+
+                <div id="notification"></div>
+                <div id="poSidenav" class="sidenav" style="overflow: scroll;height: 95%;">
+                    <!--<p style="font-weight: 600;font-size: 15px;width:100%;margin-left:3%;margin-top:-3%;"> Added PI Materials</p>-->
+                    <a class="closebtn" id="pocloseNav" ng-click="vm.pocloseNav()" style="margin-top:-1%;color:#CCC;cursor:pointer;">x</a>
+                    <div class="row" style="margin-left:1% !important;width:100%;">
+                        <div class="col-md-6" style="width: 100%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+
+
+                            <div class="panel-body">
+                                <div class="table-responsive" style="font-size: 100%;">
+                                    <table class="table table-bordered grid" ng-cloak>
+                                        <thead>
+                                            <tr>
+                                                <th class="gcSlno">
+                                                    Sl.No
+                                                </th>
+                                                <th class="gcSlno">
+                                                    PI No
+                                                </th>
+                                                <th class="gcIDVendor" style="width:11%;">
+                                                    Category
+                                                </th>
+                                                <th class="gcIDPO" style="width:11%;">
+                                                    Material
+                                                </th>
+                                                <th class="gcDate">
+                                                    UOM
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Quantity
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Unit Rate
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Total Amount
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="item in poGetDet track by $index">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{item.pi_no}}</td>
+                                                <td>{{vm.categoryName(item.category)}}</td>
+                                                <td>{{item.material}}</td>
+                                                <td>{{item.UOM.name}}</td>
+                                                <td>{{item.qty}}</td>
+                                                <td>{{item.po_unit_rate}}</td>
+                                                <td>{{item.po_total}}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left: 82%;">
+                                                Total
+                                            </td>
+
+                                            <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.po_total" readonly style="text-align: right;"
+                                                />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div class="modal-footer ">
+                                        <div class="text-center ">
+                                            <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PORemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none;box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;"></textarea>
+                                            <br>
+                                        </div>
+                                        <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                                        <button type="button " class="btn btn-primary " ng-click="vm.insertPurchaseOrder('Created'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                         <!--CH Starts-->
+                                    <div class="col-md-6" style="width: 100%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                                        <label class="col-md-1" style="margin-top:-3.5%;">Freight Type</label>
+                <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:7%;">
+                    <select ng-model="vm.freightType" class="form-control">
+                                <!--<option value="" selected>Select Type</option>-->
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                </div> 
+                 <label class="col-md-1" style="margin-top:-3.5%;margin-left:23%;width: 12%;">Load / Unload Type</label>
+                <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:33%;">
+                    <select ng-model="vm.loadType" class="form-control">
+                                <!--<option value="" selected>Select Type</option>-->
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                </div> 
+                <label class="col-md-1" style="margin-top:-3.5%;margin-left:50%;width: 12%;">Contact Person</label>
+                 <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:58%;">
+                 <select ng-model="vm.exeList" ng-options="option._id as option.names for option in vm.executiveList" ng-change="vm.getExeList(vm.exeList);"
+            class="form-control">
+                                <option value="">Select Executive</option>
+                            </select>
+                 </div>
+                 <label class="col-md-1" style="margin-top:-3.5%;margin-left:74%;width: 12%;">Contact No.</label>
+                 <div class="col-md-3" style="width:15%;margin-top:-3.9%;margin-left:80%;">
+                    <input type="text" ng-model="vm.contactNo" class="form-control" placeholder="Contact No." style="border:1px solid #CCC;">
+                </div>
+
+                                    <div class="panel-body">
+                                        <div class="table-responsive" style="font-size: 100%;">
+                                            <table class="table table-bordered grid" ng-cloak>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="gcSlno">
+                                                            Sl.No
+                                                        </th>
+                                                        <!--<th class="gcIDVendor" style="width:8%;">
+                                                            Category - Sub Category
+                                                        </th>-->
+                                                        <th class="gcIDPO" style="width:6%;">
+                                                            Material ID
+                                                        </th>
+                                                        <th class="gcIDPO" style="width:9%;">
+                                                            Material Name
+                                                        </th>
+                                                        <th class="gcDate" style="width:7%;">
+                                                            UOM - Size <br> <small> Specification </small>
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Quantity
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Unit Rate
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Tax %
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Discount %
+                                                        </th>
+                                                        <th class="gcTotal" style="width:8%;">
+                                                            Total Amount
+                                                        </th>
+                                                    </tr>
+                                                    <tr ng-repeat="item in poGetDet track by $index">
+                                                        <td>{{$index + 1}}</td>
+                                                        <!--<td>{{vm.categoryName(item)}} - {{vm.categoryName(item)}}</td>-->
+                                                        <td>{{item.mat_code}}</td>
+                                                        <td>{{item.material}}</td>
+                                                        <td>{{item.UOM.name}} - {{item.size}} <br> <small>{{item.specification}}</small></td>
+                                                        <td>{{item.qty}}</td>
+                                                        <td>
+                                                        <input type="text" class="form-control" placeholder="Unit Rate" value="{{item.po_unit_rate | currency:'&#8377;'}}" ng-model="item.po_unit_rate" ng-change="vm.calunitRateTrack(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td><input type="text" class="form-control" placeholder="Tax %" value="" ng-model="item.tax" ng-change="vm.calNetAmtChTrack(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td><input type="text" class="form-control" placeholder="Discount %" value="" ng-model="item.discount" ng-change="vm.calNetAmtChTrack(item);" style="text-align: right;border: 1px solid #CCC;"
+                                                        /></td>
+                                                        <td>{{item.po_total | currency:'&#8377;'}}</td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <table style="width:100%;">
+                                            <table style="width:40%;">
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;width: 10%;">
+                                                        Tax(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:2%;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.taxAmt}}" ng-model="vm.taxAmt" readonly style="text-align:right;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Discount(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.disAmt}}" ng-model="vm.disAmt" readonly ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Overall Tax(Amt)
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{vm.grandTax}}" ng-model="vm.grandTax" readonly ng-change="vm.calGrossAmtCh();" style="text-align: right;border:1px solid #CCC;width:122%;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                                       Payment Terms
+                                                    </td>
+
+                                                    <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                                        <textarea cols="30 " class="form-control " rows="3 " ng-model="vm.paymentTerms" placeholder="Remarks
+                    " style="width:122%; resize:none; "></textarea>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table style="width:60%;margin-left: 41%;margin-top: -19%;">
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:64.4%;">
+                                                        Total
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.po_total" readonly style="text-align: right;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59.4%;">
+                                                       Freight(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" ng-if="vm.freightType == 'Vendor'" placeholder="Total" value="" ng-model="vm.freight_total" ng-change="vm.calGrossAmtChTrack();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <input type="text" class="form-control" ng-if="vm.freightType == 'Company' || vm.freightType == undefined " placeholder="Total" value="" ng-model="vm.freight_total" ng-change="vm.calGrossAmtCh();" readonly style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:55%;">
+                                                        Load/Unload(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" ng-if="vm.loadType == 'Vendor'" placeholder="Total" value="" ng-model="vm.load_total" ng-change="vm.calGrossAmtChTrack();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                        <input type="text" class="form-control" ng-if="vm.loadType == 'Company' || vm.loadType == undefined " placeholder="Total" value="" ng-model="vm.load_total" readonly style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:65%;">
+                                                        Tax
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_taxCH" ng-change="vm.calGrossAmtChTrack();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:61%;">
+                                                        Discount
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_discountCH" ng-change="vm.calGrossAmtChTrack();" style="text-align: right;border:1px solid #CCC;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59%;">
+                                                        Grand(Amt)
+                                                    </td>
+
+                                                    <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                        <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.grand_totalch" readonly style="text-align: right;"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </table>
+
+                                            <div class="modal-footer ">
+                                                <div class="text-center ">
+                                                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PORemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                                                    <br>
+                                                </div>
+                                                <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                                                <button type="button " class="btn btn-primary " ng-click="vm.insertPurchaseOrder('Created'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--CH Ends-->
+
+                                </div>
+
+
+                    </div>
+                </div>
+
+
+                <div id="porightnav" class="sidenav" style="overflow: scroll;overflow-x:hidden;height: 95%;">
+                    <p style="font-weight: 600;margin-top:-3%;text-align: center;font-size: 17px;"> Added PI Materials</p>
+                    <a class="closebtn" id="pocloseNav" ng-click="vm.pocloseNav1()" style="margin-top:-1%;color:#CCC;cursor:pointer;">x</a>
+                    <div class="row" style="margin-left:1% !important;width:100%;">
+                        <div class="col-md-6" style="width: 100%;">
+
+
+                            <div class="panel-body">
+                                <div class="table-responsive" style="font-size: 100%;">
+                                    <table class="table table-bordered grid" ng-cloak>
+                                        <thead>
+                                            <tr>
+                                                <th class="gcSlno">
+                                                    Sl.No
+                                                </th>
+                                                <th class="gcIDVendor" style="width:11%;">
+                                                    Category
+                                                </th>
+                                                <th class="gcIDPO" style="width:11%;">
+                                                    Material
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Total Amount
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="item in poGetDet track by $index">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{vm.categoryName1(item.category._id)}}</td>
+                                                <td>{{item.material}}</td>
+                                                <td>{{item.po_total}}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="pomain" class="row">
+                    <div class="col-md-2" style="margin-left:2%;width:19%;margin-top:1%;">
+                        <select ng-model="vm.SelectedVendor" ng-options="option._id as option.name for option in vm.vendorsList" ng-change="getVendor(vm.SelectedVendor);"
+                            class="form-control">
+                                <option value="">Select Vendor</option>
+                            </select>
+                    </div>
+                    <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.fromProject1" ng-options="option._id as option.name for option in vm.projectList1"
+                                        class="form-control">
+                                        <option value="">Select Project</option>
+                                    </select>
+                            </div>
+                    <div class="col-md-2" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.category" ng-options="option._id as option.name for option in vm.categoryCH" ng-change="vm.getPITrack(vm.category);"
+                                        class="form-control" ng-class="vm.catcheck(vm.item.nocat);">
+                                        <option value="">Select Category</option>
+                                    </select>
+                            </div>
+                    <div class="col-md-5" style="margin-left:2%;width:19%;">
+                        <!--<input type="text" class="form-control" placeholder="Invoice No" value="" ng-model="vm.invoiceNo" style="border: 1px solid #CCC;margin-left: 8%;margin-top: 1%;"/>-->
+                    </div>
+                    <button type="button" id="poCount" ng-click="vm.poopenNav1();" class="btn addRow waves-effect waves-button waves-classic"
+                        id="showRight" style="margin-left:50%;position:fixed;margin-top:1%;background-color:orange;"><i class="fa fa-cart-plus fa-2x" aria-hidden="true" style="margin-left:-33%;"></i><span class="badge badge-success pull-right" style=" margin-top: -128%;margin-right: -21%;">{{vm.count}}</span>
+                <!--<span style="font-size: x-large;">{{vm.count}}</span>-->
+                          </button>
+                </div>
+
+                <div class="modal-body modal-height" style="margin-top:0%;">
+                    <table purchase-order-add index="{{$index + 1}}" ng-repeat="item in vm.vendorTypeList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:-2%;">
+                    </table>
+                </div>
+
+                <div class="modal-footer ">
+                    <br>
+                    <div class="text-center ">
+                        <!--<textarea cols="70 " class="form-control " rows="3 " ng-model="vm.PORemarks" placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                    <br>-->
+                    </div>
+                    <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                    <button type="button " class="btn btn-primary " id="viewCartPO" ng-click="vm.poopenNav();" style="visibility:hidden;"><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;View Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mrnpopup">
+        <div class="modal-dialog popup-position pi-popup" style="width:100%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="mrnfullClose" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close();">&times;</button>
+                    <h4 class="modal-title" style="text-align: center;font-size: 16px;border-bottom: 1px solid orange;margin: 0px auto;">ADD MATERIAL RECEIPT NUMBER</h4>
+                </div>
+                <div id="notificationMRN"></div>
+                <div id="mrnSidenav" class="sidenav" style="overflow: scroll;height: 95%;">
+                    <div ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+                    <div   class="form-group" style="margin-left:4%;margin-top:-4%;">
+                        <label class="col-md-1" style="margin-top:0.5%;width: 8%;margin-left: 2%;">Invoice No</label>
+                        <div class="col-md-2" style="width:21%;">
+                            <input type="text" class="form-control" placeholder="Invoice No" value="" ng-model="vm.invoiceNo" style="border: 1px solid #CCC;"
+                            />
+                        </div>
+                        <label class="col-md-1" style="margin-top:0.5%;width:9%;">Invoice Date</label>
+                        <div class="col-md-2" style="width:21%;">
+                            <!--<input type="text" class="form-control" placeholder="Invoice Date" value="" ng-model="vm.invoicedate" style="border: 1px solid #CCC;"
+                        />-->
+                            <div class="input-group" style="width:100%;float:right;">
+                                <div class="input-group-btn search-panel">
+                                    <ul class="dropdown-menu" role="menu">
+                                    </ul>
+                                </div>
+                                <input type="hidden" name="search_param" value="all" id="search_param1">
+
+                                <!--<input type="text" class="form-control" id="srhTxt1" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">-->
+
+                                <div class="input-group date" id="srhDt1">
+                                    <input type="text" class="form-control" ng-model="vm.srhDt1" style="border:1px solid #ccc;" readonly>
+                                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br><br><br><br>
+                    <!--<p style="font-weight: 600;font-size: 15px;width:100%;margin-left:3%;margin-top:-3%;"> Added PO Materials</p>-->
+                    <a class="closebtn" id="mrncloseNav" ng-click="vm.mrncloseNav()" style="margin-top: -1%;cursor:pointer;">x</a>
+                    <div class="row" style="margin-left:1% !important;width:100%;">
+                        <div class="col-md-6" style="width: 100%;margin-top: -3%;">
+
+
+                            <div class="panel-body">
+                                <div class="table-responsive" style="font-size: 100%;">
+                                    <table class="table table-bordered grid" ng-cloak>
+                                        <thead>
+                                            <tr>
+                                                <th class="gcSlno">
+                                                    Sl.No
+                                                </th>
+                                                <th class="gcSlno">
+                                                    PO No
+                                                </th>
+                                                <th class="gcSlno">
+                                                    PI No
+                                                </th>
+                                                <th class="gcIDVendor" style="width:11%;">
+                                                    Category
+                                                </th>
+                                                <th class="gcIDPO" style="width:11%;">
+                                                    Material
+                                                </th>
+                                                <th class="gcDate">
+                                                    UOM
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Quantity
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Invoice Quantity
+                                                </th>
+                                                <th class="gcTotal" style="width:11%;">
+                                                    Unit Rate
+                                                </th>
+                                                <th span ng-if="vm.companyId !=='CO00001'" style="width:7%;">
+                                                    Discount%
+                                                </th>
+                                                <th span ng-if="vm.companyId !=='CO00001'" style="width:7%;">
+                                                    Tax%
+                                                </th>
+                                                <th class="gcTotal" style="width:14%;">
+                                                    Amount
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="item in mrngetDet track by $index">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{item.pi_no}}</td>
+                                                <td>{{item.pi_list}}</td>
+                                                <td>{{vm.categoryName(item.category)}}</td>
+                                                <td>{{item.material}}</td>
+                                                <td>{{item.UOM.name}}</td>
+                                                <td>{{item.qty}}</td>
+                                              <td>
+                                                    <input type="hidden" ng-init="item.pending_quantity = '0'" value="item.pending_quantity"/>
+                                                    <input type="text" class="form-control" ng-model="item.quantity" style="border: 1px solid #CCC;" ng-value="item.qty" ng-change="vm.calculateTotal(item);">
+                                                </td>
+                                                <td>{{item.po_unit_rate | currency:'&#8377;'}}</td>
+                                                <td><span id="{{item.pi_no + $index}}"><input type="text" class="form-control" ng-model="item.po_total" style="border: 1px solid #CCC;" ng-value="item.po_total" readonly></span>
+                                                <!--<span>{{item.total}}</span>-->
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                     <table style="width:100%;">
+                                        <tr>
+                                            <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:75%;">
+                                                Total
+                                            </td>
+
+                                            <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                <input type="text" class="form-control" placeholder="Total" value="{{item.po_total}}" ng-model="vm.po_total" readonly style="text-align: right;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:75%;">
+                                                Discount%
+                                            </td>
+
+                                            <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                <input type="text" class="form-control" placeholder="Discount %" value="" ng-model="vm.discount" ng-change="vm.calNetAmt();"
+                                                    style="border:1px solid #CCC;text-align: right;" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:75%;">
+                                                Tax%
+                                            </td>
+
+                                            <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                <input type="text" class="form-control" placeholder="Tax %" value="" ng-model="vm.tax" ng-change="vm.calNetAmt();" style="border:1px solid #CCC;text-align: right;"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:75%;">
+                                                Net Amount
+                                            </td>
+
+                                            <td colspan="5" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                                <input type="text" class="form-control" placeholder="Amount" value="" ng-model="vm.grand_total" readonly style="text-align: right;"
+                                                />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="modal-footer ">
+                                        <div class="text-center ">
+                                            <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.mrnRemarks " placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; box-shadow: rgba(0, 0, 0, 0.458824) 0px 1px 10px !important;"></textarea>
+                                            <br>
+                                        </div>
+                                        <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                                        <button type="button " class="btn btn-primary " ng-click="vm.insertMRN('Approved'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+                 <!--CH Starts-->
+                <div class="col-md-6" style="width: 100%;" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+                    <label class="col-md-1" style="margin-top:-3.5%;">Freight Type</label>
+                    <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:7%;">
+                        <select ng-model="vm.freightType" class="form-control" ng-change="vm.calGrossAmtCh1(vm.freightType)">
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                    </div>
+                    <label class="col-md-1" style="margin-top:-3.5%;margin-left:23%;width: 12%;">Load / Unload Type</label>
+                    <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:33%;">
+                        <select ng-model="vm.loadType" class="form-control"  ng-change="vm.calGrossAmtCh1(vm.loadType)">
+                                <option value="Company" selected>Company</option>
+                                <option value="Vendor">Vendor</option>
+                            </select>
+                    </div>
+                    <label class="col-md-1" style="margin-top:-3.5%;margin-left:50%;width: 12%;">Invoice No</label>
+                    <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:58%;">
+                        <input type="text" class="form-control" placeholder="Invoice No" value="" ng-model="vm.invoiceNo" style="border: 1px solid #CCC;"
+                        />
+                    </div>
+                    <label class="col-md-1" style="margin-top:-3.5%;margin-left:74%;width: 12%;">Invoice Date</label>
+                    <div class="col-md-2" style="width:15%;margin-top:-3.9%;margin-left:80%;">
+                        <!--<input type="text" class="form-control" placeholder="Invoice Date" value="" ng-model="vm.invoicedate" style="border: 1px solid #CCC;"
+                        />-->
+                        <div class="input-group" style="width:100%;float:right;">
+                            <!--<input type="hidden" name="search_param" value="all" id="search_param1">-->
+
+                            <!--<input type="text" class="form-control" id="srhTxt1" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">-->
+
+                            <div class="input-group date" id="srhDt1">
+                                <input type="text" class="form-control" id="srhDt1" ng-model="vm.srhDt11" style="border:1px solid #ccc;" readonly>
+                                <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br><br><br><br>
+                     <a class="closebtn" id="mrncloseNav" ng-click="vm.mrncloseNav()" style="margin-top: -5%;cursor:pointer;">x</a>
+                    <div class="panel-body" style="margin-top:-4%;width:100%;">
+                        <div class="table-responsive" style="font-size: 100%;">
+                            <table class="table table-bordered grid" ng-cloak>
+                                <thead>
+                                    <tr>
+                                        <th class="gcSlno">
+                                            Sl.No
+                                        </th>
+                                        <th class="gcSlno">
+                                            PO No
+                                        </th>
+                                        <th class="gcSlno">
+                                            PI No
+                                        </th>
+                                        <th class="gcIDVendor" style="width:11%;">
+                                            Category
+                                        </th>
+                                        <th class="gcIDPO" style="width:11%;">
+                                            Material
+                                        </th>
+                                        <th class="gcDate">
+                                            UOM  - Size <br> <small> Specification </small>
+                                        </th>
+                                        <th class="gcTotal" style="width:11%;">
+                                            Quantity
+                                        </th>
+                                        <th class="gcTotal" style="width:11%;">
+                                            Invoice Quantity
+                                        </th>
+                                        <th class="gcTotal" style="width:9%;">
+                                            Unit Rate
+                                        </th>
+                                        <th  style="width:10%;">
+                                            Discount%
+                                        </th>
+                                        <th style="width:8%;">
+                                            Tax%
+                                        </th>
+
+                                        <th class="gcTotal" style="width:12%;">
+                                            Amount
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="item in mrngetDet track by $index">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{item.pi_no}}</td>
+                                        <td>{{item.pi_list}}</td>
+                                        <td>{{vm.categoryName1(item.category)}}</td>
+                                        <td>{{item.material}}</td>
+                                        <td>{{item.UOM.name}} - {{item.size}} <br> <small>{{item.specification}}</small></td></td>
+                                        <td>{{item.qty}}</td>
+                                        <td>
+                                            <input type="hidden" ng-init="item.pending_quantity = '0'" value="item.pending_quantity"  />
+                                            <input type="text" class="form-control"   ng-model="item.quantity" style="border: 1px solid #CCC;" ng-value="item.qty" ng-change="vm.calunitRate1(item);">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Unit Rate" value="{{item.po_unit_rate | currency:'&#8377;'}}" ng-model="item.po_unit_rate"
+                                                ng-change="vm.calunitRate1(item);" style="text-align: right;border: 1px solid #CCC;"
+                                            /></td>
+                                             <td><input type="text" class="form-control" placeholder="Discount %" value="{{item.discount}}" ng-model="item.discount"
+                                                ng-change="vm.calunitRate1(item);" style="text-align: right;border: 1px solid #CCC;"
+                                            /></td>
+                                        <td><input type="text" class="form-control" placeholder="Tax %" value="item.tax" ng-model="item.tax"
+                                                ng-change="vm.calunitRate1(item);" style="text-align: right;border: 1px solid #CCC;"
+                                            /></td>
+                                       
+                                        <td>{{item.po_total | currency:'&#8377;'}}</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table style="width:100%;">
+                                <table style="width:40%;">
+                                    <tr>
+                                        <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;width: 10%;">
+                                            Tax(Amt)
+                                        </td>
+
+                                        <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:2%;margin-right:62%;">
+                                            <input type="text" class="form-control" placeholder="Total" value="{{vm.taxAmt}}" ng-model="vm.taxAmt" readonly style="text-align:right;width:122%;"
+                                            />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                            Discount(Amt)
+                                        </td>
+
+                                        <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                            <input type="text" class="form-control" placeholder="Total" value="{{vm.disAmt}}" ng-model="vm.disAmt" readonly ng-change="vm.calunitRate1();"
+                                                style="text-align: right;border:1px solid #CCC;width:122%;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                            Overall Tax(Amt)
+                                        </td>
+
+                                        <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                            <input type="text" class="form-control" placeholder="Total"  readonly value="{{vm.grandTax}}" ng-model="vm.grandTax" ng-change="vm.calGrossAmtCh1();"
+                                                style="text-align: right;border:1px solid #CCC;width:122%;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                                            Payment Terms
+                                        </td>
+
+                                        <td style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;margin-right:62%;">
+                                            <textarea cols="30 " class="form-control " rows="3 " ng-model="vm.paymentTerms" placeholder="Remarks
+                    " style="width:122%; resize:none; "></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width:60%;margin-left: 41%;margin-top: -19%;">
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:64.4%;">
+                                            Total
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" placeholder="Total" value=""  ng-model="vm.net_amount" readonly style="text-align: right;"
+                                            />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59.4%;">
+                                            Freight(Amt)
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" ng-if="vm.freightType == 'Vendor'" placeholder="Total" value="" ng-model="vm.freight_charge"
+                                                ng-change="vm.calGrossAmtCh1();" style="text-align: right;border:1px solid #CCC;"
+                                            />
+                                            <input type="text" class="form-control" ng-if="vm.freightType == 'Company' || vm.freightType == undefined " placeholder="Total"
+                                                value="" ng-model="vm.freight_charge" ng-change="vm.calGrossAmtCh1();" readonly
+                                                style="text-align: right;border:1px solid #CCC;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:55%;">
+                                            Load/Unload(Amt)
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" ng-if="vm.loadType == 'Vendor'" placeholder="Total" value="" ng-model="vm.load_total"
+                                                ng-change="vm.calGrossAmtCh1();" style="text-align: right;border:1px solid #CCC;"
+                                            />
+                                            <input type="text" class="form-control" ng-if="vm.loadType == 'Company' || vm.loadType == undefined " placeholder="Total"
+                                                value="" ng-model="vm.load_total" readonly style="text-align: right;border:1px solid #CCC;"
+                                            />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:65%;">
+                                            Tax
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_taxCH" ng-change="vm.calGrossAmtCh1();"
+                                                style="text-align: right;border:1px solid #CCC;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:61%;">
+                                            Discount
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" placeholder="Total" value="" ng-model="vm.po_discountCH" ng-change="vm.calGrossAmtCh1();"
+                                                style="text-align: right;border:1px solid #CCC;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10" style="border:none;padding:10px;padding-right:0px;background-color:transparent !important;padding-left:59%;">
+                                            Grand(Amt)
+                                        </td>
+
+                                        <td colspan="3" style="float:right;padding:10px;padding-right:0%;border:none;background-color:transparent !important;padding-left:10%;">
+                                            <input type="text" class="form-control" placeholder="Total"  value=""  ng-change="vm.calGrossAmtCh1();" ng-model="vm.grand_totalch"  readonly
+                                                style="text-align: right;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </table>
+
+                            <div class="modal-footer ">
+                                <div class="text-center ">
+                                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.mrnRemarks " placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                                    <br>
+                                </div>
+                               
+                                <button type="button " class="btn btn-primary " ng-click="vm.insertMRN('Created'); "><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;Submit</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--CH Ends-->
+                </div>
+                </div>
+
+                <div id="mrnrightnav" class="sidenav" style="overflow: scroll;overflow-x:hidden;height: 95%;">
+                    <p style="font-weight: 600;margin-top:-3%;text-align: center;font-size: 17px;"> Added PO Materials</p>
+                    <a class="closebtn" id="mrncloseNav" ng-click="vm.mrncloseNav1()" style="margin-top: 3%;margin-right:7%;color:#CCC;cursor:pointer;">x</a>
+                    <div class="row" style="margin-left:1% !important;width:100%;">
+                        <div class="col-md-6" style="width: 92%;margin-top: -3%;">
+
+
+                            <div class="panel-body">
+                                <div class="table-responsive" style="font-size: 100%;">
+                                    <table class="table table-bordered grid" ng-cloak>
+                                        <thead>
+                                            <tr>
+                                                <th class="gcSlno">
+                                                    Sl.No
+                                                </th>
+                                                <th class="gcIDVendor" style="width:11%;">
+                                                    Category
+                                                </th>
+                                                <th class="gcIDPO" style="width:11%;">
+                                                    Material
+                                                </th>
+                                                <!--<th class="gcTotal" style="width:11%;">
+                                                    Amount
+                                                </th>-->
+                                            </tr>
+                                            <tr ng-repeat="item in mrngetDet track by $index">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{vm.categoryName(item.category._id)}}</td>
+                                                <td>{{item.material}}</td>
+                                                <!--<td>{{item.total | currency:'&#8377;'}}</td>-->
+                                            </tr>
+                                        </thead>
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div id="mrnmain" class="row">
+                    <div class="form-group" style="margin-left:4%;">
+                        <label ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="col-md-1" style="margin-top:2%;width: 6%;">Vendor</label>
+                        <div class="col-md-2">
+                            <select ng-model="vm.SelectedVendor" ng-options="option._id as option.name for option in vm.vendorsList" ng-change="getVendorList(vm.SelectedVendor);"
+                                class="form-control" style="margin-top:8%;">
+                                <option value="">Select Vendor</option>
+                            </select>
+                        </div>
+                         <div  ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"  class="col-md-2" style="margin-left:2%;width:19%;margin-top: 1%;">
+                                <select ng-model="vm.project" ng-options="option._id as option.name for option in vm.projectList"
+                                        class="form-control">
+                                        <option value="">Select Project</option>
+                                    </select>
+                            </div>
+                            <div  ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="col-md-2" style="margin-left:2%;width:19%;margin-top: 1%;">
+                        <select ng-model="vm.category" ng-options="option._id as option.name for option in vm.categoryCH" ng-change="vm.getMRN(vm.category);"
+                            class="form-control" ng-class="vm.catcheck(vm.item.nocat);">
+                                        <option value="">Select Category</option>
+                                    </select>
+                    </div>
+                    </div>
+                    <div class="col-md-2" style="margin-left:2%;width:19%;margin-top:-2%;">
+
+                    </div>
+                    <button type="button" ng-click="vm.mrnopenNav1();" id="mrnCount" class="btn addRow waves-effect waves-button waves-classic"
+                        id="showRight" style="margin-left:67%;position:fixed;margin-top:0%;background-color:orange;"><i class="fa fa-cart-plus fa-2x" aria-hidden="true" style="margin-left:-33%;"></i><span class="badge badge-success pull-right" style=" margin-top: -128%;margin-right: -21%;">{{vm.count}}</span>
+                <!--<span style="font-size: x-large;">{{vm.count}}</span>-->
+                          </button>
+                </div>
+
+                <div class="modal-body modal-height" style="margin-top:0%;">
+                    <table ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" material-receipt-add index="{{$index}}" ng-repeat="item in vm.vendorMRNList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:0px;">
+                    </table>
+                    <table ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" material-receipt-add index="{{$index-vm.vendorMrnLen}}" ng-repeat="item in vm.vendorMRNList" item="item" class="table" style="border-collapse:collapse;width:100%;margin-bottom:0px;">
+                </table>
+                </div>
+
+                <!--<div class="row" style="margin-left:1% !important;width:100%;">
+                <div class="col-md-6" style="margin-left:50%;margin-top:-36%;">
+
+
+                    <div class="panel-body">
+                        <div class="table-responsive" style="font-size: 100%;">
+                            <table class="table table-bordered grid" ng-cloak>
+                                <thead>
+                                    <tr>
+                                        <th class="gcSlno">
+                                            Sl.No
+                                        </th>
+                                        <th class="gcIDVendor" style="width:11%;">
+                                            Category
+                                        </th>
+                                        <th class="gcIDPO" style="width:11%;">
+                                            Material
+                                        </th>
+                                        <th class="gcDate">
+                                            UOM
+                                        </th>
+                                        <th class="gcTotal" style="width:11%;">
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="item in poGetDet">
+                                            <td>1</td>
+                                            <td>{{item.category}}</td>
+                                            <td>{{item.material}}</td>
+                                            <td>{{item.UOM}}</td>
+                                            <td>{{item.qty}}</td>
+                                        </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>--><br><br>
+                <div class="modal-footer ">
+                    <!--<div class="text-center ">
+                    <textarea cols="70 " class="form-control " rows="3 " ng-model="vm.mrnRemarks " placeholder="Remarks
+                    " style="box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46) !important; resize:none; "></textarea>
+                    <br>
+                </div>-->
+                    <!--<button type="button " class="btn btn-default " data-dismiss="modal " ng-click="vm.InsertPurchaseIndent('Draft'); "><i class="fa fa-archive " aria-hidden="false "></i>&nbsp;&nbsp;Draft</button>-->
+                    <button type="button " class="btn btn-primary " id="viewCart" ng-click="vm.mrnopenNav();" style="visibility:hidden;"><i class="fa fa-floppy-o " aria-hidden="true "></i>&nbsp;&nbsp;View Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+    <script type="text/javascript">
+   </script>

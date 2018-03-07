@@ -1,0 +1,32 @@
+<td>{{vm.index}}</td>
+<td align="center">
+    <input type="text" class="form-control"  ng-value="vm.item.category" disabled style="border:1px solid #CCC;width:112%;margin-left:-9%;">
+</td>     
+<td align="center">
+    <input type="text" class="form-control" ng-value="vm.item.subcategory" disabled style="border:1px solid #CCC;margin-left:-14%;width: 128%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.mat_name" disabled style="border:1px solid #CCC;width:104%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model=" vm.item.mat_matname" disabled style="border:1px solid #CCC;width:138%;margin-left:-17%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.uom" ng-disabled="vm.item.uom" style="border:1px solid #CCC;width: 107%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.mat_size" disabled style="border:1px solid #CCC;width:111%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control"  ng-value="vm.getEmp(vm.item.issued_to)" disabled style="border:1px solid #CCC;margin-left:-1%;width:112%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control"  ng-value="vm.getContract(vm.item.contractor_id)" disabled style="border:1px solid #CCC;margin-left:-4%;width: 123%;">
+</td>
+
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.issued_qty" disabled style="border:1px solid #CCC;margin-left:0%;width:78%;">
+</td>
+<!--<td>
+    <input type="text" class="form-control" ng-model="vm.item.avlqty" disabled style="border:1px solid #CCC;width:89%;margin-left:2%;">
+</td>-->

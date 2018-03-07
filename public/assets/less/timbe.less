@@ -1,0 +1,62 @@
+// Switch Button
+@bg-color: #FFB13E;
+@border-color :#FFA500;
+// Default Color
+@font-color : black;
+// Pagination Color
+@pg-bgcolor: #FFB13E;
+@pg-bordercolor : #FFA500;
+// Button Primary Default Color
+@button-prbg : #FFB13E;
+@button-prcolor : #FFF;
+
+// Switch Button for Approval and Request
+.cd-pricing-switcher .cd-switch {
+  /* floating background */
+  background-color: @bg-color;
+}
+
+// Switch Button for Approval and Request - Border
+.cd-pricing-switcher .fieldset {
+  border: 1px solid @border-color;
+}
+
+.cd-pricing-switcher label {
+  color: @font-color;
+}
+
+// Pagination 
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background: @pg-bgcolor; 
+    border-color: @pg-bordercolor;
+}
+
+// Button Primary Default Color
+.btn-primary {
+    color: @font-color;
+    background-color: @button-prbg;
+    
+}
+
+.btn-primary:hover{
+    color: @font-color;
+    background-color: @border-color;
+}
+
+.addRow{
+    background-color:@bg-color;
+}
+
+.deleteRow{
+    background-color:@bg-color;
+}
+
+.select{
+    margin-left: 12%;
+}
+

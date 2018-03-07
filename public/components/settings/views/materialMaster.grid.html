@@ -1,0 +1,61 @@
+<td>
+    {{vm.index}}
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'" ng-cloak>
+    {{vm.getCategoryId(vm.item.category)}} - {{vm.getCategoryName(vm.item.category)}}
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'" ng-cloak>
+    {{vm.getCategoryName(vm.item.category)}}
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'" ng-cloak>
+    {{vm.getSubCategory(vm.item.subcategory)}}
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'">
+    {{vm.item.id}}
+</td>
+<td title="Type  : {{vm.item.material_type_name}} &#013;UOM : {{vm.getUomName(vm.item.uom)}} &#013;Size    : {{vm.getSizeName(vm.item.size)}}" span ng-if="vm.api.company._id =='CH0001'">
+    <span ng-hide="vm.editMode"> {{vm.item.name}}</span>
+    <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model="vm.item.name" style="margin-top:-4%;width:76%;">
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'">
+    {{vm.item.id}}
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'">
+    {{vm.item.name}}
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'">
+    <span ng-hide="vm.editMode">{{vm.getUomName(vm.item.uom)}}</span>
+    <select ng-show="vm.editMode" ng-options="option._id as option.name for option in vm.uomList" ng-model="vm.item.uom" class="form-control noExl"
+        style="margin-left:-13%;margin-top:-16%;width:140%;border: 1px solid black;"></select>
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'">
+    <span ng-hide="vm.editMode"> {{vm.item.specification}}</span>
+    <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model=" vm.item.specification" style="margin-top:-4%;width:76%;">
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'" style="text-align:center;">
+    <span ng-hide="vm.editMode">{{vm.item.minimum_quantity}}</span>
+    <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model="vm.item.minimum_quantity" style="margin-top:-11%;width:76%;">
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'">
+    {{vm.item.quantity}}
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'">
+    {{vm.item.rate | currency:'&#8377;'}}
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'" style="text-align:center;">
+    <span ng-hide="vm.editMode">{{vm.item.rate | currency:'&#8377;'}}</span>
+    <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model="vm.item.rate" style="margin-top:-10%;width:80%;">
+</td>
+<td span ng-if="vm.api.company._id =='CO00001'">
+    {{vm.item.updated_by._id ? vm.item.updated_by._id : vm.item.created_by._id}}
+</td>
+
+<td ng-if="vm.access.u === 'y' && vm.api.company._id =='CO00001' || vm.access.u === 'd' && vm.api.company._id =='CO00001'">
+    <button ng-if="vm.access.u === 'y'" title="Edit" type="button" class="btn btn-default" ng-click="vm.edit();" ng-hide="vm.editMode"><i class="fa fa-pencil fa-lg" style="font-size:15px;"></i></button>
+    <button ng-if="vm.access.u === 'y'" title="Save" type="button" class="btn btn-default" ng-click="vm.save(vm.item);" ng-show="vm.editMode"> <span class="fa fa-floppy-o"></span></button>
+    <button ng-if="vm.access.d === 'y'" title="Delete" type="button" class="btn btn-default" ng-click="vm.deleteItem(vm.item);"><i class="fa fa-trash fa-lg" style="font-size:15px;"></i></button>
+</td>
+<td span ng-if="vm.api.company._id =='CH0001'">
+    <button title="Edit" type="button" class="btn btn-default" ng-click="vm.edit();" ng-hide="vm.editMode"><i class="fa fa-pencil fa-lg" style="font-size:15px;"></i></button>
+    <button title="Save" type="button" class="btn btn-default" ng-click="vm.save(vm.item);" ng-show="vm.editMode"> <span class="fa fa-floppy-o"></span></button>
+</td>

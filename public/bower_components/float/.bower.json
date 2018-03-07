@@ -1,0 +1,40 @@
+{
+  "name": "float",
+  "version": "1.0.2",
+  "homepage": "https://github.com/mex/float",
+  "authors": [
+    "Michael Storgaard <float@mex.io>"
+  ],
+  "description": "Provides methods for comparing and rounding floating point numbers",
+  "main": "src/float.js",
+  "keywords": [
+    "float",
+    "integers",
+    "numbers",
+    "integer",
+    "number",
+    "rounding",
+    "comparing",
+    "comparison",
+    "compare",
+    "round"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "82cf103b11fbb0c3b016b9a72a4d97866dcf4469"
+  },
+  "_source": "https://github.com/mex/float.git",
+  "_target": "^1.0.2",
+  "_originalSource": "float",
+  "_direct": true
+}

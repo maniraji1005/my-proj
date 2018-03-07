@@ -1,0 +1,77 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Uom Master
+</div>
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div class="input-group" style="width:50%;float:right;margin-right: 7%;">
+        <div class="input-group-btn search-panel">
+            <ul>
+                <li><a title="#Uom">Uom name</a></li>
+            </ul>
+        </div>
+        <input type="hidden" name="search_param" value="all" id="search_param">
+
+        <input type="text" class="form-control" ng-model="vm.srhUom" id="srhTxt" name="x" placeholder="Search uom" style="border:1px solid #ccc;width: 55%;margin-left: 48%;">
+
+        <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" type="button"  ng-click="vm.uomfilter(true, vm.begin, vm.end)" style="margin-left:32%;"><span class="glyphicon glyphicon-search" ></span></button>
+        </span>
+
+        <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()" style="margin-left:32%;"><span class="glyphicon glyphicon-repeat"></span></button>
+        </span>
+    </div>
+
+     <!--<Add new uom>-->
+
+    <form ng-if="vm.uomAccess.c === 'y'" class="form-inline" style="margin-top:-1%;margin-left: 4%;">
+        <div class="form-group" style="margin-top: -2%;margin-left:24%;">
+            <label class="" style="font-weight:600;">Uom Name</label>&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" ng-model="vm.newuom" style="border: 1px solid #ccc;" />
+        </div>
+
+        <button type="submit" ng-click="vm.addRow()" class="btn btn-primary" style="margin-top:-2.4%;margin-left:2.5%;width:10%;color:white;background-color:#FFB13E;">Add
+        </button>
+        <div style="width:90%;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top:15px;margin-left:26%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+    </form>
+
+        <!--Uom master Grid-->
+        
+    <div class="modal-body" style="width: 95%;margin-left: -2cm;margin-top: -1.97cm;">
+        <br><br>
+        <table class="table table-bordered grid " style="width:40%;margin-left: 10cm;margin-top:-1cm;" ng-cloak>
+            <tr>
+                <th style="width:10%;">
+                    Sl.No
+                </th>
+                <th style="width:56%;">
+                    Uom Name
+                </th>
+            </tr>
+            <tr uom-master-grid index="{{$index+1}}" ng-repeat="item in vm.uomApp" item="item">
+            </tr>
+            <tr>
+                <td colspan="3" ng-show="vm.uomApp.length===0 || vm.uomApp ===undefined" class="noRec noExl" style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left: 22%;">
+           <span ng-if="vm.uomApp.length > 0"> Total Rows : {{vm.rowCnt}}</span>
+           <span ng-if="vm.uomApp === undefined">Total Rows : 0 </span>
+        </div>
+        <!--Pagination for uom-->
+        <div class="col-md-2 pagination" style="margin-left: 17%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>

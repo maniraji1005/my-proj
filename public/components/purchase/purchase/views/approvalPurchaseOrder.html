@@ -1,0 +1,185 @@
+<!--TAB-->
+<div class="row">  
+  <div class="col-md-12">
+  <div class="bread-crumbs-parent">
+    <ol class="breadcrumb">
+  <li><i class="fa fa-home" style="font-size:19px;" aria-hidden="true"></i>&nbsp;&nbsp;<a href="#">Purchase Order</a></li>
+
+  <li class="active">PO Approval</li>  
+</ol>
+
+  <div><a ui-sref="master.purchaseOrder"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;Back</a>
+    
+  </div>
+
+
+
+  </div>
+  
+  
+  
+ </div>
+ </div>
+ 
+  <!--SEARCH,ADD,ROWS PER PAGE-->
+<div class="row search-strip">
+  
+  <!--DDL-->
+     <div class="col-md-2 text-center">     
+      <select class="form-control noRowsDDl">
+        <option>15</option>
+        <option>50</option>
+        <option>100</option>      
+      </select> 
+    </div>  
+  
+  <!--Advance Search-->
+    <div class="col-md-8">
+    <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search..." />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">Filter by Status</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>--Select--</option>
+                                        <option value="1">Draft</option>
+                                        <option value="2">Waiting for Approval</option>
+                                        <option value="3">Closed</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Search</label>
+                                    <input class="form-control" type="text" placeholder="Search by MR"/>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="filter">Executive</label>
+                                    <select class="form-control">
+                                        <option value="0" selected>--Search by Executive--</option>
+                                        <option value="1">Prakash Sriramalu</option>
+                                        <option value="2">Nandagopal Palani</option>
+                                        <option value="3">Munusamy Ratnam</option>
+                                        <option value="4">Narendaran Kamalanathan</option>
+                                        <option value="5">Dhakshnamoorthy</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Date</label>
+                                    <input date-range-picker class="form-control date-picker" type="text" placeholder="Search by Date" ng-model="datePicker"/>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search searchButton" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search searchButton" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+             </div>
+              <!--Add Button-->
+                <div class="col-md-2">           
+               <button type="button" class="btn btn-default" style="display:none;">
+      <span class="glyphicon glyphicon-pencil"></span> Add Request
+    </button>
+            </div>
+         
+ </div>
+
+  
+<!--GRID VIEW-->
+<div class="row grid-view">
+    <div class="col-md-12">    
+ <table class="grid"  ng-cloak>
+                <tr>
+                    <td class="gcSlno">
+                      Sl.No
+                    </td>
+                    <td class="gcIDPO">
+                      Vendor Name
+                    </td>
+                    <td class="gcIDPO">
+                      PO No
+                    </td>
+                    <td class="gcDate">
+                      Date
+                    </td>
+                    <td class="gcDate">
+                     Total Amount
+                    </td>
+                    <td class="gcNameExe">
+                     Raised by
+                    </td>
+                    <td class="gcStatus">
+                     Status
+                    </td>
+                    <td class="gcRemark">
+                     Remarks
+                    </td>
+                    <td class="gcAction">
+                     Actions
+                    </td>               
+                </tr>
+                
+      <tr ng-repeat="item in poAppList">
+        <td class="gcValSlno">
+        {{item.id}}
+        </td>
+         <td class="gcValID">
+           {{item.vendor_no}}
+        </td>
+        <td class="gcValID">
+           {{item.po_no}}
+        </td>
+         <td class="gcValDate">
+           {{item.po_date}}
+        </td>
+        <td class="gcValDate">
+           {{item.total}}
+        </td>
+         <td class="gcValName">
+          {{item.raised_by}} <br><small>{{item.branch}}</small>
+        </td>
+         <td class="gcValStatus">
+        <span ng-if="item.status == 'Waiting for Approval' ">
+        <span class="flgDraftApp">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        &nbsp;&nbsp; {{item.status}} </span>
+        <span ng-if="item.status == 'Approved' ">
+        <span class="flgDraftAcc">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        &nbsp;&nbsp; {{item.status}} </span>
+        <span ng-if="item.status == 'Rejected' ">
+        <span class="flgDraftRej">
+          <i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        &nbsp;&nbsp; {{item.status}} </span>
+        </td>
+         <td class="gcValRemark">
+          {{item.remarks}}
+        </td>
+         <td class="gcValAction">
+        <button type="button" class="btn btn-default">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <!--<button type="button" class="btn btn-default">
+           <i class="fa fa-trash fa-lg"></i>
+        </button>-->
+        </td>
+     </tr>
+    </table>
+     </div>
+  </div>
+  
+  <!--PAGENATION-->
+  <div class="row">
+  <div class="col-md-12 text-center">
+      <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">First</a></li><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Last</a></li></ul></div>
+  </div>
+  </div>
+  
+  
+ 

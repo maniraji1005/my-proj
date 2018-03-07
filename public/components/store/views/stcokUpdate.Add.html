@@ -1,0 +1,73 @@
+<td>{{vm.index}}</td>
+<td>
+    <select ng-init="vm.catecall();" ng-model="vm.item.category" ng-options="option._id as option.name for option in vm.categoryList"
+      ng-class="vm.validation(vm.item.CatIDEmpty);"   ng-change="vm.getsubCategory(vm.item.category);" style="margin-left:-15%;width:112%;" class="form-control">
+                <option value="">Select</option>
+     </select>
+</td>
+<td>
+
+    <select ng-model="vm.item.subCategory" ng-options="option._id as option.name for option in vm.subCategoryList" ng-change="vm.getMaterial(vm.item.subCategory);"
+       ng-class="vm.validation(vm.item.subCatIDEmpty);"   class="form-control" style="margin-left:-19%;width:124%;">
+        <option value="">Select</option>
+    </select>
+</td>
+<td align="center">
+    <select ng-model="vm.item.id" ng-options="option.id as option.id for option in vm.materialdet" ng-change="vm.getDet(vm.item.id)"
+        style="border:1px solid #CCC;width:112%;margin-left:-12%;" class="form-control" ng-value="{{option.id}}"   ng-class="vm.validation(vm.item.codeIsEmpty);">
+      <option value="">Select ID</option>
+    </select>
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.name" ng-disabled="vm.item.name" style="border:1px solid #CCC;width:139%;margin-left:-28%;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.uom" ng-disabled="vm.item.name" style="border:1px solid #CCC;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.mat_size" ng-disabled="vm.item.mat_size" style="border:1px solid #CCC;width:100%;margin-left:-6%;">
+
+</td>
+<!--<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.uom" ng-disabled="vm.item.name" style="border:1px solid #CCC;">
+</td>-->
+<!--<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.mat_size" ng-disabled="vm.item.mat_size" style="border:1px solid #CCC;width:100%;margin-left:-6%;">
+</td>-->
+
+<!--<td align="center">
+    <select ng-class="vm.checkCont(vm.item.conIdIsEmpty)" class="form-control" ng-options="option._id as option.name for option in  vm.contractId"
+        ng-model="vm.item.issued_to" style="border:1px solid #CCC;width:170%;margin-left: -21%;" ng-change="vm.getContract(vm.item.issued_to)">
+        <option value="">Select</option>
+     </select>
+</td>
+<td>
+    <input type="text" class="form-control" ng-model="vm.api.profile._id" ng-disabled="vm.api.profile._id" style="border:1px solid #CCC;width:100%;margin-left:11%;">
+</td>-->
+
+
+<td>
+ <select  ng-class="vm.validation(vm.item.IssuedIs);" ng-model="vm.item.issuedBy" ng-options="option._id as option.names for option in vm.employeeList" 
+        class="form-control" style="margin-left:-15%;width:114%;">
+        <option value="">Select</option>
+ </select>
+</td>
+<td align="center">
+ <select ng-model="vm.item.issuedTo" ng-options="option._id as option.name for option in vm.contractorList" 
+  ng-class="vm.validation(vm.item.conIdEmpty);"
+        class="form-control" style="margin-left:-15%;width:160%;">
+        <option value="">Select</option>
+ </select> 
+</td>
+
+
+<td align="center">
+    <input type="text" class="form-control" ng-class="vm.validation(vm.item.issQtyEmpty);"  ng-model="vm.item.received_quantity"  style="border:1px solid #CCC;margin-left: 34%;width:59%;">
+</td>
+<!--<td>
+    <input type="text" class="form-control" ng-model="vm.item.available_quantity" disabled style="border:1px solid #CCC;width:115%;margin-left:-11%;">
+
+</td>-->
+<td>
+    <button type="button" ng-click="vm.deleteAdd(vm.index-1);" class="btn btn-default"><i class="fa fa-trash fa-lg"  style="font-size: 15px;"></i></button>
+</td>

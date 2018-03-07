@@ -1,0 +1,50 @@
+<td style="vertical-align:inherit;" align="center" align="center">
+    <label for="">{{vm.index}}</label>
+</td>
+<td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" align="center">
+    <select name="" id="" class="form-control" ng-model="vm.item.category" ng-options="option._id as option.name for option in vm.Category" ng-change="vm.getMaterial(vm.item.category);" ng-class="vm.categoryCheck(vm.item.nocat);">
+        <option value="">Choose Category</option>
+    </select>
+</td>
+<td align="center">
+    <!--<select name="" id="" class="form-control" ng-model="vm.item.material" ng-options="option.id as option.name for option in vm.materialDet">
+        <option value="">Choose Material</option>
+    </select>-->
+    <select class="form-control" ng-model="vm.item.id" ng-change="vm.MaterialCheck(vm.item.id);" ng-class="vm.matCheck(vm.item.nomat);">
+        <option value="">Select Material</option>
+        <option ng-repeat="option in vm.materialDet" value="{{option.id}}">{{option.id}}</option>
+    </select>
+</td>
+<td align="center">
+   <input type="text" class="form-control" ng-model="vm.item.name" title="Material Size : {{vm.item.size.name}}&#013;Specification :{{vm.item.specification}}&#013;Type :{{vm.item.matType}} " value="{{vm.item.name}}" disabled style="border: 1px solid #CCC;">
+</td>
+<!--<td align="center" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+    <input type="text" class="form-control" ng-model="vm.item.size.name" value="{{vm.item.size.name}}" disabled style="border: 1px solid #CCC;">
+</td>
+<td align="center" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+    <input type="text" class="form-control" ng-model="vm.item.specification" value="{{vm.item.specification.name}}" disabled style="border: 1px solid #CCC;">-->
+<!--</td>-->
+<td align="center" style="vertical-align:inherit;">
+    <input type="text" class="form-control" ng-model="vm.item.uom.name" value="{{vm.item.uom.name}}" disabled style="border: 1px solid #CCC;">
+    <!--<input type="text" class="form-control" ng-model="vm.item.uom.name">{{vm.item.uom.name}}</label>-->
+</td>
+<td align="center">
+    <input type="text" class="form-control" ng-model="vm.item.quantity" ng-class="vm.QuantityCheck(vm.item.noqty)" maxlength="5" ng-change="vm.quantityVal()" value="" style="border: 1px solid #CCC;background-color: white;">
+</td>
+<td align="center" style="vertical-align:inherit;">
+    <label>{{vm.item.avlquantity}}</label>
+</td>
+<!--<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" align="center" style="vertical-align:inherit;">
+    <div class="input-group1 date" id="srhDt1">
+                                <input type="text" class="form-control" ng-model="vm.item.mat_date" style="border:1px solid #ccc;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+                            </div>
+</td>-->
+<td align="center">
+    <div class="checkbox checkbox-primary" style="vertical-align:inherit;">
+        <input id="checkbox" type="checkbox" ng-model="vm.item.row">
+    </div>
+</td>
+

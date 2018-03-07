@@ -1,0 +1,14 @@
+<td>
+  {{vm.index}}
+</td>
+<td>
+  {{vm.getcategory(vm.item.category)}}
+</td>
+<td>
+  <span ng-hide="vm.editMode">{{vm.item.name}}</span>
+  <input ng-show="vm.editMode" type="text" class="form-control inputBorder noExl" ng-model="vm.item.name" style="margin-top:-1%;width:76%;">
+</td>
+<td>
+  <button title="Edit" type="button" class="btn btn-default" ng-click="vm.edit();" ng-hide="vm.editMode" style="margin-left: 15%;"><i class="fa fa-pencil fa-lg" style="font-size:15px;"></i></button>
+  <button title="Save" type="button" class="btn btn-default" ng-click="vm.save(vm.item);" ng-show="vm.editMode" style="margin-left: 15%;"> <span class="fa fa-floppy-o"></span></button>
+</td>

@@ -1,0 +1,170 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Size Master
+</div>
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">Category Name</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <li><a title="#cateName">CategoryName</a></li>
+                    <li><a title="#subcateName">SubCategory Name</a></li>
+                    <li><a title="#srhuom">UOM</a></li>
+                    <li><a title="#sizeMat">Size</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+            <select class="form-control" id="srhCateName" name="x" ng-options="option._id as option.name for option in vm.categoryList"
+                ng-model="vm.srhCateName" style="border:1px solid #ccc;">
+                  <option value="">Select Category</option>
+                </select>
+            <div class="input-group" id="srhsize" style="display:none;width:100%;">
+                <input type="text" class="form-control" id="srhsize" ng-model="vm.srhsize" placeholder="Search size" style="border:1px solid #ccc;">
+            </div>
+            <div class="input-group" id="srhsubCate" style="display:none;width:100%;">
+                <select class="form-control" id="srhsubCate" ng-model="vm.srhsubCate" ng-options="option._id as option.name for option in vm.subCategoryList1"
+                    style="border:1px solid #ccc;">
+                    <option value="">Select SubCategory</option>
+                </select>
+            </div>
+            <div class="input-group" id="srhuom" style="display:none;width:100%;">
+                <select class="form-control" id="srhuom" ng-model="vm.srhuom"  ng-options="option._id as option.name for option in vm.uomList1" style="border:1px solid #ccc;">
+                    <option value="">Select uom</option>
+                </select>
+            </div>
+            <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" ng-click="vm.sizeMasfil(true , vm.begin, vm.end)" type="button"><span class="glyphicon glyphicon-search" ></span></button>
+            </span>
+            <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+        </div>
+    </div>
+
+    <!--Add new size-->
+
+    <form class="form-inline" style="margin-top:0%;margin-left:5%;" name="size">
+        <div class="form-group" style="margin-left:-1%%; margin-top: -2%;">
+            <label class="" style="font-weight:600;margin-left:-17%;"> Category</label>
+            <select class="form-control" ng-options="option as option.name for option in vm.categoryList" ng-model="vm.cateName" ng-change="vm.getSubCategory(vm.cateName._id);"
+                style="border:1.7px solid #ccc;width:71%;">
+                <option value="">Select Category </option>
+            </select></input>
+        </div>
+        <div class="form-group" style="margin-left: 3%; margin-top: -2%;">
+            <label class="" style="font-weight:600;margin-left:-17%;"> SubCategory</label>
+            <select class="form-control" ng-options="option as option.name for option in vm.subCategoryList" ng-model="vm.subcateName"
+                style="border:1.7px solid #ccc;width:71%;">
+                <option value="">Select SubCategory </option>
+            </select></input>
+        </div>
+        <div class="form-group" style="margin-left: 3%; margin-top: -2%;">
+            <label class="" style="font-weight:600;margin-left:-17%;">UOM</label>
+            <select class="form-control" ng-options="option as option.name for option in vm.uomList" ng-model="vm.uom" style="border:1.7px solid #ccc;width:80%;">
+                <option value="">Select UOM </option>
+            </select></input>
+        </div>
+        <div class="form-group" style="margin-top: -2%;">
+            <label class="" style="font-weight:600;"> Size </label>
+            <input type="text" class="form-control" ng-model="vm.size" value="" style="border: 1px solid #ccc;width:46%;" />
+        </div>
+        <button type="submit" ng-click="vm.addRow()" class="btn" style="margin-top:-2.4%;margin-left:-6%;width:10%;color:white;background-color:#FFB13E;">Add</button>
+
+        <div style="width:90%;margin-left:5%;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top:23px;margin-left:6%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+    </form>
+
+    <!--size master grid-->
+<button type="button"  onClick="javascript:demoFromHTML()" title="Download Excel" class="btn btn-default" style=" font-size:16px;margin-left: 78%; margin-top: -4.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+    <div class="modal-body" style="margin-top:-6%;margin-left: 2%;;width: 91%;">
+        <table class="table table-bordered grid" id="tblpdf" style="width:72%;margin-left:17%;" ng-cloak>
+            <tr style="text-align:center;">
+                <th style="width:5%;">
+                    Sl.No
+                </th>
+                <th style="width:20%;">
+                    Category Name
+                </th>
+                <th style="width:20%;">
+                    SubCategory Name
+                </th>
+                <th style="width:10%;">
+                    UOM
+                </th>
+                <th style="width:15%;">
+                    Size Description
+                </th>
+                <th style="width:10%;">
+                    Action
+                </th>
+            </tr>
+            <tr size-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.sizeList" item="item">
+            </tr>
+            <tr>
+                <td colspan="6" ng-show="vm.sizeList.length ===0 || vm.sizeList == undefined || vm.sizeList == null" class="noRec noExl"
+                    style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:12%;">
+            <span ng-if="vm.sizeList.length > 0"> Total Rows : {{vm.rowCnt}}</span>
+            <span ng-if="vm.sizeList === undefined || vm.sizeList ===0 || vm.sizeList == null"> Total Rows : 0 </span>
+        </div>
+        <!--Pagination for sizelMaster-->
+        <div class="col-md-2 pagination" style="margin-left: 22%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>
+<script>
+   function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt','a4');
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+  doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+
+  var header = function(data) {
+    doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Category List", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    headeralign : 'left',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+  };
+
+  doc.autoTable(res.columns, res.data,options);
+
+  doc.save("Category List.pdf");
+}

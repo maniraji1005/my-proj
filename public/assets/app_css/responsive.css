@@ -1,0 +1,235 @@
+@media screen and (min-width: 768px) {
+    #adv-search {
+        /*width: 500px;*/
+        width: 345px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        /*min-width: 500px;*/
+         min-width: 433px;
+    }
+    .searchBx {
+    padding-left: 48%;
+}
+    
+    .noRowsDDl{
+    width: 21%;
+    margin-left:0%;
+}
+    .showEnt
+{
+        padding-left: 3.7%;
+}
+
+.srhCustom{
+  float: right;
+   width: 60%;
+    margin: 0 auto;
+    margin-top: 4%;
+    margin-right: 4% !important;
+}
+
+}
+
+.trackLeft{
+    margin-right:38%;
+}
+.trackPOLeft{
+    margin-right:51%;
+}
+
+@media screen and (max-width: 600px), (min-device-width: 600px) and (max-device-width: 960px) and (orientation : portrait) {
+#adv-search {
+        /*width: 500px;*/
+        width: 345px;
+        margin: 0 auto;
+    } 
+    .noRowsDDl{
+    width:50%;
+    margin-left:4%;
+}
+.trackLeft{
+    margin-right:60px;
+}
+.trackPOLeft{
+    margin-right:80px;
+}
+
+.srhCustom{
+  float: right;
+   width: 60%;
+    /*margin: 0 auto;*/
+    margin-top: 4%;
+    margin-left: 0.5% !important;
+}
+
+.showEnt
+{
+    padding-left:9%;
+}
+
+.pagination{
+    margin-top:2%;
+    margin-left:12.5% !important;
+    width:100%;
+}
+
+}
+
+@media only screen and (device-width : 1280px) and (orientation: landscape) {
+   .finalBreadCrumb{
+    margin-top:24% !important;    
+}
+.grid{
+    min-width: 175%;
+}
+
+.trackGrid{
+    min-width: 175%;
+    /*background-color: red;*/
+}
+.trackLeft{
+    margin-right:22%;
+}
+.searchBx{
+        padding-left: 48%;
+    }
+    
+    
+    .srhCustom{
+   float: right;
+    margin-right: 2.5% !important;
+}
+    
+}
+
+/*Actual nexus 7 landscape*/
+@media screen and (min-device-width : 601px) and (max-device-width :970px) {
+    .grid{
+    min-width: 175%;
+    /*background-color: red;*/
+}
+.showEnt
+{
+    padding-left:5%;
+}
+.noRowsDDl{
+    width:30%;
+}
+.trackLeft{
+    margin-left:8%;
+}
+.trackPOLeft{
+    margin-left:15%;
+}
+.trackGrid{
+    min-width: 175%;
+}
+    
+    .finalBreadCrumb{
+    margin-top:24% !important;  
+       
+}
+
+.srhCustom{
+   float: right;
+    margin-right: 2.5% !important;
+}
+
+.pagination{
+    margin-top:2%;
+    margin-left:20% !important;
+    width:100%;
+}
+
+.switch-custom{
+    margin-top:-1%;
+}
+
+}
+
+
+/*Nexus - 7 Landscape*/
+@media only screen and (width : 966px) and (orientation: landscape) {
+   .finalBreadCrumb{
+    margin-top:24% !important;
+}
+.searchBx{
+        padding-left: 48%;
+    }
+.grid{
+    min-width: 175%;
+}
+.trackGrid{
+    min-width: 175%;
+}
+.trackLeft{
+    margin-right:22%;
+    
+}
+
+.srhCustom{
+   float: right;
+    margin-right: 2.5% !important;
+}
+
+.login{
+    width:calc(100% - 50%);
+    margin-top:10.5%;
+}
+
+.pagination{
+    margin-top:2%;
+    margin-left:30% !important;
+    width:100%;
+}
+
+
+
+}
+
+/*Nexus - 7 Portrait*/
+@media only screen and (width : 603px) and (orientation: portrait) {
+    .finalBreadCrumb{
+    margin-top:26.5% !important; 
+}
+
+.noRowsDDl{
+    width:30%;
+    margin-left: 12%;
+}
+
+.srhCustom{
+    float: right;
+    margin-right: 4% !important;
+    width: 70%;
+    margin-top: 3%;
+}
+
+.login{
+    width:calc(100% - 30%);
+     margin-top:21%;	
+}
+
+
+}
+
+/*Dashboard Styles*/
+@media (max-width: 767px) {
+  .small-box {
+    text-align: center;
+  }
+  .small-box .icon {
+    display: none;
+  }
+  .small-box p {
+    font-size: 12px;
+  }
+}
+
+
+
+

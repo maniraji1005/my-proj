@@ -1,0 +1,108 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Project Master
+</div>
+
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">ProjectName</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <li><a title="#proName">Project Name</a></li>
+                    <li><a title="#locate">Location</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhProName" name="x" ng-model="vm.srhProName" placeholder="Search" style="border:1px solid #ccc;">
+            <div class="input-group" id="srhLocate" style="display:none;width:100%;">
+                <input type="text" class="form-control" id="srhLocate" ng-model="vm.srhLocate" placeholder="Search Location" style="border:1px solid #ccc;">
+            </div>
+            <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" ng-click="vm.projectMasfil(true, vm.begin, vm.end)" type="button"><span class="glyphicon glyphicon-search" ></span></button>
+            </span>
+
+            <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+
+        </div>
+    </div>
+
+    <!--Add new project-->
+
+    <form class="form-inline" style="margin-top:0%;margin-left: 11%;">
+        <div class="form-group" style="margin-left:4%; margin-top: -2%;">&nbsp;&nbsp;&nbsp;
+            <label class="" style="font-weight:600;">Project Name</label>
+            <input type="text" class="form-control" ng-model="vm.pname" style="border:1.7px solid #ccc;width: 57%;" />
+        </div>
+        <div class="form-group" style="margin-top: -2%;">&nbsp;&nbsp;&nbsp;
+            <label class="" style="font-weight:600;">Location</label>
+            <input type="text" class="form-control" ng-model="vm.locate" value="" place-holder="Enter ProjectName*" style="border: 1px solid #ccc;width: 57%;"
+            />
+
+        </div>
+        <!--<div class="form-group" style="margin-left:-3%; margin-top: -2%;">&nbsp;&nbsp;&nbsp;
+            <label class="" style="font-weight:600;">Short Description</label>
+            <input type="text" class="form-control" ng-model="vm.desc" style="border:1.7px solid #ccc;width:35%;" />
+        </div>-->
+        <button type="submit" title="Add" ng-click="vm.addRow()" class="btn" style="margin-top:-2.4%;margin-left:2%;width:10%;color:white;background-color:#FFB13E;">Add</button>
+
+        <div style="width:90%;margin-left:-2.5%;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top:28px;margin-left:7.5%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+
+    </form>
+    <br>
+    <!--<button type="button" title="Download Excel" class="btn btn-default" style=" font-size:16px;margin-left: 87%; margin-top: -16%; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>-->
+    <div class="modal-body" style="margin-top:-7%;margin-left:1%;width:96%;">
+        <table class="table table-bordered grid" id="tblExcel" style="width:65%;margin-left:17%;" ng-cloak>
+            <tr style="text-align:center;">
+                <th class="ptSlno" style="width:7%;">
+                    Sl.No
+                </th>
+                <th style="width:16%;">
+                    Project Id
+                </th>
+                <th class="ptName" style="width:20%;">
+                    Project Name
+                </th>
+                <th class="ptLoc" style="width:23%;" ng-cloak>
+                    Project Location
+                </th>
+                <th class="ptAc" style="width:10%;">
+                    Action
+                </th>
+            </tr>
+            <tr project-master-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.proList" item="item" ng-cloak>
+                <!--<td colspan="3"></td>-->
+            </tr>
+            <tr>
+                <td colspan="5" ng-show="vm.proList.length ===0 || vm.proList == undefined || vm.proList == null" class="noRec noExl" style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:7%;margin-left: 12%;" >
+            <span ng-if="vm.proList.length > 0"> Total Rows : {{vm.rowCnt}}</span>
+            <span ng-if="vm.proList === undefined || vm.proList ===0 || vm.proList == null"> Total Rows : 0 </span>
+        </div>
+
+        <!--Pagination for ProjectlMaster-->
+        <div class="col-md-2 pagination" style="margin-left: 22%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true"
+                style="margin-left:43%;">
+            </pagination>
+        </div>
+    </div>
+</div>

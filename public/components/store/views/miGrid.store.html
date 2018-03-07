@@ -1,0 +1,55 @@
+<td class="gcValSlno">
+        {{vm.index}}
+        </td>
+         <td class="gcValID">
+           {{vm.item.mr_id}}
+        </td>
+        <td class="gcValID">
+           {{vm.item.id}}
+        </td>
+         <td class="gcValDate">
+           {{vm.item.datetime|date: 'dd-MMM-yyyy'}}
+        </td>
+         <td class="gcValName">
+           <span ng-show="vm.item.status.name =='Not Issued'">-</span>
+          {{vm.item.issued_by.name}} <br>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0b' ">
+          <small>Chennai</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0c'">
+         <small>Vellore</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0d'">
+          <small>Vijayawada</small></span>
+         <span ng-if="vm.item.branch == '5789d8fec49a4507f48c7b9b'">
+          <small>Bengaluru</small></span>
+        </td>
+        <td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">{{vm.fromProject(vm.item.from_project)}} - {{vm.toProject(vm.item.to_project)}}</td>
+         <td class="gcValStatus">
+           <span ng-if="vm.item.status.name == 'Not Issued' ">
+             <span class="label label-danger">Not Issued</span>
+           </span>
+           <span ng-if="vm.item.status.name == 'Closed' || vm.item.status.name == 'Manual Closed'">
+             <span class="label label-danger">Closed</span>
+           </span>
+           <span ng-if="vm.item.status.name == 'Rejected'">
+             <span class="label label-danger">Rejected</span>
+           </span>
+        <span ng-if="vm.item.status.name == 'Issued' ">
+          <span class="label label-success">Issued</span>
+        </span>
+        <span ng-if="vm.item.status.name == 'Partially Issued' ">
+            <span class="label label-warning">Partially Issued</span>
+        </span>
+        <span ng-if="vm.item.status.name == 'Approved' ">
+            <span class="label label-success">Approved</span>
+        </span>
+        </td>
+         <td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="gcValRemark">
+          {{vm.item.remarks}}
+        </td>
+         <td class="gcValAction">
+        <!--<span ng-if="vm.item.status._id == '574450f469f12a253c61bc2a'">-->
+        <button type="button" title="Tracksheet" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.mr_id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button>
+        </button>
+        </td>

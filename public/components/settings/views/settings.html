@@ -1,0 +1,318 @@
+<div class="row">
+
+
+  <div class="col-md-12">
+    <h4>Master Screen</h4>
+    <div class="table-responsive">
+
+     <div class="col-md-12">
+        <label class="col-md-4">
+          </label>
+
+        <label class="col-md-3">
+           </label>
+
+        <button type="button" class="btn-flat btn btn-warning pull-right" ui-sref="master.settingsAdd">ADD</button>
+      </div>
+      <div class="col-md-8">
+        
+        </div><br><br>
+
+
+      <section class="content">
+               <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a data-toggle="tab" href="#material">Material Master</a></li>
+    <li role="presentation"><a data-toggle="tab" href="#vendor">Vendor Master</a></li>
+    <li role="presentation"><a data-toggle="tab" href="#unit">Unit Master</a></li>
+     <select class="input-mini input-sm pull-right">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+  </ul>
+        <div class="row">
+          <div class="col-xs-12">
+
+            <!-- /.box -->
+
+            <div class="box">
+              <div class="box-header">
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="tab-content">
+                  <div id="material" class="tab-pane fade in active">
+                <table id="example1" class="table table-bordered table-striped">
+                  
+                <div class="box-tools">
+                <div class="input-group input-group-sm pull-right" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+              
+                  <thead>
+                    <tr>
+                      <th>S no</th>
+                      <th>Material Description</th>
+                      <th>UOM </th>
+                      <th>Safety Stock</th>
+                      <th>Available Quantity</th>
+                      <th>Rate</th>
+                      <th>Updated By</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ui-sref="master.settingsView">
+                      <td>1</td>
+                      <td>MAT001 - Sliding Windows</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 250 </span></td>
+                      <td> <span class="badge bg-red">135 </span></td>
+                      <td> 200/No </td>
+                      <td> Dhakshna murthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>MAT002 - Paldatil Windows</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 120</span> </td>
+                      <td> <span class="badge bg-green">135</span> </td>
+                      <td> 70/No </td>
+                      <td> Dhakshna murthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>MAT003 - Hinge Windows</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 50</span> </td>
+                      <td><span class="badge bg-red"> 35 </span></td>
+                      <td> 200/No </td>
+                      <td> Dhakshna moorthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>MAT004 - Tilt Windows</td>
+                      <td>Nos.</td>
+                      <td> <span class="badge bg-green">150</span></td>
+                      <td><span class="badge bg-red"> 35</span> </td>
+                      <td> 150/No </td>
+                      <td> Narendarn </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>MAT005 - Casmeenar Windows</td>
+                      <td>Nos.</td>
+                      <td> <span class="badge bg-green">250 </span></td>
+                      <td><span class="badge bg-red"> 235</span> </td>
+                      <td> 400/No </td>
+                      <td> Nandagopal Palani </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>MAT006 - Sliding</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 250 </span></td>
+                      <td> <span class="badge bg-red">135</span> </td>
+                      <td> 200/No </td>
+                      <td> Swaminathan </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>MAT007 - Casement and Silding Windows</td>
+                      <td>Nos.</td>
+                      <td> <span class="badge bg-green">400</span> </td>
+                      <td> <span class="badge bg-green">635 </span></td>
+                      <td> 200/No </td>
+                      <td> Narendran Kamalanathan </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>MAT008 - Tilt and Turn Windows</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 250</span> </td>
+                      <td><span class="badge bg-red"> 135</span> </td>
+                      <td> 200/No </td>
+                      <td> Dhakshna moorthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>MAT009 - Casement</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 250 </span></td>
+                      <td><span class="badge bg-red"> 135 </span></td>
+                      <td> 200/No </td>
+                      <td> Dhakshna moorthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>MAT010 - Tilting Windows</td>
+                      <td>Nos.</td>
+                      <td><span class="badge bg-green"> 350</span> </td>
+                      <td> <span class="badge bg-red">295</span> </td>
+                      <td> 400/No </td>
+                      <td> Dhakshna moorthy </td>   
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                </table>
+                <ul class="pagination pull-right">
+        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      </ul>
+              </div>
+              
+              <!--Vendor List -->
+              <div id="vendor" class="tab-pane fade">
+                <table id="example1" class="table table-bordered table-striped">
+                <div class="box-tools">
+                <div class="input-group input-group-sm pull-right" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+                  <thead>
+                    <tr>
+                      <th>S no</th>
+                      <th>Material Description</th>
+                      <th>Address </th>
+                      <th>Mobile No</th>
+                      <th>E-mail Id</th>
+                      <th>Updated By</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ui-sref="master.purchaseView">
+                      <td>1</td>
+                      <td>VEN001 - Teiadand Pvt Ltd</td>
+                      <td>12,nrelas sk ralkda ,chennai.</td>
+                      <td> 9876567898 </td>
+                      <td> kjsdfhsd@sdf.com </td>
+                      <td> Dhakshna murthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>VEN002 - Rakssi Pvt Ltd</td>
+                      <td>12,nrelas sk ralkda ,chennai.</td>
+                      <td> 9876543212 </td>
+                      <td> kjsdfhsd@sdf.com </td>
+                      <td> Narendran Kamalanathan </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>VEN003 - Poituiop Pvt Ltd</td>
+                      <td>12,nrelas sk ralkda ,chennai.</td>
+                      <td> 9098789098 </td>
+                      <td> kjsdfhsd@sdf.com </td>
+                      <td> Narendran Kamlanathan </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                </table>
+                <ul class="pagination pull-right">
+        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      </ul>
+              </div>
+              
+              <!-- UOM List -->
+              <div id="unit" class="tab-pane fade">
+                <table id="example1" class="table table-bordered table-striped">
+                <div class="box-tools">
+                <div class="input-group input-group-sm pull-right" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+                  <thead>
+                    <tr>
+                      <th>S no</th>
+                      <th>Material Description</th>
+                      <th>Updated By</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ui-sref="master.purchaseView">
+                      <td>1</td>
+                      <td>UOM001 - Sq.ft</td>
+                      <td> Dhakshna murthy </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>UOM002 - Nos.</td>
+                      <td> Narendran Kamalanathan </td>
+                      <td> &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;&nbsp; <i class="fa fa-trash"
+                          aria-hidden="true"></i> </td>
+                    </tr>
+                </table>
+                <ul class="pagination pull-right">
+        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      </ul>
+              </div>
+              
+              <!-- /.box-body -->
+            </div>
+            <!-- /.row -->
+      </section>
+
+      
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+ 

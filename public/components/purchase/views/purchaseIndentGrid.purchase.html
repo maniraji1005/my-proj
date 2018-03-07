@@ -1,0 +1,61 @@
+<td class="gcValSlno">
+  {{vm.index}}
+</td>
+<td class="gcValID">
+  {{vm.item.id}}
+</td>
+<td class="gcValDate">
+  {{vm.item.datetime|date: 'dd-MMM-yyyy'}}
+</td>
+<td class="gcValName">
+  {{vm.item.created_by.name}} <br>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0b' ">
+          <small>Chennai</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0c'">
+         <small>Vellore</small></span>
+          <span ng-if="vm.item.branch == '5731bd45d4c6e63ae1d21e0d'">
+          <small>Vijayawada</small></span>
+         <span ng-if="vm.item.branch == '5789d8fec49a4507f48c7b9b'">
+          <small>Bengaluru</small></span>
+</td>
+<td ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">{{vm.fromProject(vm.item.project)}}</td>
+<td><span ng-if="vm.item.status.name == 'Pending' ">
+    <span class="label label-primary">{{vm.item.status.name}}</span></span>
+    <span ng-if="vm.item.status.name == 'Draft' ">
+        <span class="label label-info">{{vm.item.status.name}}</span></span>
+        <span ng-if="vm.item.status.name == 'Approved' ">
+        <span class="label label-success">{{vm.item.status.name}}</span></span>
+        <span ng-if="vm.item.status.name == 'Rejected' ">
+        <span class="label label-danger">{{vm.item.status.name}}</span></span>
+        <span ng-if="vm.item.status.name == 'Delete' ">
+        <span class="label label-delete">{{vm.item.status.name}}</span></span>
+        <span ng-if="vm.item.status.name == 'Closed' ">
+        <span class="label label-delete">{{vm.item.status.name}}</span></span>
+</td>
+<td class="gcValRemark">
+  {{vm.item.remarks}}
+</td>
+<td><span ng-if="vm.item.status.name == 'Pending'">
+        <button type="button" title="Tracksheet" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+  <span ng-if="vm.item.status.name == 'Approved'">
+        <button type="button" title="Tracksheet" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+        <span ng-if="vm.item.status.name == 'Rejected'">
+        <button type="button" title="Tracksheet" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+        <span ng-if="vm.item.status.name == 'Closed'">
+        <button type="button" title="Tracksheet" class="btn btn-default" ng-click="vm.openTrackSheet(vm.item.id);">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button></span>
+  <span ng-if="vm.item.status.name == 'Draft' ">
+        <button type="button" title="Edit" class="btn btn-default" ng-click="vm.edititem(vm.item.id);">
+        <i class="fa fa-archive fa-lg" aria-hidden="false"></i>
+        </button>
+        &nbsp;
+        <button type="button" title="Delete" class="btn btn-default"  ng-click="vm.deleteitem(vm.item.id);">
+           <i class="fa fa-trash fa-lg"></i>
+        </button></span></td>

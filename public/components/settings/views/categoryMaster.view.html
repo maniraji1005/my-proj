@@ -1,0 +1,249 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Category Master
+</div>
+<div ng-hide="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'" >
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">CategoryId</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <li><a title="#cateId">CategoryId</a></li>
+                    <li><a title="#cateName">CategoryName</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhcateId" name="x" ng-model="vm.srhcateId" placeholder="Search..." style="border:1px solid #ccc;">
+            <div class="input-group" id="srhcateName" style="display:none;width:100%;">
+                <input type="text" class="form-control" id="srhcateName" ng-model="vm.srhcateName" placeholder="Search" style="border:1px solid #ccc;">
+            </div>
+            <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" ng-click="vm.categoryMasterfilter(true, vm.begin, vm.end)" type="button"><span class="glyphicon glyphicon-search" ></span></button>
+            </span>
+
+            <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+
+        </div>
+    </div>
+
+    <!--add new category-->
+    <form class="form-inline" style="margin-top:0%;margin-left: 10%;" name="category" ng-if="vm.categoryAccess.c ==='y'">
+        <div class="form-group" style="margin-left: 7%; margin-top: -2%;">
+            <label class="" style="font-weight:600;">Category Id</label>&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" ng-model="vm.id" style="border:1.7px solid #ccc;" />
+        </div> &nbsp;&nbsp;&nbsp;
+        <div class="form-group" style="margin-top: -2%;">
+            <label class="" style="font-weight:600;">Categroy Name</label>&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" ng-model="vm.name" value="" place-holder="Enter CategoryName*" style="border: 1px solid #ccc;"
+            />
+
+        </div>
+        <button type="submit" ng-click="vm.addRow()" class="btn" style="margin-top:-2.4%;margin-left: 1cm;width:10%;color:white;background-color:#FFB13E;">Add</button>
+
+        <div style="width:90%;margin-left: 1.8cm;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top: 15px;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+
+    </form>
+    <button type="button" ng-if="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'" onClick="javascript:demoFromHTML()"
+        title="Download Excel" class="btn btn-default" style=" font-size:16px;margin-left: 80.5%; margin-top: -4.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+    <button type="button" ng-if="vm.companyId !== 'CH0001' && vm.companyId == 'CO00001'" onClick="exportExcel()" title="Download Excel"
+        class="btn btn-default" style=" font-size:16px;margin-left: 80.5%; margin-top: -4.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+    <!--timbe grid-->
+    <div class="modal-body" ng-if="vm.companyId !== 'CH0001' && vm.companyId == 'CO00001'" style="margin-top:-7%;margin-left: -1.5%;;width: 102%;">
+        <table class="table table-bordered grid" id="tblExcel" style="width:65%;margin-left:6cm;" ng-cloak>
+            <tr style="text-align:center;">
+                <th class="gcSlno">
+                    Sl.No
+                </th>
+                <th style="width:28%;">
+                    Category Id
+                </th>
+                <th style="width:32%;">
+                    Category Name
+                </th>
+            </tr>
+            <tr category-master-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.categoryApp" item="item">
+                <!--<td colspan="3"></td>-->
+            </tr>
+            <tr>
+                <td colspan="3" ng-show="vm.rowCnt===0" class="noRec noExl" style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--colorHomes grid-->
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:14%;">
+            Total Rows : {{vm.rowCnt}}
+        </div>
+
+        <!--Pagination for categorylMaster-->
+        <div class="col-md-2 pagination" style="margin-left: 22%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>
+</div>
+<!--color homes-->
+<div ng-hide="vm.companyId !== 'CH0001' && vm.companyId == 'CO00001'" >
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn">
+                <ul>
+                    <label for="" class="form-control" style="font-weight:600;margin-left:63.5%;">Category Name</label>
+                    <li><b title="#cateName">CategoryName</b></li>
+                       <!--<li><a title="#cateId">CategoryId</a></li>-->
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhcateName" name="" ng-model="vm.srhcateName" placeholder="Search..." style="border:1px solid #ccc;width:74%;margin-left:26%">
+            <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" ng-click="vm.categoryMasterfilter(true, vm.begin, vm.end)" type="button"><span class="glyphicon glyphicon-search" ></span></button>
+            </span>
+
+            <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+
+        </div>
+    </div>
+
+    <!--add new category-->
+    <form class="form-inline" style="margin-top:0%;margin-left: 10%;" name="category" >
+        <div style="margin-top:0%; margin-left:9%;">
+        <div class="form-group" style="margin-top: -2%;margin-left:10%;">
+            <label class="" style="font-weight:600;">Categroy Name</label>&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" ng-model="vm.name" value="" place-holder="Enter CategoryName*" style="border: 1px solid #ccc;"
+            />
+
+        </div>
+        <button type="submit" ng-click="vm.addRow()" class="btn" style="margin-top:-2.4%;margin-left: 1cm;width:10%;color:white;background-color:#FFB13E;">Add</button>
+
+        <div style="width:90%;margin-left: 1.8cm;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top:24px;margin-left:-3%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+
+    </form>
+    <button type="button" ng-if="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'" onClick="javascript:demoFromHTML()"
+        title="Download Excel" class="btn btn-default" style=" font-size:16px; width:40px;margin-left:65%;margin-top:-6%;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+    <button type="button" ng-if="vm.companyId !== 'CH0001' && vm.companyId == 'CO00001'" onClick="exportExcel()" title="Download Excel"
+        class="btn btn-default" style=" font-size:16px;margin-left: 80.5%; margin-top: -4.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+  <div ng-if="vm.companyId == 'CH0001' && vm.companyId !== 'CO00001'" class="table-responsive" style="font-size:100%;margin-top: -5%;word-wrap: break-word">
+        <table class="table table-bordered grid" id="tblpdf" style="width:65%;margin-top:6%;margin-left:5%;;" ng-cloak>
+            <tr style="text-align:center;">
+                <th class="gcSlno">
+                    Sl.No
+                </th>
+                <th style="width:40%;">
+                    Category Name
+                </th>
+                <th style= "width:10%;">
+                    Action
+                </th>
+            </tr>
+            <tr category-master-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.categoryApp" item="item">
+                <!--<td colspan="3"></td>-->
+
+            </tr>
+            <tr>
+                <td colspan="3" ng-show="vm.rowCnt===0" class="noRec noExl" style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:19%;margin-top:-5%;">
+            Total Rows : {{vm.rowCnt}}
+        </div>
+    </div>
+         <div class="col-md-2 pagination" style="margin-left:15%;margin-top: -3%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+            $("#mainLoading").hide();
+        </script>
+<script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+<script type="text/javascript"> 
+    function exportExcel() {                
+    var exTable = $('#tblExcel').clone(); 
+    exTable.find('.noExl').remove();              
+    exTable.table2excel({
+            exclude: ".noExl",
+            name: "Category List",
+            filename: "Category List",
+            fileext: ".xls",  
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: false         
+        });       
+    }
+
+    function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt','a4');
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+  doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+
+  var header = function(data) {
+    doc.setFontSize(14);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Category List", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    headeralign : 'left',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+  };
+
+  doc.autoTable(res.columns, res.data,options);
+
+  doc.save("Category List.pdf");
+}

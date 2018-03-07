@@ -1,0 +1,43 @@
+<td align="center" style="vertical-align:inherit">
+    <label for="">{{vm.index}}</label>
+</td>
+<td ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" class="form-group">
+    <select ng-model="vm.item.category" ng-init="vm.initialLoading(vm.item.category);" ng-options="option._id as option.name for option in vm.categoryList" ng-change="vm.matRes(vm.item.category);" class="form-control" ng-class="vm.catcheck(vm.item.nocat);" ng-disabled="vm.item.flag">
+        <option value="">Select Category</option>
+    </select>
+</td>
+<td align="center">
+    <select ng-model="vm.item.mat_code" ng-init="vm.initialLoading(vm.item);" ng-change="vm.editmaterialchange(vm.item);" class="form-control" ng-class="vm.matcheck(vm.item.nomat)" ng-disabled="vm.item.flag">
+        <option value="">Select Material </option>
+        <option ng-repeat="option in vm.materialdet" value="{{option.mat_code}}">{{option.mat_code}}</option>
+    </select>
+</td>
+<td align="center">
+     <input type="text" class="form-control" title="Material Size : {{vm.item.size}}&#013;Specification :{{vm.item.specification}}&#013;Type :{{vm.item.mat_type}} " ng-model="vm.item.name" value="{{vm.item.name}}" disabled style="border: 1px solid #CCC;">
+</td>
+<!--<td align="center">
+     <input type="text" class="form-control" ng-model="vm.item.size" value="{{vm.item.size.name}}" disabled style="border: 1px solid #CCC;">
+</td>
+<td align="center">
+     <input type="text" class="form-control" ng-model="vm.item.specification" value="{{vm.item.specification}}" disabled style="border: 1px solid #CCC;">
+</td>-->
+<td align="center">
+    <input type="text" class="form-control" readonly value="{{vm.item.uom.name}}" ng-model="vm.item.uom.name" disabled style="border: 1px solid #CCC;">
+</td>
+<td align="center">
+    <input type="text" class="form-control" value="{{vm.item.quantity}}" ng-model="vm.item.quantity" ng-class="vm.class(vm.item.noqty);" ng-change="vm.validation()" style="border: 1px solid #CCC;">
+</td>
+<td align="center" style="vertical-align:inherit">
+    <label ng-init="vm.matqty(vm.item);" readonly ng-model="vm.item.avlblQty">{{vm.item.avlblQty}}</label>
+</td>
+<!--<td align="center" style="vertical-align:inherit;">
+    <div class="input-group1 date" id="srhDt1">
+                                <input type="text" class="form-control" value="{{vm.item.expected_date}}" ng-model="vm.item.expected_date" style="border:1px solid #ccc;" readonly>
+                                <span class="input-group-addon" style="display:none;">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                      </span>
+                            </div>
+</td>-->
+<td align="center" style="vertcial-align:inherit">
+    <input type="checkbox" ng-model="vm.item.row">
+</td>

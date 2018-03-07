@@ -1,0 +1,61 @@
+
+/*div.fixed_menus{ width:100%; background:#fff; height:55px; border-left:1px solid #CCC; border-bottom:1px solid #CCC;margin-top:-1px;z-index:9001;border-collapse: separate; -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;padding-left: 5%;}*/
+
+div.fixed_menus{width:100%;height:55px;z-index:9001;border-collapse: separate;}
+
+div.breacrumb{ width:100%; margin-left:0; text-align:left; padding-left:50px;}
+div.breacrumb ul.crumbs{ margin-left:0; padding-left:0}
+/*ul.crumbs {width: 100%;margin: 20px auto;counter-reset: flag;}
+.crumbs li {position: relative;display: inline;background: #FAFAFA;height: 50px;padding: 10px 50px;border-left: 1px solid #eee;border-top: 1px solid #eee;border-bottom: 1px solid #eee;}
+.crumbs li, .crumbs li:after, .crumbs li a, .crumbs li a:after {transition: all 0.5s;font-size:14px; font-weight:normal;}
+.crumbs li:last-child {border-right: 1px solid #eee;}
+.crumbs li.active, .crumbs li:hover {color: #fff;background: #5c85d0 !important;}
+.crumbs li.active a:after, .crumbs li:hover a:after {background: #5c85d0;color: #fff;}
+.crumbs li:hover a {opacity: 1;color: #fff;}
+.crumbs li.active a {color: #fff;}
+.crumbs li a {line-height: 38px;color: #333;font-size:14px; font-weight:normal;display: inline-block;}
+.crumbs li a:after {content: '';position: absolute;width: 36px;height: 36px;transform: scale(0.85) rotate(45deg);-ms-transform:  scale(0.85) rotate(45deg);  IE 9 -webkit-transform:  scale(0.85) rotate(45deg);  Chrome, Safari, Opera margin-left: 34px;margin-top:1px;z-index: 1;background: #FAFAFA;border-radius: 0 5px 0 50px;}
+.crumbs li:last-child a:after {content: none;}
+.crumbs li a:before {content: counter(flag);counter-increment: flag;position: absolute;left: 0;margin-left: 25px;}
+.crumbs li {line-height: 2;}
+
+
+/* Element colors *//* Input fields *//* Typography colors *//* Misc. items *//* Element colors *//* Input fields *//* Typography colors *//* Misc. items */.top-left {top: 0;left: 0;}
+
+span.radio_text{background:none; text-align:left; padding-left:40px;color:#333;font-size:14px;font-weight:normal;}
+ul.input input[type=checkbox],ul.input input[type=radio]{display:none;}
+/* Custom Radio and Checkbox background images *//* Bread Crumb New design starts*/
+div.new_breacrumb{ width:100%;background:#f5f5f5;}
+div.new_breacrumb div.line_border{background:#dcdcdc; height:3px; border-radius:2px;-webkit-border-radius:2px; width:100%; margin-left:0px; margin-top:35px;padding-left:15%;}
+div.new_breacrumb ul.new_crumbs{margin:0; padding:0; margin-top:-34px; width:100%; }
+div.new_breacrumb ul.new_crumbs li{display:block; min-width:8%; margin:20px; float:left;text-align:center;}
+div.new_breacrumb ul.new_crumbs li.small_li{display:block; min-width:8%; margin:10px; float:left; margin-top:22px;}
+div.new_breacrumb ul.new_crumbs li span{ padding:11px; padding-left:16px; padding-right:16px; color:#000; background:#fff; margin-bottom:0px; border-radius:30px;border:2px dotted #ccc; text-shadow:none; font-weight: normal;}
+div.new_breacrumb ul.new_crumbs li:hover span{ cursor:pointer;color:#333; background:#f5f5f5;border:2px dotted #ccc; }
+div.new_breacrumb ul.new_crumbs li:hover a{ cursor:pointer;color:#333;}
+div.new_breacrumb ul.new_crumbs li span:hover{ cursor:pointer;color:#333; background:#f5f5f5;border:2px dotted #ccc; }
+div.new_breacrumb ul.new_crumbs li.list_active span{cursor:pointer;color:#fff; background:#214073;border:2px dotted #f5f5f5; background-color:#367fa9;   border:2px dotted #fff;}
+div.new_breacrumb ul.new_crumbs li.list_active a{color:#333;font-weight: normal;}
+div.new_breacrumb ul.new_crumbs li span.small_bullet{ padding:0px; padding-left:7px; padding-right:7px; color:#fff; background:#dcdcdc; margin-bottom:0px; border-radius:40px; border-color:#dcdcdc}
+div.new_breacrumb ul.new_crumbs li.small_li:hover span.small_bullet{ cursor:default; color:#ccc;}
+div.new_breacrumb ul.new_crumbs li.small_li span.small_bullet a:hover{ cursor:default; color:#ccc;}
+div.new_breacrumb ul.new_crumbs li a{ font-size:12px; color:#999; margin-top:-10px; padding-top:0px;font-weight: lighter;}
+
+
+
+
+/*Integrated DIV*/
+div.new_breacrumb ul.new_crumbs li div
+{
+   font-size:12px; 
+   color:#999;
+    margin-top:-10px; 
+    padding-top:0px;
+    font-weight: lighter;
+    margin-top:14%;  
+    cursor:pointer; 
+}
+
+div.new_breacrumb ul.new_crumbs li:hover div,div.new_breacrumb ul.new_crumbs li.list_active div{
+    color:#333;
+} 

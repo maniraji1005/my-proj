@@ -1,0 +1,21 @@
+<td>
+    {{vm.index}}
+</td>
+<td>
+    {{vm.item.issuedDate |date: 'dd-MMM-yyyy'}}
+</td>
+<td>
+    {{vm.getEmp(vm.item.materials[0].contractor_id)}}
+</td>
+<td>
+ {{vm.item.material_type_name}}
+</td>
+<td>
+    <!--vm.editItem(vm.item.category,vm.item.sub_category,vm.item.issuedNo, vm.item.issuedDate,vm.item.project,vm.item.materials);"><i class="fa fa-pencil fa-lg"></i></button>-->
+    {{vm.getproject(vm.item.project)}}
+</td>
+
+<td>
+
+    <button title="View" type="button" class="btn btn-default" ng-click="vm.editItem(vm.item.category,vm.item.sub_category,vm.item.issuedNo,vm.item.issuedDate,vm.item.project,vm.item.remarks,vm.item.materials,vm.item.material_type_name);"><span class="glyphicon glyphicon-eye-open"></i></button>
+</td>

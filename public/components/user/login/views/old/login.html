@@ -1,0 +1,62 @@
+	<div class="login" style="border:1px solid blanchedalmond;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);">	
+			<div class="ribbon-wrapper h2 ribbon-red">
+				<div class="ribbon-front">
+					<h2 style="padding-top:9px;padding-left:20px;">Material Management</h2>
+				</div>
+				<div class="ribbon-edge-topleft2"></div>
+				<div class="ribbon-edge-bottomleft"></div>
+			</div>
+      <div ng-show="vm.login">
+				<form>
+        <h2>Login</h2>
+				<ul class="loginList">
+					<li>
+						<input type="text" class="text" ng-model="vm.username" placeholder="Email Address" ><a href="#" class=" icon user" style="margin-left:20px;"><i class="fa fa-user" aria-hidden="true"></i></a>
+					</li>
+					 <li>
+						<input type="password" ng-model="vm.pass" placeholder="Password" ><a href="#" class=" icon lock" style="margin-left:20px;"><i class="fa fa-key" aria-hidden="true"></i></a>
+					</li>
+				</ul>
+       <!--<div class="form-group">
+           <div class="checkbox">
+            <label class="custom-option toggle" data-off="OFF" data-on="ON">
+             <input type="checkbox" id="remember" name="remember" value="1">
+             <span class="button-checkbox"></span>
+            </label>
+            <span for="remember">Remember Me</span>
+           </div>
+          </div>-->
+			</form>
+			<div class="form-group">
+           <button type="button" style="margin-left:20px;" class="btn btn-primary" ng-click="vm.loginSubmit()" method="post">Sign in</button>
+          <a class="btn btn-link forgotPass" ng-click="vm.forget();">Forgot Password?</a>
+          </div>
+		</div>
+    <div ng-hide="vm.login">
+    	<form>
+        <h2>Forgot Password</h2><br>
+        <small style="font-size:12px;color:brown;">Don't Worry! Just fill your Email id / Employee Id and your Password will sent to your Corresponding Mail</small>
+				<ul style="margin-left: -11%;">
+				<li>	<input type="text" placeholder="Email ID or Employee ID"><a href="#" class=" icon lock" style="margin-left:20px;"><i class="fa fa-key" aria-hidden="true"></i></a>
+					</li>
+				</ul>
+
+			</form>
+			<div class="form-group">
+        <button type="button" style="margin-left:20px;" class="btn btn-primary" ng-model="submitPassword" ng-click="vm.submitPassword();">Send</button>
+        <a class="btn btn-link backLogin" ng-click="vm.backlogin();"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Back to login</a>
+          </div>
+    </div>
+    </div>
+    
+    
+     <div class="copy-right" style="background-color:#34425A;">
+				<p>Copyright &copy; 2016  All rights  Reserved</a></p>
+		</div>
+    <!--<footer class="main-footer" style="background-color:#34425A;color:#FFF;margin-left: 0px !important;text-align: center;">
+    <strong>Copyright &copy; 2016 <a href="http://vthink.co.in/">vThink Technologies</a>.</strong> All rights
+    reserved.
+  </footer>-->
+<script>
+  Placeholdem( document.querySelectorAll( '[placeholder]' ) );
+  </script>

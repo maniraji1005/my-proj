@@ -1,0 +1,391 @@
+<!-- Content Header (Page header) -->
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+       Dashboard   
+</div>
+
+
+<!-- Main content -->
+<section class="content">
+  <!-- Info boxes -->
+
+  <!-- /.row -->
+
+
+  <!-- /.row -->
+
+  <!-- Main row -->
+  <div class="row">
+    <!-- Left col -->
+    <div class="col-md-12">
+      <!-- MAP & BOX PANE -->
+
+      <!-- /.box -->
+      <div class="row">
+
+        <!-- /.col -->
+
+
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- TABLE: LATEST ORDERS -->
+      <div class="row" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+        <div class="col-md-2" style="width:19%;">
+          <select ng-model="vm.SelectedBranch" ng-options="option._id as option.name for option in vm.branchList" ng-change="vm.getStoreType(vm.SelectedBranch);"
+            class="form-control">
+                                <option value="">Select Branch</option>
+                            </select>
+        </div>
+        <div class="col-md-2" style="margin-left:1%;width:19%;">
+          <select ng-model="vm.SelectedStoreType" ng-options="option._id as option.name for option in vm.storeTypeList" ng-change="vm.getStoreName(vm.SelectedStoreType);"
+            class="form-control">
+                                <option value="">Select StoreType</option>
+                            </select>
+        </div>
+        <div class="col-md-2" style="margin-left:1%;width:19%;">
+          <select ng-model="vm.SelectedStore" ng-options="option._id as option.name for option in vm.storeNameList" ng-change="vm.getStore(vm.SelectedStore);"
+            class="form-control">
+                                <option value="">Select Store</option>
+                            </select>
+        </div>
+         <!--<div class="col-md-2" style="margin-left:1%;width:19%;">
+          <select ng-model="vm.SelectedVendor" ng-options="option.id as option.name for option in vm.vendorList" ng-change="vm.getVendor();"
+            class="form-control">
+                                <option value="">Select Vendor</option>
+                            </select>
+        </div>-->
+        <div class="col-md-2" style="margin-left:1%;width:19%;">
+          <select ng-model="vm.exeList" ng-options="option._id as option.names for option in vm.executiveList" ng-change="vm.getExeList(vm.exeList);"
+            class="form-control">
+                                <option value="">Select Executive</option>
+                            </select>
+        </div>
+        
+      </div>
+      
+      <!--CH Starts-->
+      <div class="row" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'">
+        <div class="col-md-2" style="width:19%;">
+          <select ng-model="vm.SelectedProject" ng-options="option._id as option.name for option in vm.toprojectList" ng-change="vm.getProject(vm.SelectedProject);"
+            class="form-control">
+                                <option value="">Select Project</option>
+                            </select>
+        </div>
+        <div class="col-md-2" style="margin-left:1%;width:19%;">
+          <select ng-model="vm.SelectedProjectType" ng-change="vm.getProject(vm.SelectedProjectType);" class="form-control">
+                               <option value="" selected>Select Type</option>
+                                <option value="PreOrder">Pre-Order</option>
+                                <option value="PostOrder">Post-Order</option>
+                                    </select>
+        </div>
+        
+      </div>
+      <!--CH Ends-->
+       <br>
+
+      <table class="table" style="border-collapse:collapse;min-height:25%;width:100%;">
+
+
+        <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle" style="border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;background:#f7f7f7;">
+          <td id="button1" ng-click="vm.addPIDet('button1')"><button class="btn btn-default btn-xs"><i class="fa fa-chevron-down" aria-hidden="true"></i></button></td>
+          <td id="button2" ng-click="vm.addPIDet('button2')" style="display:none;"><button class="btn btn-default btn-xs"><i class="fa fa-chevron-up" aria-hidden="true"></i></button></td>
+          <td style="font-weight: 600;font-size: 15px;width:100%;"> Stock Management</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>
+        <tr>
+          <td colspan="12" class="hiddenRow">
+            <!--<span style="font-weight: 600;font-size: 15px;width:100%;color:orange;"> </span>-->
+            <div class="accordian-body collapse" id="demo1">
+              <div style="font-weight: 600;font-size: 16px;width:100%;color:grey;padding-bottom: 1%;"> Material Requisition </div>
+
+              <!-- Material Requistion Start -->
+<div class="col_3">
+        	<div class="col-md-3 widget widget1" ng-click="vm.mrPending('57444c9569f12a253c61bc9a')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-hourglass-half icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrListWait}}</strong></h5>
+                      <span>Pending</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.mrPending('574450f469f12a253c61bca0')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-thumbs-o-up approve icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrListApp}}</strong></h5>
+                      <span>Approved</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.mrPending('574450f469f12a253c61bca1')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-ban rej icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrListRej}}</strong></h5>
+                      <span>Rejected</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.mrPending('574450f469f12a253c61bca5')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-check issue icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrListAccept}}</strong></h5>
+                      <span>Accepted</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="clearfix"> </div>
+      </div>
+
+              
+              <!--Material Issue Note-->
+              <div style="font-weight: 600;font-size: 16px;width:100%;color:grey;padding-bottom: 1%;float:left;"> Material Issue Note </div>
+
+              <!-- Material Requistion Start -->
+<div class="col_3">
+        	<div class="col-md-3 widget widget1" ng-click="vm.miStatus('574450f469f12a253c61bca2')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-check issue icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.miListIssue}}</strong></h5>
+                      <span>Issued</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.miStatus('574450f469f12a253c61bca1')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-times icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.miListNotIssue}}</strong></h5>
+                      <span>Not Issued</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.miStatus('576a5c81bd7ebf2facf2de81')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-ban rej icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.miListRejected}}</strong></h5>
+                      <span>Rejected</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget" ng-click="vm.miStatus('57444c9569f12a253c61bc9a')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-times-circle-o closed icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.miListClosed}}</strong></h5>
+                      <span>Closed</span>
+                    </div>
+                </div>
+        	 </div>
+        	<div class="clearfix"> </div>
+      </div>
+
+              
+
+          </td>
+        </tr>
+
+        <!--Purchase Management-->
+        <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle" style="border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;background:#f7f7f7;">
+          <td id="button3" ng-click="vm.addPMDet('button3')"><button class="btn btn-default btn-xs"><i class="fa fa-chevron-down" aria-hidden="true"></i></button></td>
+          <td id="button4" ng-click="vm.addPMDet('button4')" style="display:none;"><button class="btn btn-default btn-xs"><i class="fa fa-chevron-up" aria-hidden="true"></i></button></td>
+          <td style="font-weight: 600;font-size: 15px;"> Purchase Management </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+        </tr>
+        <tr>
+          <td colspan="12" class="hiddenRow">
+            <div class="accordian-body collapse" id="demo2">
+              <!--Purchase Indent-->
+              <div style="font-weight: 600;font-size: 16px;width:100%;color:grey;padding-bottom: 1%;">Purchase Indent </div>
+
+<div class="col_3">
+        	<div class="col-md-3 widget widget1" ng-click="vm.piStatus('57444c9569f12a253c61bc9a')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-hourglass-half icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.piListWait}}</strong></h5>
+                      <span>Pending</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.piStatus('574450f469f12a253c61bca2')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-thumbs-o-up approve icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.piListApp}}</strong></h5>
+                      <span>Approved</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1" ng-click="vm.piStatus('574450f469f12a253c61bca1')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-ban rej icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.piListRej}}</strong></h5>
+                      <span>Rejected</span>
+                    </div>
+                </div>
+        	</div>
+        	
+        	<div class="clearfix"> </div>
+      </div>
+
+
+              <!--Purchase Order-->
+              <hr style="width:100%;padding:1px solod #ccc;"></hr>
+              <div class="col-md-2" style="margin-left:83%;width:19%;" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+          <select ng-model="vm.SelectedVendor" ng-options="option.id as option.name for option in vm.vendorList" ng-change="vm.getVendor();"
+            class="form-control" style="margin-left:-281%;">
+                                <option value="">Select Vendor</option>
+                            </select>
+        </div>
+        <br>
+              <div>
+                <br>
+                
+                <div style="font-weight: 600;font-size: 16px;width:100%;color:grey;padding-bottom: 1%;margin-left: 0%;">Purchase Order </div>
+                
+                <div class="col_3">
+        	<div class="col-md-3 widget widget1" ng-click="vm.poStatus('57650efb818d3b1cd808c401')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-plus created icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.poListCre}}</strong></h5>
+                      <span>Created</span>
+                    </div>
+                </div>
+        	</div>
+          <div class="col-md-3 widget widget1" ng-click="vm.poStatus('578f673c3d4dce0370afed48')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-hand-paper-o created icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.poListMan}}</strong></h5>
+                      <span>Manual Closed</span>
+                    </div>
+                </div>
+        	</div>
+          <div class="col-md-3 widget widget1" ng-click="vm.poStatus('57650efb818d3b1cd808c402')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-times-circle-o closed icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.poListCls}}</strong></h5>
+                      <span>Closed</span>
+                    </div>
+                </div>
+        	</div>
+          <div class="col-md-3 widget widget1" ng-click="vm.poStatus('57650efb818d3b1cd808c404')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-thumbs-o-up approve icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.poListApp}}</strong></h5>
+                      <span>Approved</span>
+                    </div>
+                </div>
+        	</div>
+
+        	<div class="clearfix"> </div>
+      </div>
+                <!-- ./col -->
+
+              <!--Material receipt Number-->
+              <div>
+                <div style="font-weight: 600;font-size: 16px;width:100%;color:grey;padding-bottom: 1%;padding-bottom: 1%;margin-left: 0%;margin-top: 1%;">Material Receipt Number </div>
+
+              <div class="col_3">
+        	<div class="col-md-3 widget widget1" ng-click="vm.mrnStatus('57650efb818d3b1cd808c401')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-plus created icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrnListcre}}</strong></h5>
+                      <span>Created</span>
+                    </div>
+                </div>
+        	</div>
+          
+              	<div class="col-md-3 widget widget1" ng-click="vm.mrnStatus('5767b0ec69f12a0e94baa712')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-times-circle-o closed icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrnListAudit}}</strong></h5>
+                      <span>Audited</span>
+                    </div>
+                </div>
+        	</div>
+
+          <div class="col-md-3 widget widget1" ng-click="vm.mrnStatus('5767b0ec69f12a0e94baa70f')" style="cursor:pointer;">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-thumbs-o-up approve icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong>{{vm.mrnListApp}}</strong></h5>
+                      <span>Approved</span>
+                    </div>
+                </div>
+        	</div>
+
+        	<div class="clearfix"> </div>
+      </div>                
+              </div>
+
+
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="col-md-6" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'">
+        <div class="box box-info">
+          <div class="box-header with-border">
+            <h3 class="box-title">Low Stock Availability</h3>
+
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Material Description</th>
+                    <th>Safety Stock</th>
+                    <th>Available Qty</th>
+                  </tr>
+                </thead>
+                <tbody ng-repeat="item in vm.lowQtyList | orderBy :'quantity'">
+                  <tr>
+                    <td>{{item.name}}</td>
+                    <td><span class="col-md-offset-4">{{item.minimumQuantity}}</span></td>
+                    <td><span class="col-md-offset-4">{{item.quantity}}</span></td>
+                  </tr>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->

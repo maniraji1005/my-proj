@@ -1,0 +1,262 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Material Issue
+</div>
+<div style="width:95%;background:#fff;min-height:1000px;margin:0 auto;">
+    <br/>
+
+<div style="width:90%;margin:0 auto;">
+
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept" ng-model="vm.searchType">MI No</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchClear();">
+                    <!--<li><a href="#contains">Contains</a></li>-->
+                    <li><a title="#MINo">MI No</a></li>
+                    <li><a title="#MIDate">MI Date</a></li>
+                    <li ng-hide="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#Branch">Branch</a></li>
+                    <li><a title="#Executive">Raised By</a></li>
+                    <li ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'"><a title="#ProjectFrom">Project</a></li>
+                    <!--<li class="divider"></li>
+                      <li><a href="#all">All</a></li>-->
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+
+            <input type="text" class="form-control" id="srhTxt" ng-model="vm.srhTxt" name="x" placeholder="Search..." style="border:1px solid #ccc;">
+
+            <div class="input-group date" id="srhDt" style="display:none;">
+                <input type="text" class="form-control" ng-model="vm.srhDt" style="border:1px solid #ccc;" readonly>
+                <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+                </span>
+            </div>
+            <div class="input-group" id="srhBranch" style="display:none; width:100%;">
+                <select ng-model="vm.searchbranch" ng-options="option._id as option.name for option in vm.branchList" class="form-control">
+                    <option value="">Select Branch</option>
+                </select>
+            </div>
+
+            <div class="input-group" ng-show="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="projectFrom" style="display:none; width:100%;">
+                <select id="projectFrom" ng-model="vm.searchprojectFrom" ng-options="option._id as option.name for option in vm.projectList" class="form-control">
+                    <option value="">Select Project From</option>
+                </select>
+            </div>
+            <div class="input-group" ng-hide="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" id="projectTo" style="display:none; width:100%;">
+                <select id="projectTo" ng-model="vm.searchprojectTo" ng-options="option._id as option.name for option in vm.branchList" class="form-control">
+                    <option value="">Select Project To</option>
+                </select>
+            </div>
+
+            <span class="input-group-btn" title="Search">
+                    <button class="btn btn-default" type="button" ng-click="vm.filterSearch(true, vm.begin, vm.end);"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+
+            <span class="input-group-btn" title="Reload">
+                    <button class="btn btn-default" type="button" ng-click="vm.reload();"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    <div style="width:90%;margin:0 auto;">
+        <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-left: -2%;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+
+        <select ng-model="vm.status" ng-options="option._id as option.name for option in vm.statusList" class="app_ddl" ng-change="vm.ddlRowsChange()">
+   <!--<option value="">SELECT</option>-->
+   </select>
+        <!--Add New-->
+        <!--Add New-->
+         &nbsp;&nbsp;&nbsp;<button type="button" ng-show="step===1" class="btn btn-default" data-toggle="modal" href='#addpopup'>
+        <span class="glyphicon glyphicon-pencil"></span> Add MI</button>
+    </div><br>
+
+    <div style="width:90%;margin:0 auto;margin-left:3%;">
+        <span ng-if="vm.stateParams !== null">Search results for : <b style="color:orange;">
+            {{vm.branchName}} <span ng-if="vm.stateParams !== null && vm.branch !==null">/</span></b>
+            <span ng-if="vm.storeType !== null"> <b style="color:brown;">{{vm.storeTypeName}}
+                <span ng-if="vm.stateParams !== null && vm.storeType !==null">/</span> </b> </span>
+            <span ng-if="vm.storeType == null"></span>
+            <span ng-if="vm.store !== null"></span><b style="color:orange;">{{vm.storeName}} 
+                <span ng-if="vm.stateParams !== null && vm.store !==null">/</span>
+            </b>
+            <span ng-if="vm.store == null"></span>
+            <span ng-if="vm.exeList !== null && vm.exeList !== undefined"></span><b style="color:orange;">{{vm.exeList}}</b>
+            <span ng-if="vm.exeList == undefined"><b style="color:brown;">ALL</b></span>
+            <span ng-if="vm.exeList == null"></span></b></span>
+        <span ng-if="vm.status == null"></span>
+    </div>
+    <button type="button" ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" onClick="javascript:demoFromHTML()" title="Download pdf" class="btn btn-default" style=" font-size:16px;margin-left:91.5%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+
+   <button type="button" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" title="Download Excel" onClick="exportExcel()" class="btn btn-default" style=" font-size:16px;margin-left:91.5%; margin-top: -0.5cm; width: 40px;"><span class="glyphicon glyphicon-cloud-download"></span></button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <div class="table-responsive" ng-if="vm.getCompDet !== 'CH0001' && vm.getCompDet == 'CO00001'" style="font-size: 100%;">
+                            <table class="table table-bordered grid"  id="tblExcel" ng-cloak>
+                                <thead>
+                                    <tr>
+                                        <th class="gcSlno">
+                                            Sl.No
+                                        </th>
+                                        <th class="gcID">
+                                            MR No
+                                        </th>
+                                        <th class="gcID">
+                                            MI No
+                                        </th>
+                                        <th class="gcDate">
+                                            Date
+                                        </th>
+                                        <th class="gcName" data-hide="phone,tablet">
+                                            Issued By
+                                        </th>
+                                        <th class="gcStatus" data-hide="phone,tablet">
+                                            Status
+                                        </th>
+                                        <th class="gcRemark" data-hide="phone,tablet" maxlength="250">
+                                            Remarks
+                                        </th>
+                                        <th class="gcAction noExl">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr material-Issue-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.miApp" item="item">
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8" class="noRec noExl" ng-show="vm.miApp.length===0 || vm.miApp === undefined" style="text-align:center;">
+                                            No Records Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-if="vm.getCompDet == 'CH0001' && vm.getCompDet !== 'CO00001'" class="table-responsive" style="font-size: 100%;">
+                            <table class="table table-bordered grid"  id="tblpdf" ng-cloak>
+                                <thead>
+                                    <tr>
+                                        <th class="gcSlno">
+                                            Sl.No
+                                        </th>
+                                        <th class="gcID">
+                                            MR No
+                                        </th>
+                                        <th class="gcID">
+                                            MI No
+                                        </th>
+                                        <th class="gcDate">
+                                            Date
+                                        </th>
+                                        <th class="gcName" data-hide="phone,tablet" style="width:10%;">
+                                            Issued By
+                                        </th>
+                                        <th class="gcName" data-hide="phone,tablet">
+                                            Project
+                                        </th>
+                                        <th class="gcStatus" data-hide="phone,tablet" style="width:10%;">
+                                            Status
+                                        </th>
+                                        <!--<th class="gcRemark" data-hide="phone,tablet" maxlength="250" style="width:12%;">
+                                            Remarks
+                                        </th>-->
+                                        <th class="gcAction noExl" style="width:8%;">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr material-Issue-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.miApp" item="item">
+
+                                    </tr>
+                                    <tr>
+                                        <td id= "colig" colspan="8" class="noRec noExl" ng-show="vm.miApp.length===0 || vm.miApp === undefined" style="text-align:center;">
+                                            No Records Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6 showEnt" style="margin-left: -3%;">
+                    <span ng-if="vm.miApp.length > 0"> Total Rows : {{vm.rowCnt}} </span>
+                            <span ng-if="vm.miApp === undefined">Total Rows : 0</span>
+                </div>
+                <div class="col-md-6 pagination">
+                    <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+                    </pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <script type="text/javascript" src="../../../assets/export/jquery.table2excel.js" />
+<script type="text/javascript"> 
+    function exportExcel() {                
+    var exTable = $('#tblExcel').clone(); 
+    exTable.find('.noExl').remove();              
+    exTable.table2excel({
+            exclude: ".noExl",
+            name: "Material Issue",
+            filename: "Material Issue",
+            fileext: ".xls",  
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: false         
+        });       
+    }
+    function demoFromHTML() {
+
+  var doc = new jsPDF('p', 'pt', [1100,1504]);
+  doc.cellInitialize();
+    doc.setFontSize(10);
+    
+
+  var res = doc.autoTableHtmlToJson(document.getElementById("tblpdf"));
+  doc.autoTable(res.columns, res.data, {margin: {top: 80}});
+
+//   doc.setFontSize(14);
+//     doc.setTextColor(40);
+//     doc.setFontStyle('normal');
+    
+  var header = function(data) {
+    doc.setFontSize(18);
+    doc.setTextColor(40);
+    doc.setFontStyle('normal');
+    //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+    doc.text("Material Issue", data.settings.margin.left, 50);
+  };
+
+  var options = {
+    beforePageContent: header,
+    theme: 'striped',
+    overflow: 'linebreak',
+    tableWidth: 'auto',
+    fillStyle: 'F',
+    columnStyles: {
+      1: {columnWidth: 'auto'}
+    },
+    margin: {
+      top: 80
+    },
+    // startY: doc.autoTableEndPosY() + 20
+  };
+  doc.autoTable(res.columns, res.data,options);
+
+  doc.save("Material Issue.pdf");
+}

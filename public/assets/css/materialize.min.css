@@ -1,0 +1,114 @@
+/*!
+ * Materialize v0.95.3 (http://materializecss.com)
+ * Copyright 2014-2015 Materialize
+ * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
+ */
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, ul.side-nav {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+/*!
+ * Waves v0.6.0
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
+ * https://github.com/fians/Waves/blob/master/LICENSE
+ */
+@media only screen and (max-width : 992px) {
+    .modal {
+    width: 80%;
+}
+}
+.mdi-navigation-chevron-right:before {
+    content: "\e89b"}
+    
+.collapsible {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 0.5rem 0 1rem 0;
+}
+.collapsible li {
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+}
+.collapsible-header {
+    display: block;
+    cursor: pointer;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 0 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.collapsible-header i {
+    width: 2rem;
+    font-size: 1.6rem;
+    line-height: 3rem;
+    display: block;
+    float: left;
+    text-align: center;
+    margin-right: 1rem;
+}
+.collapsible-body {
+    overflow: hidden;
+    display: none;
+    border-bottom: 1px solid #ddd;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.collapsible-body p {
+    margin: 0;
+    padding: 2rem;
+}
+ul.side-nav ul.collapsible {
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+ul.side-nav ul.collapsible li {
+    padding: 0;
+}
+ul.side-nav .collapsible-header {
+    background-color: transparent;
+    border: none;
+    line-height: inherit;
+    height: inherit;
+    margin: 0 1rem;
+}
+ul.side-nav .collapsible-header i {
+    line-height: inherit;
+}
+ul.side-nav .collapsible-body {
+    border: 0;
+    background-color: #FFF;
+}
+ul.side-nav .collapsible-body li a {
+    margin: 0 1rem 0 2rem;
+}
+li.no-padding {
+    padding: 0 !important;
+}
+ul.side-nav .collapsible {
+    margin: 0;
+}
+@media only screen and (max-width : 992px) {
+    ul.side-nav.fixed {
+    left: -105%}
+ul.side-nav.fixed.right-aligned {
+    right: -105%;
+    left: auto;
+}
+}ul.side-nav .collapsible-body li.active, ul.side-nav.fixed .collapsible-body li.active {
+    background-color: #ee6e73;
+}
+ul.side-nav .collapsible-body li.active a, ul.side-nav.fixed .collapsible-body li.active a {
+    color: #fff;
+}

@@ -1,0 +1,97 @@
+<div style="width:100%;background:#e9edf2;border-bottom:1px solid #FFA500;padding:1%;color:#74767;padding-left:5%;font-size:16px;margin:0 auto;text-align:center;font-weight:600;">
+    Contractor Master
+</div>
+<div style="width:95%;background:#fff;min-height:500px;margin:0 auto;">
+    <br/>
+    <div style="width:90%;margin:0 auto;">
+        <div class="input-group" style="width:50%;float:right;">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                     <span id="search_concept">Category Name</span> <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" role="menu" ng-click="vm.searchTxt();">
+                    <li><a title="#cateName">CategoryName</a></li>
+                    <li><a title="#contract">Contractor</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param">
+            <select class="form-control" id="srhcateName" name="x" ng-model="vm.srhcateName" ng-options="option._id as option.name for option in vm.categoryList" placeholder="Search..." style="border:1px solid #ccc;">
+            <option value="" Selected>Select Category</option>
+            </select>
+            <div class="input-group" id="srhcontract" style="display:none;width:100%;">
+                <input type="text" class="form-control" id="srhcontract" ng-model="vm.srhcontract" placeholder="Search ..." style="border:1px solid #ccc;">
+            </div>
+            <span class="input-group-btn"> 
+                    <button class="btn btn-default" title="Search" ng-click="vm.contractMaster(true , vm.begin, vm.end)" type="button"><span class="glyphicon glyphicon-search" ></span></button>
+            </span>
+            <span class="input-group-btn">
+                    <button class="btn btn-default" title="Reload" type="button" ng-click="vm.reload()"><span class="glyphicon glyphicon-repeat"></span></button>
+            </span>
+        </div>
+    </div>
+
+    <!--Add new contractor-->
+
+    <form class="form-inline" style="margin-top:0%;margin-left: 10%;" name="size">
+        <div class="form-group" style="margin-left: 10%; margin-top: -2%;">
+            <label class="" style="font-weight:600;margin-left:-17%;"> Category Name</label>&nbsp;&nbsp;&nbsp;
+            <select class="form-control" ng-options="option._id as option.name for option in vm.categoryList" ng-model="vm.cateName"
+                style="border:1.7px solid #ccc;width:71%;">
+                <option value="">Select Category </option>
+            </select></input>
+        </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group" style="margin-top: -2%;">
+            <label class="" style="font-weight:600;"> Contractor </label>&nbsp;&nbsp;&nbsp;
+            <input type="text" class="form-control" ng-model="vm.contract" value="" style="border: 1px solid #ccc;width:70%;" />
+        </div>
+        <button type="submit" ng-click="vm.addRow()" class="btn" style="margin-top:-2.4%;margin-left:5%;width:10%;color:white;background-color:#FFB13E;">Add</button>
+
+        <div style="width:90%;margin-left:11%;">
+            <select ng-model="vm.ddlRows" id="ddlNoRows" class="app_ddl" ng-change="vm.ddlRowsChange()" style="margin-top: 15px;">
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>      
+  </select>
+        </div>
+    </form>
+
+    <!--Contractor master grid-->
+
+    <div class="modal-body" style="margin-top:-5%;margin-left:7%;width:89%;">
+        <table class="table table-bordered grid" id="tblExcel" style="width:65%;margin-left:17%;" ng-cloak>
+            <tr style="text-align:center;">
+                <th style="width:5%;">
+                    Sl.No
+                </th>
+                <th style="width:35%;">
+                    Category Name
+                </th>
+                <th style="width:26%;">
+                    Contractor Name
+                </th>
+                <th style="width:10%;">
+                    Action
+                </th>
+            </tr>
+            <tr contractor-grid index="{{$index + vm.paginationNumber}}" ng-repeat="item in vm.contractor" item="item">
+            </tr>
+            <tr>
+                <td colspan="4" ng-show="vm.contractor.length ===0 || vm.contractor == undefined || vm.contractor == null" class="noRec noExl"
+                    style="text-align:center">
+                    No Records Found
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 showEnt" ng-show="true" style="margin-left:17%;">
+            <span ng-if="vm.contractor.length > 0"> Total Rows : {{vm.rowCnt}}</span>
+            <span ng-if="vm.contractor === undefined || vm.contractor ===0 || vm.contractor == null"> Total Rows : 0 </span>
+        </div>
+        <!--Pagination for  contractMaster-->
+        <div class="col-md-2 pagination" style="margin-left: 24%;">
+            <pagination ng-show="vm.rowCnt > vm.ddlRows" ng-model="currentPage" total-items="vm.rowCnt" max-size="maxSize" boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,452 @@
+<div class="row">
+    <div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
+        <div class="trackMainContnet">
+            <div class="page-title" style="padding:0px !important;padding-right:15px !important;padding-left:15px !important;">
+                <div class="fixed_menus">
+                    <div class="new_breacrumb">
+
+                        <div class="line_border"></div>
+
+                        <ul class="new_crumbs">
+
+                            <li class="small_li"><span class="small_bullet"></span><br><a>OPEN</a></li>
+
+                            <li id="new_crumbs_menu2" ng-click="step1('')" class="list_active"><span>1</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>Purchase Indent</h5></div>
+                            </li>
+
+                            <li id="new_crumbs_menu3" ng-click="step2('')" class=""><span>2</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>Purchase Order</h5></div>
+                            </li>
+                            
+                            <li id="new_crumbs_menu4" ng-click="step3('')" class=""><span>3</span>
+                                <div style="padding-top:0.2%;">
+                                    <h5>MRN</h5></div>
+                            </li>
+
+                            <li id="new_crumbs_menu5" ng-click="step4('')" class=""><span>4</span>
+                                <div style="padding-top:0.2%;" class="finalBreadCrumb">
+                                    <h5>Completed</h5></div>
+                            </li>
+
+                            <li class="small_li"><span class="small_bullet"></span><br><a>CLOSE</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Request List/Grd-->
+<!--Content-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+
+
+                <!--Request Title-->
+                <div class="timeline-item-header" ng-show="step===1">
+                    <p>
+                        <h3>PI001</h3></p>
+                </div>
+                <div class="timeline-item-post" ng-show="step===1">
+                    <p>
+                        <span class="spn_req_title">Raised By :</span> Dhakshnamoorthy
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">MR Date :</span> 09-05-2016
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Branch :</span> Bangalore
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Remarks :</span> Required Fiberglass Material.
+                    </p>
+                </div>
+
+                <!--TABLE-->
+                <div class="table-responsive" ng-show="step===1">
+                    <table class="table table-bordered trackGrid" style="width: 95%;margin-left: 3%;">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Requested QTY</th>
+                                <th style="width: 16%;">Approved QTY</th>
+                                <th>Actions</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in reqDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td><input type="text" ng-model="item.appQty" ng-change="deliverQty(item)"  style="width:60%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"/></td>
+                                <td><button type="button" class="btn btn-default" ng-click="item.status='A'">
+      <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-default" ng-click="item.status='R'">
+          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+        </button></td>
+                                <td><span class="flgDraft" ng-show="item.status==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+         <span class="flgReject"  ng-show="item.status==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        <span class="flgApprove"  ng-show="item.status==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Save & Cancel-->
+
+                <div style="float:right;" ng-show="step===1">
+                    <button type="button" class="btn btn-primary" ng-click="step2('H')"><i class="fa fa-floppy-o" aria-hidden="false"></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <button type="button" class="btn btn-primary" ng-click="pageRedirect()"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+                
+                <!--Step-2-->
+                <div class="timeline-item-header" ng-show="step===2">
+                  <div ng-show="step2Flg==='1'">  
+                    <p>
+                        <h3>P0001</h3></p>
+                <div class="timeline-item-post" ng-show="step===2">
+                    <p>
+                        <span class="spn_req_title">Raised By :</span> Dhakshnamoorthy
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">MR Date :</span> 09-05-2016
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Branch :</span> Bangalore
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Remarks :</span> Required Fiberglass Material.
+                    </p>
+                </div>
+                
+                <div class="table-responsive" ng-show="step===2">
+                    <table class="table table-bordered trackGrid" style="width: 95%;margin-left: 3%;">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>PI No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Requested QTY</th>
+                                <th style="width: 16%;">Approved QTY</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in deliveredDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <td>{{item.piNo}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td><input type="text"  ng-model="item.appQty" ng-change="deliverQty(item)" style="width:60%;height:30px;padding-right:5px;text-align:right;border: 1px solid rgb(204, 204, 204)"/></td>
+                                <td style="text-align: right;">{{item.amt}}</td>
+                                <td><button type="button" class="btn btn-default" ng-click="item.status='A'">
+      <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-default" ng-click="item.status='R'">
+          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+        </button></td>
+                                <td><span class="flgDraft" ng-show="item.status==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+         <span class="flgReject"  ng-show="item.status==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        <span class="flgApprove"  ng-show="item.status==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                            
+                            <tr>
+                  <td colspan="8"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Total &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                      1,67,000
+                      </td>
+                  </tr>
+                     <tr>
+                  <td colspan="8"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Discount % &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="5" style="float:right;padding:10px;padding-right:17%;border:none;background-color:transparent !important;">
+                      10
+                      </td>
+                  </tr>
+                        <tr>
+                  <td colspan="8"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                   Tax % &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:17%;border:none;background-color:transparent !important;">
+                      14
+                      </td>
+                  </tr>
+                       <tr>
+                  <td colspan="8"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                   Gross Amount &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:20%;border:none;background-color:transparent !important;">
+                      1,28,958
+                      </td>
+                  </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div style="float:right;" ng-show="step===2">
+                    <button type="button" class="btn btn-primary" ng-click="step3('H')"><i class="fa fa-floppy-o" aria-hidden="false"></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <button type="button" class="btn btn-primary" ng-click="pageRedirect()"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+                 </div>
+                 <div style="color:gray;font-size:large;padding:30px;text-align:center;" ng-show="step2Flg==='2'">
+  No orders found. <a ui-sref="master.purchaseOrder">Click Here</a> to create new order.
+</div>
+</div>
+                <!--Step-3-->
+                <div class="timeline-item-header" ng-show="step===3">
+                  <div ng-show="step3Flg==='1'">  
+                    <p>
+                        <h3>MRN001</h3></p>
+                <div class="timeline-item-post" ng-show="step===3">
+                    <p>
+                        <span class="spn_req_title">Raised By :</span> Dhakshnamoorthy
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">MR Date :</span> 09-05-2016
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Branch :</span> Vellore
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Remarks :</span> Not Delivered.
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Vendor :</span> Duroflex Windows.
+                    </p>
+                </div>
+                
+                <div class="table-responsive" ng-show="step===3">
+                    <table class="table table-bordered trackGrid" style="width: 95%;margin-left: 3%;">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>PO No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Requested QTY</th>
+                                <th>Approved QTY</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in mrnDetails">
+                                <td scope="row">{{$index+1}}</td>
+                                <td style="{{item.bg}}">{{item.piNo}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td>{{item.appQty}}</td>
+                                <td style="text-align: right;">{{item.amt}}</td>
+                                <td><button type="button" class="btn btn-default" ng-click="item.status='A'">
+      <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-default" ng-click="item.status='R'">
+          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+        </button></td>
+                                <td><span class="flgDraft" ng-show="item.status==='P'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+         <span class="flgReject"  ng-show="item.status==='R'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span> 
+        <span class="flgApprove"  ng-show="item.status==='A'"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                            
+                            <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Total &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:81px;border:none;background-color:transparent !important;">
+                      3,38,000
+                      </td>
+                  </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div style="float:right;" ng-show="step===2">
+                    <button type="button" class="btn btn-primary" ng-click="step4('H')"><i class="fa fa-floppy-o" aria-hidden="false"></i>&nbsp;&nbsp;Save & Next</button>                    &nbsp&nbsp;
+                    <button type="button" class="btn btn-primary" ng-click="pageRedirect()"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel</button>
+                </div>
+                 </div>
+                 <div style="color:gray;font-size:large;padding:30px;text-align:center;" ng-show="step3Flg==='2'">
+  No MRN found. <a ui-sref="master.mrn">Click Here</a> to create MRN.
+</div>
+</div>
+
+<!--Step-4-->
+                <div class="timeline-item-header" ng-show="step===4"> 
+                    <p>
+                        <h3>MRN001</h3></p>
+                <div class="timeline-item-post" ng-show="step===4">
+                    <p>
+                        <span class="spn_req_title">Raised By :</span> Dhakshnamoorthy
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">MR Date :</span> 09-05-2016
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Branch :</span> Vellore
+                        <span class="spn_seperator">|</span>
+                        <span class="spn_req_title">Remarks :</span> All are Delivered.
+                    </p>
+                </div>
+                
+                <div class="table-responsive" ng-show="step===4">
+                  <div style="font-size:large;color:green;text-align:left;padding-left:1%;margin-bottom:0.5%;">Pendings In PI</div><br>
+                    <table class="table table-bordered trackGrid" ng-cloak>
+                        <thead style="border-top: 1px solid #CCC;">
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Requested QTY</th>
+                                <th>Approved QTY</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #CCC;">
+                            <tr ng-repeat="item in reqDetails | limitTo:2">
+                                <td scope="row">{{$index+1}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td>{{item.appQty}}</td>
+                                <td><span class="flgDraft"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                             
+                        </tbody>
+                    </table>
+                    
+                    <div style="font-size:large;color:green;text-align:left;padding-left:1%;margin-bottom:0.5%;">Pendings In PO</div><br>
+                    <table class="table table-bordered trackGrid" ng-cloak>
+                        <thead style="border-top: 1px solid #CCC;">
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>PI No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Requested QTY</th>
+                                <th>Approved QTY</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #CCC;">
+                            <tr ng-repeat="item in deliveredDetails | limitTo:1">
+                                <td scope="row">{{$index+1}}</td>
+                                <td style="{{item.bg}}">{{item.piNo}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td>0</td>
+                                <td style="text-align: right;">{{item.amt}}</td>
+                                <td><span class="flgDraft"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                            
+                            <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Total &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:5%;border:none;background-color:transparent !important;">
+                      1,67,000
+                      </td>
+                  </tr>
+                     <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Discount % &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="5" style="float:right;padding:10px;padding-right:4%;border:none;background-color:transparent !important;">
+                      10
+                      </td>
+                  </tr>
+                        <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                   Tax % &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:4%;border:none;background-color:transparent !important;">
+                      14
+                      </td>
+                  </tr>
+                       <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                   Gross Amount &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:5%;border:none;background-color:transparent !important;">
+                      1,28,958
+                      </td>
+                  </tr>
+                             
+                        </tbody>
+                    </table>
+                    
+                    <div style="font-size:large;color:green;text-align:left;padding-left:1%;margin-bottom:0.5%;">Pendings In MRN</div><br>
+                    <table class="table table-bordered trackGrid" ng-cloak>
+                        <thead style="border-top: 1px solid #CCC;">
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>PO No</th>
+                                <th>Material Code</th>
+                                <th>Material Name</th>
+                                <th>Received QTY</th>
+                                <th>Pending QTY</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #CCC;">
+                            <tr ng-repeat="item in mrnDetails | limitTo:1">
+                                <td scope="row">{{$index+1}}</td>
+                                <td style="{{item.bg}}">{{item.piNo}}</td>
+                                <td>{{item.matCode}}</td>
+                                <td>{{item.matName}}</td>
+                                <td>{{item.reqQty}}</td>
+                                <td>0</td>
+                                <td style="text-align: right;">{{item.amt}}</td>
+                                <td><span class="flgDraft"><i class="fa fa-flag fa-lg" aria-hidden="true"></i></span></td>
+                            </tr>
+                            
+                            <tr>
+                  <td colspan="7"  style="text-align:right;border:none;padding:10px;padding-right:0px;background-color:transparent !important;">
+                    Total &nbsp;&nbsp; :
+                    </td>
+                   
+                    <td colspan="3" style="float:right;padding:10px;padding-right:81px;border:none;background-color:transparent !important;">
+                      3,38,000
+                      </td>
+                  </tr>
+                             
+                        </tbody>
+                        
+                    </table>
+                    
+                </div>
+                <div style="float:right" ng-show="step===4">
+                    <button type="button" class="btn btn-primary" ng-click="pageRedirect()"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Close</button>
+                    </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
